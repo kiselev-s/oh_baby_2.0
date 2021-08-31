@@ -14,5 +14,25 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
+});
+
+Route::get('/docs', function()
+{
+    return view('docs');
+});
+
+Route::get('/health', function()
+{
+    return view('health');
+});
+
+Route::get('/growth', function()
+{
+    return view('growth');
+});
+
+Route::get('/test', function()
+{
+    return view('test');
 });
