@@ -3,17 +3,17 @@
 namespace Database\Factories;
 
 use App\Models\Child;
-use App\Models\Evolution;
+use App\Models\Health;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class EvolutionFactory extends Factory
+class HealthFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Evolution::class;
+    protected $model = Health::class;
 
     /**
      * Define the model's default state.
@@ -23,9 +23,12 @@ class EvolutionFactory extends Factory
     public function definition()
     {
         return [
-            'age_month'=>rand(0,300),
-            'growth'=>rand(50,100),
-            'weight'=>rand(3,60),
+            'first_name'=> $this->faker->firstName(),
+            'last_name'=> $this->faker->lastName(),
+            'specialization'=>$this->faker->word,
+            'meeting' => $this->faker->date(),
+            'next_meeting' => $this->faker->date(),
+            'medical_opinion' => $this->faker->image,
             'children_id'=>rand(1,Child::count()),
         ];
     }

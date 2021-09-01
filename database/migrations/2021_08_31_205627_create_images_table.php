@@ -16,7 +16,7 @@ class CreateImagesTable extends Migration
         Schema::create('images', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('view');
+            $table->binary('view');
             $table->string('category');
 
             $table->unsignedBigInteger('children_id');
