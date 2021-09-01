@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Evolution extends Model
 {
     use HasFactory;
+    public $timestamps=false;
 
     public function children(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
