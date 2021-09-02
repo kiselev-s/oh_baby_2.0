@@ -12,6 +12,15 @@ body{
 i {
     margin-right: 10px;
 }
+.cntr {
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 2%;
+    width: max-content;
+}
+.content {
+    margin: 3% 10%;
+}
 /*----------multi-level-accordian-menu------------*/
 .navbar-logo{
     padding: 15px;

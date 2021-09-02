@@ -5,6 +5,8 @@
 @endsection
 
 @section('main_content')
-    <h3>Growth</h3>
+    <div class="cntr">
+        <h3>Growth</h3>
+    </div>
     <p>Lorem ipsum dolor sit amet.</p>
 @endsection

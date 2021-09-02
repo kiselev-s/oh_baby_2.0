@@ -45,7 +45,7 @@
 </nav>
 <!-- partial -->
 
-<div class="">
+<div class="content">
     @yield('main_content')
 </div>
 

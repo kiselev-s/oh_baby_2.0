@@ -25,13 +25,13 @@ function test(){
     var selectorNewAnim = $('#navbarSupportedContent').find('li').length;
     var activeItemNewAnim = tabsNewAnim.find('.active');
 
-    console.dir('********');
+    //console.dir('********');
 
-    console.dir(act[3]);
-    console.dir(activeItemNewAnim);
+    //console.dir(act[3]);
+    //console.dir(activeItemNewAnim);
     //if(activeItemNewAnim[0].innerText == 'Documents')
         //console.dir('zxcvbn');
-    console.dir('********');
+    //console.dir('********');
 
 
     var activeWidthNewAnimHeight = activeItemNewAnim.innerHeight();
