@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Child;
 use App\Models\Image;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -22,7 +23,10 @@ class ImageFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'title'=>$this->faker->word,
+            'view'=>$this->faker->image,
+            'category'=>$this->faker->word,
+            'children_id'=>rand(1,Child::count()),
         ];
     }
 }

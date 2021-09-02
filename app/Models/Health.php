@@ -5,9 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Heaith extends Model
+class Health extends Model
 {
     use HasFactory;
+    public $timestamps=false;
 
     public function children(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
