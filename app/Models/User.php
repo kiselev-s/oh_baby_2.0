@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Jetstream\HasTeams;
@@ -27,7 +28,6 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
-        'last_name',
         'email',
         'password',
         'google_id',
@@ -67,4 +67,14 @@ class User extends Authenticatable
     {
         $this->hasMany(Child::class);
     }
+
+//    public function getChild($id)
+//    {
+//        return Child::all()->where('user_id', $id)->first();
+//    }
+//
+//    public function getAllChild($id)
+//    {
+//        return Child::all()->where('user_id', $id)->pluck('first_name');
+//    }
 }

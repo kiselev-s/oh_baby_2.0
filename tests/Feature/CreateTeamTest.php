@@ -17,10 +17,10 @@ class CreateTeamTest extends TestCase
         $this->actingAs($user = User::factory()->withPersonalTeam()->create());
 
         Livewire::test(CreateTeamForm::class)
-                    ->set(['state' => ['name' => 'Test Team']])
+                    ->set(['state' => ['name' => 'SwitchChild Team']])
                     ->call('createTeam');
 
         $this->assertCount(2, $user->fresh()->ownedTeams);
-        $this->assertEquals('Test Team', $user->fresh()->ownedTeams()->latest('id')->first()->name);
+        $this->assertEquals('SwitchChild Team', $user->fresh()->ownedTeams()->latest('id')->first()->name);
     }
 }

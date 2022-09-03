@@ -33,7 +33,44 @@
                 </div>
             </div>
 
+
+
             <div class="hidden sm:flex sm:items-center sm:ml-6">
+                @livewire('switch-child')
+                <!-- Child Dropdown -->
+{{--                @if (Laravel\Jetstream\Jetstream::hasTeamFeatures())--}}
+{{--                    <div class="ml-3 relative">--}}
+{{--                        <x-jet-dropdown align="right" width="60">--}}
+{{--                            <x-slot name="trigger">--}}
+{{--                                <span class="inline-flex rounded-md">--}}
+{{--                                    <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:bg-gray-50 hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50 transition">--}}
+{{--                                        {{ Auth::user()->getChild(Auth::user()->id)->first_name }}--}}
+{{--                                        {{\App\Http\Controllers\UserController::getChild()->first_name}}--}}
+
+{{--                                        <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">--}}
+{{--                                            <path fill-rule="evenodd" d="M10 3a1 1 0 01.707.293l3 3a1 1 0 01-1.414 1.414L10 5.414 7.707 7.707a1 1 0 01-1.414-1.414l3-3A1 1 0 0110 3zm-3.707 9.293a1 1 0 011.414 0L10 14.586l2.293-2.293a1 1 0 011.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />--}}
+{{--                                        </svg>--}}
+{{--                                    </button>--}}
+{{--                                </span>--}}
+{{--                            </x-slot>--}}
+
+{{--                            <x-slot name="content">--}}
+{{--                                <div class="w-60">--}}
+{{--                                    <!-- Team Switcher -->--}}
+{{--                                    <div class="block px-4 py-2 text-xs text-gray-400">--}}
+{{--                                        {{ __('Switch Child') }}--}}
+{{--                                    </div>--}}
+
+{{--                                    @foreach (\App\Http\Controllers\UserController::getAllChild() as $child)--}}
+{{--                                        <button id="{{$child->id}}" type="button" class="w-full inline-block px-6 py-2 bg-transparent text-gray-700 font-medium text-sm leading-tight hover:bg-gray-100 focus:bg-gray-100 focus:outline-none focus:ring-0 active:bg-gray-200 transition duration-150 ease-in-out"--}}
+{{--                                        wire:click="edit({{ $child->id }})">{{$child->first_name}}</button>--}}
+{{--                                    @endforeach--}}
+{{--                                </div>--}}
+{{--                            </x-slot>--}}
+{{--                        </x-jet-dropdown>--}}
+{{--                    </div>--}}
+{{--                @endif--}}
+
                 <!-- Teams Dropdown -->
                 @if (Laravel\Jetstream\Jetstream::hasTeamFeatures())
                     <div class="ml-3 relative">
@@ -54,17 +91,17 @@
                                 <div class="w-60">
                                     <!-- Team Management -->
                                     <div class="block px-4 py-2 text-xs text-gray-400">
-                                        {{ __('Manage Team') }}
+                                        {{ __('Manage Family') }}
                                     </div>
 
                                     <!-- Team Settings -->
                                     <x-jet-dropdown-link href="{{ route('teams.show', Auth::user()->currentTeam->id) }}">
-                                        {{ __('Team Settings') }}
+                                        {{ __('Family Settings') }}
                                     </x-jet-dropdown-link>
 
                                     @can('create', Laravel\Jetstream\Jetstream::newTeamModel())
                                         <x-jet-dropdown-link href="{{ route('teams.create') }}">
-                                            {{ __('Create New Team') }}
+                                            {{ __('Create New Family') }}
                                         </x-jet-dropdown-link>
                                     @endcan
 
@@ -72,7 +109,7 @@
 
                                     <!-- Team Switcher -->
                                     <div class="block px-4 py-2 text-xs text-gray-400">
-                                        {{ __('Switch Teams') }}
+                                        {{ __('Switch Familys') }}
                                     </div>
 
                                     @foreach (Auth::user()->allTeams() as $team)

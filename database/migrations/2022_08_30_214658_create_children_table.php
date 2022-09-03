@@ -19,12 +19,19 @@ return new class extends Migration
             $table->string('last_name');
             $table->dateTime('birthday');
             $table->tinyInteger('gender');
+            $table->boolean('selected');
             $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('team_id');
             $table->timestamps();
 
             $table->foreign('user_id')
                 ->references('id')
                 ->on('users')
+                ->onDelete('cascade');
+
+            $table->foreign('team_id')
+                ->references('id')
+                ->on('teams')
                 ->onDelete('cascade');
         });
     }

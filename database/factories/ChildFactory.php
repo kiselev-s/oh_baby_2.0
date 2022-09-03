@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Team;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -23,6 +24,8 @@ class ChildFactory extends Factory
             'birthday' => $this->faker->date(),
             'gender' => rand(0,1),
             'user_id'=>rand(1,User::count()),
+            'team_id'=>rand(1,Team::count()),
+            'selected' => rand(true, false),
         ];
     }
 }

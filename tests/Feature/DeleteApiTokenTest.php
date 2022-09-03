@@ -23,7 +23,7 @@ class DeleteApiTokenTest extends TestCase
         $this->actingAs($user = User::factory()->withPersonalTeam()->create());
 
         $token = $user->tokens()->create([
-            'name' => 'Test Token',
+            'name' => 'SwitchChild Token',
             'token' => Str::random(40),
             'abilities' => ['create', 'read'],
         ]);
