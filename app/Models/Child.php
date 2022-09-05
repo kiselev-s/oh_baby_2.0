@@ -19,7 +19,11 @@ class Child extends Model
     protected $fillable = [
         'first_name',
         'last_name',
+        'birthday',
+        'gender',
         'selected',
+        'user_id',
+        'team_id',
     ];
 
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
