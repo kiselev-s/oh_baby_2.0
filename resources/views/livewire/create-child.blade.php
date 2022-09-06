@@ -23,7 +23,8 @@
                             <x-jet-input wire:model="birthday" id="birthday" type="text" class="mt-1 block w-full" placeholder="Enter birthday"/>
                             @error('birthday') <span class="text-red-500">{{ $message }}</span>@enderror
                         </div>
-                        <div class="mb-4">
+                        <div class="mb-4 flex flex-row justify-between">
+                            <div>
                             <x-jet-label for="gender" value="{{ __('Gender') }}" />
                             <select wire:model="gender" id="gender" class="mt-1 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm">
                                 <option selected="">Choose gender</option>
@@ -31,17 +32,12 @@
                                 <option value="0">Women</option>
                             </select>
                             @error('gender') <span class="text-red-500">{{ $message }}</span>@enderror
+                            </div>
+                            <div>
+                                <x-jet-label for="gender" value="{{ __('Birthday') }}" />
+                            <input wire:model="birthday" type="datetime-local" class="mt-1 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm">
+                            </div>
                         </div>
-{{--                        <div class="mb-4">--}}
-{{--                            <x-jet-label for="user_id" value="{{ __('User_id') }}" />--}}
-{{--                            <x-jet-input wire:model="aa" id="user_id" type="text" class="mt-1 block w-full" placeholder="Enter user_id"/>--}}
-{{--                            @error('user_id') <span class="text-red-500">{{ $message }}</span>@enderror--}}
-{{--                        </div>--}}
-{{--                        <div class="mb-4">--}}
-{{--                            <x-jet-label for="team_id" value="{{ __('Team_id') }}" />--}}
-{{--                            <x-jet-input wire:model="team_id" id="gender" type="text" class="mt-1 block w-full" placeholder="Enter team_id"/>--}}
-{{--                            @error('team_id') <span class="text-red-500">{{ $message }}</span>@enderror--}}
-{{--                        </div>--}}
                     </div>
                 </div>
                 <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">

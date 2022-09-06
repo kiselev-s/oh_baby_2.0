@@ -13,7 +13,7 @@ class ChildActions extends Component
 
     public function render()
     {
-        $this->birthday = '2001-02-19 00:00:00';
+//        $this->birthday = '2001-02-19 00:00:00';
 //        $this->user_id = 13;
 //        $this->team_id = 15;
         $this->selected = 0;
@@ -58,8 +58,6 @@ class ChildActions extends Component
 
     public function store($userId, $teamId)
     {
-//        dump($this->user_id, $this->team_id);
-//        dump($userId, $teamId);
         $this->validate([
             'first_name' => 'required',
             'last_name' => 'required',
