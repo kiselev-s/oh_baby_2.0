@@ -48,11 +48,11 @@
                                                     <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                                 </svg>
                                             @endif
-                                            <p id="{{$child->id}}" type="button"
+                                            <a id="{{$child->id}}" type="button" href="{{ url('/dashboard') }}"
                                                class="w-full ml-3 inline-block px-1 py-2 bg-transparent text-gray-700 font-medium text-sm leading-tight transition duration-150 ease-in-out"
                                                wire:click="selectChild({{ $child->id }})">
                                                 {{$child->first_name}}
-                                            </p>
+                                            </a>
                                             <button type="button" wire:click="edit({{ $child->id }})"
                                                     class="px-0.5 mr-1 inline-block bg-orange-500 text-white font-medium text-sm leading-tight rounded shadow-md hover:bg-orange-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out">
 {{--                                                Edit--}}

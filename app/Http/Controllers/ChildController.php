@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Child;
+use App\Models\Evolution;
 use Illuminate\Support\Facades\DB;
 
 class ChildController extends Controller
@@ -71,5 +72,60 @@ class ChildController extends Controller
             ->where('team_id', $teamId)
             ->where('selected', true)
             ->value('gender');
+    }
+
+    public static function getFIO($teamId)
+    {
+        $child = Child::all()
+            //  ->where('user_id', $userId)
+            ->where('team_id', $teamId)
+            ->where('selected', true)
+            ->first();
+        return $child->first_name . ' ' . $child->last_name;
+    }
+
+    public static function getBirthday($teamId)
+    {
+        $birth = Child::all()
+            //  ->where('user_id', $userId)
+            ->where('team_id', $teamId)
+            ->where('selected', true)
+            ->value('birthday');
+        return stristr($birth, ' ', true);
+    }
+
+    public static function getGrowth($teamId)
+    {
+//        SELECT * FROM table ORDER BY date DESC
+        $id = Child::all()
+            //  ->where('user_id', $userId)
+            ->where('team_id', $teamId)
+            ->where('selected', true)
+            ->value('id');
+//        dd($id);
+//        return Evolution::all()
+//            ->where('children_id', $id) //TODO
+//            ->value('growth');
+//        return Evolution::all()
+//            ->where('children_id', $id) //TODO
+//            ->where()
+//            ->value('growth');
+        return DB::table('evolutions')
+            ->where('children_id', $id)
+            ->orderByDesc('created_at')
+            ->value('growth');
+    }
+
+    public static function getWeight($teamId)
+    {
+        $id = Child::all()
+            ->where('team_id', $teamId)
+            ->where('selected', true)
+            ->value('id');
+
+        return DB::table('evolutions')
+            ->where('children_id', $id)
+            ->orderByDesc('created_at')
+            ->value('weight');
     }
 }
