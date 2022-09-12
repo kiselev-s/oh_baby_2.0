@@ -81,7 +81,10 @@ class ChildController extends Controller
             ->where('team_id', $teamId)
             ->where('selected', true)
             ->first();
-        return $child->first_name . ' ' . $child->last_name;
+        if($child)
+            return $child->first_name . ' ' . $child->last_name;
+        else
+            return 'not child';
     }
 
     public static function getBirthday($teamId)
