@@ -2,11 +2,11 @@
     <div class="flex">
         @include('livewire.add-child')
             <div>
-            @if(\App\Http\Controllers\ChildController::findChild(Auth::user()->currentTeam->id) != null)
+            @if($team_id)
                 <div class="flex">
 
                     <!-- Icon Child gender -->
-                    @if(\App\Http\Controllers\ChildController::getGender(Auth::user()->id, Auth::user()->currentTeam->id))
+                    @if($gender)
                         <img src="{{URL::asset('/boy.png')}}" alt="boy" width="30">
                     @else
                         <img src="{{URL::asset('/girl.png')}}" alt="girl" width="30">
@@ -19,7 +19,7 @@
                                 <span class="inline-flex rounded-md">
                                     <button type="button"
                                             class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:bg-gray-50 hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50 transition">
-                                        {{\App\Http\Controllers\ChildController::getCurrentChild(Auth::user()->currentTeam->id)}}
+                                        {{$child_name}}
                                         <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg"
                                              viewBox="0 0 20 20" fill="currentColor">
                                             <path fill-rule="evenodd"
@@ -38,7 +38,7 @@
                                     </div>
 
                                     <!-- All Child -->
-                                    @foreach (\App\Http\Controllers\ChildController::getAllChild(Auth::user()->currentTeam->id) as $child)
+                                    @foreach ($children as $child)
                                         <div
                                             class="flex items-center hover:bg-gray-100 focus:bg-gray-100 focus:outline-none focus:ring-0 active:bg-gray-200">
                                             @if($child->selected)
@@ -48,11 +48,13 @@
                                                     <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                                 </svg>
                                             @endif
+                                            <!-- Select Child -->
                                             <a id="{{$child->id}}" type="button" href="{{ url('/dashboard') }}"
                                                class="w-full ml-3 inline-block px-1 py-2 bg-transparent text-gray-700 font-medium text-sm leading-tight transition duration-150 ease-in-out"
                                                wire:click="selectChild({{ $child->id }})">
                                                 {{$child->first_name}}
                                             </a>
+                                            <!-- Edit Child -->
                                             <button type="button" wire:click="edit({{ $child->id }})"
                                                     class="px-0.5 mr-1 inline-block bg-orange-500 text-white font-medium text-sm leading-tight rounded shadow-md hover:bg-orange-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out">
 {{--                                                Edit--}}
@@ -61,6 +63,7 @@
                                                     <path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd" />
                                                 </svg>
                                             </button>
+                                            <!-- Delete Child -->
                                             <button type="button" wire:click="delete({{ $child->id }})"
                                                     class="px-0.5 mr-3 inline-block bg-red-600 text-white font-medium text-sm leading-tight rounded shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out">
 {{--                                                Delete--}}

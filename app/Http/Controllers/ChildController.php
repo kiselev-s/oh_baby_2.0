@@ -84,7 +84,7 @@ class ChildController extends Controller
         if($child)
             return $child->first_name . ' ' . $child->last_name;
         else
-            return 'not child';
+            return 'not child';//TODO
     }
 
     public static function getBirthday($teamId)

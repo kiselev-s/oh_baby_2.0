@@ -4,35 +4,43 @@ namespace App\Http\Livewire;
 
 use App\Http\Controllers\ChildController;
 use App\Models\Child;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class ChildActions extends Component
 {
     public $children, $first_name, $last_name, $birthday, $gender, $selected, $user_id, $team_id, $child_id;
     public $isModalOpen = 0;
+    public $user;
+    public $child_name;
 
     public function render()
     {
-//        $this->birthday = '2001-02-19 00:00:00';
-//        $this->user_id = 13;
-//        $this->team_id = 15;
+        //TEST
+        $this->user = Auth::user();
+        $this->team_id = $this->user->currentTeam->id;
+        $this->children = Child::where('team_id', $this->team_id)->orderBy('selected', 'desc')->get();
+        $child = $this->children
+            ->where('team_id', $this->team_id)
+            ->where('selected', true)
+            ->first();
+        $this->child_name = $child->first_name;
+        $this->gender = $child->gender;
+
         $this->selected = 0;
         return view('livewire.child-actions');
+    }
+
+    public function test()
+    {
+        $user = Auth::user();
+        $email = $user->email;
+        return $email;
     }
 
     public function selectChild($id) {
         ChildController::setCurrentChild($id);
     }
-
-//    public function render()
-//    {
-//        $this->birthday = '2001-02-19 00:00:00';
-//        $this->user_id = 13;
-//        $this->team_id = 15;
-//        $this->selected = 0;
-////        $this->children = Child::all();
-//        return view('livewire.add-child');
-//    }
 
     public function create()
     {
@@ -64,8 +72,6 @@ class ChildActions extends Component
             'birthday' => 'required',
             'gender' => 'required',
             'selected' => 'required',
-//            'user_id' => 'required',
-//            'team_id' => 'required',
         ]);
 
         Child::updateOrCreate(['id' => $this->child_id], [
