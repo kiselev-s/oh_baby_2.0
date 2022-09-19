@@ -7,7 +7,7 @@ use App\Models\Child;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
-class Evolution extends Component
+class TestView extends Component
 {
     public $children, $first_name, $last_name, $birthday, $gender, $selected, $user_id, $team_id, $child_id;
     public $isModalOpen = 0;
@@ -29,7 +29,12 @@ class Evolution extends Component
 
         $this->selected = 0;
 
-        return view('livewire.evolution');
+        $user = Auth::user();
+
+        return view('livewire.test-view', [
+            'userName' => $user->name,
+            'select'=>$this->selected,
+        ]);
     }
 
     public function selectChild($id) {
