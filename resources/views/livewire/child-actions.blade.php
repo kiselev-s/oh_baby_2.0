@@ -39,7 +39,7 @@
 
                                     <!-- All Child -->
                                     @foreach ($children as $child)
-                                        <div
+                                        <div wire:model="children"
                                             class="flex items-center hover:bg-gray-100 focus:bg-gray-100 focus:outline-none focus:ring-0 active:bg-gray-200">
                                             @if($child->selected)
                                                 <svg class="ml-4 h-10 w-10 text-green-400" fill="none" stroke-linecap="round"

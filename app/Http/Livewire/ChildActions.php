@@ -53,6 +53,7 @@ class ChildActions extends Component
     }
     public function closeModalPopover()
     {
+//        dd('close_false');
         $this->isModalOpen = false;
     }
     private function resetCreateForm(){

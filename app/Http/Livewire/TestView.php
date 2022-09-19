@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Http\Controllers\ChildController;
 use App\Models\Child;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
 class TestView extends Component
@@ -34,11 +35,40 @@ class TestView extends Component
         return view('livewire.test-view', [
             'userName' => $user->name,
             'select'=>$this->selected,
+            'isModalOpen'=>$this->isModalOpen,
+            'team_id'=>$this->team_id,
+            'child_name'=>$this->child_name,
+            'children'=>$this->children,
+            'child_id'=>$this->child_id,
+//            'child'=>$this->child,
         ]);
     }
 
     public function selectChild($id) {
-        ChildController::setCurrentChild($id);
+//                dump('select_true');
+//        ChildController::setCurrentChild($id);
+        $teamId = DB::table('children')->where('id', $id)
+            ->value('team_id');
+
+        DB::table('children')
+            ->where('team_id', $teamId)
+            ->where('selected', true)
+            ->lazyById()
+            ->each(function ($child) {
+                DB::table('children')
+                    ->where('id', $child->id)
+                    ->update(['selected' => false]);
+            });
+
+        DB::table('children')
+            ->where('id', $id)
+            ->lazyById()
+            ->each(function ($child) {
+                DB::table('children')
+                    ->where('id', $child->id)
+                    ->update(['selected' => true]);
+            });
+//        dump($id, '---', $this->team_id);
     }
 
     public function create()
