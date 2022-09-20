@@ -49,7 +49,7 @@
                                                 </svg>
                                             @endif
                                             <!-- Select Child -->
-                                            <a id="{{$child->id}}" type="button" href="{{ url('/dashboard') }}"
+                                            <a id="{{$child->id}}" type="button" href="{{ url(request()->path()) }}"
                                                class="w-full ml-3 inline-block px-1 py-2 bg-transparent text-gray-700 font-medium text-sm leading-tight transition duration-150 ease-in-out"
                                                wire:click="selectChild({{ $child->id }})">
                                                 {{$child->first_name}}

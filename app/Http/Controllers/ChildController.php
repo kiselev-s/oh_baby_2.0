@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Child;
 use App\Models\Evolution;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class ChildController extends Controller
@@ -130,5 +131,34 @@ class ChildController extends Controller
             ->where('children_id', $id)
             ->orderByDesc('created_at')
             ->value('weight');
+    }
+
+    public static function data()
+    {
+        $user = Auth::user();
+        $team_id = $user->currentTeam->id;
+        $children = Child::where('team_id', $team_id)->orderBy('selected', 'desc')->get();
+        $child = $children
+            ->where('team_id', $team_id)
+            ->where('selected', true)
+            ->first();
+        $child_name = $child->first_name;
+        $gender = $child->gender;
+//        $data = [
+//            'name'=>'Vasia',
+//            'id'=>'111'
+//
+//        ];
+
+        $data = [
+            'user'=>$user,
+            'team_id'=>$team_id,
+            'children'=>$children,
+            'child'=>$child,
+            'child_name'=>$child_name,
+            'gender'=>$gender,
+        ];
+
+        return $data;
     }
 }

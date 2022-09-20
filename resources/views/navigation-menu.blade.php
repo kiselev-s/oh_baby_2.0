@@ -43,7 +43,7 @@
                     </x-jet-nav-link>
                     <x-jet-nav-link href="{{ url('test') }}" :active="request()->routeIs('test')">
                         <div class="flex mr-1">
-                            <img src="{{URL::asset('/evol.png')}}" alt="boy" width="30">
+                            <img src="{{URL::asset('/parent.png')}}" alt="boy" width="30">
                         </div>
                         {{ __('Test') }}
                     </x-jet-nav-link>
