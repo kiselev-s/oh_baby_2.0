@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7be1e583abb5a8f87587df2aec6d2b2c",
+    "content-hash": "9070eeb709b47bcef574579117328251",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -2192,6 +2192,85 @@
             "time": "2022-08-08T13:52:53+00:00"
         },
         {
+            "name": "luckykenlin/livewire-tables",
+            "version": "2.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/luckykenlin/livewire-tables.git",
+                "reference": "bf86f07c6a675ff41519730e1d7893c40b6eaa17"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/luckykenlin/livewire-tables/zipball/bf86f07c6a675ff41519730e1d7893c40b6eaa17",
+                "reference": "bf86f07c6a675ff41519730e1d7893c40b6eaa17",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/contracts": "^8.0|^9.0",
+                "livewire/livewire": "^2.6.7",
+                "php": "^8.0",
+                "spatie/laravel-package-tools": "^1.9.2"
+            },
+            "require-dev": {
+                "brianium/paratest": "^6.2",
+                "laravel/legacy-factories": "^1.1",
+                "nunomaduro/collision": "^5.3",
+                "orchestra/testbench": "^6.15",
+                "phpunit/phpunit": "^9.5.4",
+                "spatie/laravel-ray": "^1.9",
+                "vimeo/psalm": "^4.4"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Luckykenlin\\LivewireTables\\LivewireTablesServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Luckykenlin\\LivewireTables\\": "src",
+                    "Luckykenlin\\LivewireTables\\Tests\\": "tests",
+                    "Luckykenlin\\LivewireTables\\Database\\Factories\\": "database/factories"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ken Lin",
+                    "email": "luckykenlin@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "livewire-tables",
+            "homepage": "https://github.com/luckykenlin/livewire-tables",
+            "keywords": [
+                "crud",
+                "datatables",
+                "laravel",
+                "laravel tables",
+                "livewire",
+                "livewire tables",
+                "luckykenlin",
+                "tables"
+            ],
+            "support": {
+                "issues": "https://github.com/luckykenlin/livewire-tables/issues",
+                "source": "https://github.com/luckykenlin/livewire-tables/tree/2.0.3"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/luckykenlin",
+                    "type": "github"
+                }
+            ],
+            "time": "2022-08-04T19:51:30+00:00"
+        },
+        {
             "name": "mobiledetect/mobiledetectlib",
             "version": "2.8.39",
             "source": {
@@ -3589,6 +3668,65 @@
                 }
             ],
             "time": "2022-08-05T17:58:37+00:00"
+        },
+        {
+            "name": "spatie/laravel-package-tools",
+            "version": "1.12.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/laravel-package-tools.git",
+                "reference": "09f80fa240d44fafb1c70657c74ee44ffa929357"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/laravel-package-tools/zipball/09f80fa240d44fafb1c70657c74ee44ffa929357",
+                "reference": "09f80fa240d44fafb1c70657c74ee44ffa929357",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/contracts": "^7.0|^8.0|^9.0",
+                "php": "^7.4|^8.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.4",
+                "orchestra/testbench": "^5.0|^6.23|^7.0",
+                "phpunit/phpunit": "^9.4",
+                "spatie/test-time": "^1.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\LaravelPackageTools\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Freek Van der Herten",
+                    "email": "freek@spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Tools for creating Laravel packages",
+            "homepage": "https://github.com/spatie/laravel-package-tools",
+            "keywords": [
+                "laravel-package-tools",
+                "spatie"
+            ],
+            "support": {
+                "issues": "https://github.com/spatie/laravel-package-tools/issues",
+                "source": "https://github.com/spatie/laravel-package-tools/tree/1.12.1"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/spatie",
+                    "type": "github"
+                }
+            ],
+            "time": "2022-06-28T14:29:26+00:00"
         },
         {
             "name": "symfony/console",

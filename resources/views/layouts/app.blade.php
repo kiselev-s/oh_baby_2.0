@@ -15,6 +15,12 @@
 
         <!-- Styles -->
         @livewireStyles
+
+{{--        <!-- TailwindCSS styles -->--}}
+{{--        <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">--}}
+
+{{--        <!-- AlpineJS javascript -->--}}
+{{--        <script src="//cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>--}}
     </head>
     <body class="font-sans antialiased">
         <x-jet-banner />
