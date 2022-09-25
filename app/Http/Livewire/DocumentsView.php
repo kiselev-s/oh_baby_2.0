@@ -14,12 +14,14 @@ class DocumentsView extends Component
     public function render()
     {
         $this->data = ChildController::data();
+
         $this->child_name = $this->data['child_name'];
         $this->team_id = $this->data['team_id'];
         $this->user_name = $this->data['user']->name;
+
         return view('livewire.documents-view', [
             'data'=>$this->data,
-            'child_name'=>$this->child_name,
+             'child_name'=>$this->child_name,
             'team_id'=>$this->team_id,
             'user_name'=>$this->user_name,
         ]);
@@ -27,6 +29,6 @@ class DocumentsView extends Component
 
     public function show()
     {
-        dd($this->data);
+        dump($this->data);
     }
 }

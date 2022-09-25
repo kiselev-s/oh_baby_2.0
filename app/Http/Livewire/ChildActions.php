@@ -2,9 +2,9 @@
 
 namespace App\Http\Livewire;
 
-use App\Http\Controllers\ChildController;
 use App\Models\Child;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
 class ChildActions extends Component
@@ -16,30 +16,73 @@ class ChildActions extends Component
 
     public function render()
     {
-        //TEST
         $this->user = Auth::user();
         $this->team_id = $this->user->currentTeam->id;
         $this->children = Child::where('team_id', $this->team_id)->orderBy('selected', 'desc')->get();
+
         $child = $this->children
             ->where('team_id', $this->team_id)
             ->where('selected', true)
             ->first();
+
         $this->child_name = $child->first_name;
         $this->gender = $child->gender;
+        $this->child_id = $child->id;
 
         $this->selected = 0;
+
         return view('livewire.child-actions');
     }
 
-    public function test()
-    {
-        $user = Auth::user();
-        $email = $user->email;
-        return $email;
-    }
+//    public function test()
+//    {
+//        $user = Auth::user();
+//        $email = $user->email;
+//        return $email;
+//    }
 
-    public function selectChild($id) {
-        ChildController::setCurrentChild($id);
+    public function selectChild($id, $path) {
+//        dd($path);
+//        ChildController::setCurrentChild($id);
+//        dd($this->team_id);
+//        $teamId = DB::table('children')->where('id', $id)
+//            ->value('team_id');
+//        $teamId = $this->team_id;
+//        $childId = $this->child_id;
+//        dump($teamId, $childId);
+//
+//        DB::table('children')
+//            ->where('team_id', $teamId)
+//            ->where('selected', true)
+//            ->lazyById()
+//            ->each(function ($child) {
+//                DB::table('children')
+//                    ->where('id', $child->id)
+//                    ->update(['selected' => false]);
+//            });
+
+
+
+//        DB::table('children')
+//            ->where('id', $id)
+//            ->lazyById()
+//            ->each(function ($child) {
+//                DB::table('children')
+//                    ->where('id', $child->id)
+//                    ->update(['selected' => true]);
+//            });
+
+//        DB::table('children')
+        Child::
+            where('id', $this->child_id)
+            ->update(['selected' => false]);
+
+//        DB::table('children')
+        Child::
+            where('id', $id)
+            ->update(['selected' => true]);
+
+        return redirect()->to($path);
     }
 
     public function create()

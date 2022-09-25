@@ -144,11 +144,6 @@ class ChildController extends Controller
             ->first();
         $child_name = $child->first_name;
         $gender = $child->gender;
-//        $data = [
-//            'name'=>'Vasia',
-//            'id'=>'111'
-//
-//        ];
 
         $data = [
             'user'=>$user,
