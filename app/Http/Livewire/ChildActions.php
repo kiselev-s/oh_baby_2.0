@@ -5,14 +5,19 @@ namespace App\Http\Livewire;
 use App\Models\Child;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
 class ChildActions extends Component
 {
+    use LivewireAlert;
+
     public $children, $first_name, $last_name, $birthday, $gender, $selected, $user_id, $team_id, $child_id;
     public $isModalOpen = 0;
     public $user;
     public $child_name;
+    public $deleteId;
+    public $child_name_delete;
 
     public function render()
     {
@@ -149,7 +154,32 @@ class ChildActions extends Component
 
     public function delete($id)
     {
-        Child::find($id)->delete();
-        session()->flash('message', 'Student deleted.');
+//        Child::find($id)->delete();
+
+        $this->deleteId = $id;
+
+        $this->alert('warning', $id . ' ' . 'Are you sure?' . ' ' . $this->deleteId, [
+            'position' => 'center',
+            'showConfirmButton' => true,
+            'confirmButtonText'=>'Delete',
+            'onConfirmed'=> 'confirmed',
+            'showCancelButton' => true,
+            'timer' => null,
+        ]);
     }
+
+    public function confirmed()
+    {
+        $child_name = Child::where('id', $this->deleteId)->value('first_name');
+
+        Child::find($this->deleteId)->delete();
+
+        $this->alert('success', 'Child ' . $child_name . ' deleted' . ' ' . $this->deleteId, [
+            'position' => 'center',
+        ]);
+    }
+
+    protected $listeners = [
+        'confirmed'
+    ];
 }

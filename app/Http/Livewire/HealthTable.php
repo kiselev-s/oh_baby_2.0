@@ -6,13 +6,17 @@ use App\Http\Controllers\ChildController;
 use App\Models\Health;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Carbon;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Luckykenlin\LivewireTables\Views\Action;
 use Luckykenlin\LivewireTables\Views\Column;
 use Luckykenlin\LivewireTables\LivewireTables;
 
 class HealthTable extends LivewireTables
 {
-    public $test = 1;
+    use LivewireAlert;
+
+    public $rowId;
+
     public function query(): Builder
     {
         $data = ChildController::data();
@@ -37,6 +41,29 @@ class HealthTable extends LivewireTables
             Action::make(),
         ];
     }
+
+    public function submitDelete($rowId)
+    {
+        $this->rowId = $rowId;
+
+        $this->alert('warning', 'Are you sure?', [
+            'position' => 'center',
+            'showConfirmButton' => true,
+            'confirmButtonText'=>'Delete',
+            'onConfirmed'=> 'confirmed',
+            'showCancelButton' => true,
+            'timer' => null,
+        ]);
+    }
+
+    public function confirmed()
+    {
+        $this->delete($this->rowId);
+    }
+
+    protected $listeners = [
+        'confirmed'
+    ];
 
 //    public bool $debugEnabled = true;
 }
