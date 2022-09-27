@@ -66,7 +66,7 @@
 {{--                </div>--}}
 
                 <!-- Child Dropdown -->
-                @livewire('child-actions')
+                @livewire('child-actions', ['page'=>request()->fullUrl()])
 
                 <!-- Teams Dropdown -->
                 @if (Laravel\Jetstream\Jetstream::hasTeamFeatures())

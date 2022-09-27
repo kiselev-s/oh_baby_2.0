@@ -18,11 +18,11 @@
                             <x-jet-input wire:model="last_name" id="last_name" type="text" class="mt-1 block w-full" placeholder="Enter Last Name"/>
                             @error('last_name') <span class="text-red-500">{{ $message }}</span>@enderror
                         </div>
-                        <div class="mb-4">
-                            <x-jet-label for="birthday" value="{{ __('Birthday') }}" />
-                            <x-jet-input wire:model="birthday" id="birthday" type="text" class="mt-1 block w-full" placeholder="Enter birthday"/>
-                            @error('birthday') <span class="text-red-500">{{ $message }}</span>@enderror
-                        </div>
+{{--                        <div class="mb-4">--}}
+{{--                            <x-jet-label for="birthday" value="{{ __('Birthday') }}" />--}}
+{{--                            <x-jet-input wire:model="birthday" id="birthday" type="text" class="mt-1 block w-full" placeholder="Enter birthday"/>--}}
+{{--                            @error('birthday') <span class="text-red-500">{{ $message }}</span>@enderror--}}
+{{--                        </div>--}}
                         <div class="mb-4 flex flex-row justify-between">
                             <div>
                             <x-jet-label for="gender" value="{{ __('Gender') }}" />

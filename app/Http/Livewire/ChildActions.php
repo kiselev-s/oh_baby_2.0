@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
+use Livewire\Request;
 
 class ChildActions extends Component
 {
@@ -17,7 +18,15 @@ class ChildActions extends Component
     public $user;
     public $child_name;
     public $deleteId;
-    public $child_name_delete;
+//    public $child_name_delete;
+//    public $child_id_temp;
+    public $path;
+    public $page;
+
+    public function mount($page)
+    {
+        $this->page = $page;
+    }
 
     public function render()
     {
@@ -29,22 +38,19 @@ class ChildActions extends Component
             ->where('team_id', $this->team_id)
             ->where('selected', true)
             ->first();
+        if($child) {
+            $this->child_name = $child->first_name;
+            $this->gender = $child->gender;
+        }
+        else {
+            $this->child_name = 'error child';
+            $this->gender = 1;
+        }
 
-        $this->child_name = $child->first_name;
-        $this->gender = $child->gender;
-        $this->child_id = $child->id;
-
-        $this->selected = 0;
+//        $this->selected = 0;
 
         return view('livewire.child-actions');
     }
-
-//    public function test()
-//    {
-//        $user = Auth::user();
-//        $email = $user->email;
-//        return $email;
-//    }
 
     public function selectChild($id, $path) {
 //        dd($path);
@@ -78,8 +84,14 @@ class ChildActions extends Component
 //            });
 
 //        DB::table('children')
+//        Child::
+//            where('id', $this->child_id)
+//            ->update(['selected' => false]);
+
         Child::
-            where('id', $this->child_id)
+//        where('id', $this->child_id)
+            where('team_id', $this->team_id)
+            ->where('selected', true)
             ->update(['selected' => false]);
 
 //        DB::table('children')
@@ -87,11 +99,14 @@ class ChildActions extends Component
             where('id', $id)
             ->update(['selected' => true]);
 
-        return redirect()->to($path);
+//        return redirect()->to($path);
+//        return redirect()->to($this->path);
+        return redirect($this->page);
     }
 
     public function create()
     {
+        $this->selected = 0;//TODO
         $this->resetCreateForm();
         $this->openModalPopover();
     }
@@ -132,7 +147,13 @@ class ChildActions extends Component
             'team_id' => $teamId,
         ]);
 
-        session()->flash('message', $this->child_id ? 'Student updated.' : 'Student created.');
+        $this->alert('success',
+            $this->child_id ?
+                'Child ' . $this->first_name . ' updated.' :
+                'Child ' . $this->first_name . ' created.', [
+            'position' => 'center',
+        ]);
+
         $this->closeModalPopover();
         $this->resetCreateForm();
     }
@@ -158,7 +179,7 @@ class ChildActions extends Component
 
         $this->deleteId = $id;
 
-        $this->alert('warning', $id . ' ' . 'Are you sure?' . ' ' . $this->deleteId, [
+        $this->alert('warning', 'Are you sure?', [
             'position' => 'center',
             'showConfirmButton' => true,
             'confirmButtonText'=>'Delete',
