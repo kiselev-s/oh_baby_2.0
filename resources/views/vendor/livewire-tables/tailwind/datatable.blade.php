@@ -26,7 +26,8 @@
                         {{--                        <div>@include('livewire-tables::tailwind.includes.column-select')</div>--}}
                         <div>@includeWhen($paginationEnabled && $showPerPage,'livewire-tables::tailwind.includes.per-page')</div>
                         <div class="flex justify-end">
-                            @includeWhen($this->hasNewResource(),'livewire-tables::tailwind.includes.new-resource')
+{{--                            @includeWhen($this->hasNewResource(),'livewire-tables::tailwind.includes.new-resource')--}}
+                            @includeWhen($this->hasNewResource(),'livewire.add-health')
                         </div>
                     </div>
                 </div>

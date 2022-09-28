@@ -142,8 +142,14 @@ class ChildController extends Controller
             ->where('team_id', $team_id)
             ->where('selected', true)
             ->first();
-        $child_name = $child->first_name;
-        $gender = $child->gender;
+        if($child) {
+            $child_name = $child->first_name;
+            $gender = $child->gender;
+        }
+        else{
+            $child_name = 'not child';
+            $gender = 1;
+        }
 
         $data = [
             'user'=>$user,

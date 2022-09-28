@@ -21,7 +21,8 @@
                     </button>
                 </span>
             </div>
-            @if($isModalOpen)
-                @include('livewire.create-child')
-            @endif
+{{--            @if($isModalOpen)--}}
+{{--                @include('livewire.create-child')--}}
+{{--            @endif--}}
+            @includeWhen($isModalOpen, 'livewire.create-child')
 </div>

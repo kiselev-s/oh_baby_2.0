@@ -17,13 +17,29 @@ class HealthTable extends LivewireTables
 
     public $rowId;
 
+    public $showingModal = false;
+
+    public $health_id, $first_name, $last_name, $specialization, $meeting, $child_id, $user_id, $team_id;
+
+    // Table Start
     public function query(): Builder
     {
         $data = ChildController::data();
         $child = $data['child'];
-        $id = $child->id;
+        $this->team_id = $data['team_id'];
+        $this->user_id = $data['user']->id;
 
-        return Health::query()->where('children_id', $id);
+        if($child) {
+            $id = $child->id;
+            $this->child_id = $id;
+
+            return Health::query()
+                ->where('children_id', $id);
+//                ->orderBy('meeting', 'desc')->getQuery();
+        }
+        else{
+            return Health::query()->where('children_id', 0);
+        }
     }
 
     public function columns(): array
@@ -65,5 +81,66 @@ class HealthTable extends LivewireTables
         'confirmed'
     ];
 
-//    public bool $debugEnabled = true;
+    public function newResource(){}
+    //    public bool $debugEnabled = true;
+    //Table End
+
+    //Modal Start
+    public function showModal(){
+        $this->showingModal = true;
+    }
+
+    public function store()
+    {
+        $this->validate([
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'specialization' => 'required',
+            'meeting' => 'required',
+
+        ]);
+
+        Health::updateOrCreate(['id' => $this->health_id], [
+            'first_name' => $this->first_name,
+            'last_name' => $this->last_name,
+            'specialization' => $this->specialization,
+            'meeting' => $this->meeting,
+            'children_id' => $this->child_id,
+        ]);
+
+        $this->alert('success',
+            $this->health_id ?
+                'Meeting to ' . $this->last_name . ' updated.' :
+                'Meeting to ' . $this->last_name . ' created.', [
+                'position' => 'center',
+            ]);
+
+        $this->showingModal = false;
+    }
+
+    public function edit($id)
+    {
+        $health = Health::findOrFail($id);
+        $this->health_id = $id;
+        $this->first_name = $health->first_name;
+        $this->last_name = $health->last_name;
+        $this->specialization = $health->specialization;
+        $this->meeting = $health->meeting;
+        $this->children_id = $health->children_id;
+
+        $this->showModal();
+    }
+
+    public function cancel()
+    {
+        $this->showingModal = false;
+
+        $this->health_id = 0;
+        $this->first_name = '';
+        $this->last_name = '';
+        $this->specialization = '';
+        $this->meeting = null;
+        $this->children_id = 0;
+    }
+    //Modal End
 }

@@ -9,6 +9,6 @@ class Documents extends Component
 {
     public function render()
     {
-;        return view('livewire.documents');
+        return view('livewire.documents');
     }
 }
