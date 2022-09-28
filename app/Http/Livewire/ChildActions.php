@@ -195,7 +195,7 @@ class ChildActions extends Component
 
         Child::find($this->deleteId)->delete();
 
-        $this->alert('success', 'Child ' . $child_name . ' deleted' . ' ' . $this->deleteId, [
+        $this->alert('success', 'Child ' . $child_name . ' deleted', [
             'position' => 'center',
         ]);
     }

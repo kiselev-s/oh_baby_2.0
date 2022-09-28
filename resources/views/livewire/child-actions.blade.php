@@ -49,31 +49,43 @@
                                                 </svg>
                                             @endif
                                             <!-- Select Child -->
-                                            <a id="{{$child->id}}" type="button"
+                                            <a id="{{$child->id}}" type="button" href="#"
                                                class="w-full ml-3 inline-block px-1 py-2 bg-transparent text-gray-700 font-medium text-sm leading-tight transition duration-150 ease-in-out"
                                                wire:click="selectChild({{ $child->id }}, '{{request()->path()}}')">
                                                 {{$child->first_name}}
                                             </a>
-                                            <!-- Edit Child -->
-                                            <button type="button" wire:click="edit({{ $child->id }})"
-                                                    class="px-0.5 mr-1 inline-block bg-orange-500 text-white font-medium text-sm leading-tight rounded shadow-md hover:bg-orange-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out">
+{{--                                            <!-- Edit Child -->--}}
+{{--                                            <button type="button" wire:click="edit({{ $child->id }})"--}}
+{{--                                                    class="px-0.5 mr-1 inline-block bg-orange-500 text-white font-medium text-sm leading-tight rounded shadow-md hover:bg-orange-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out">--}}
 {{--                                                Edit--}}
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 p-0.5" viewBox="0 0 20 20" fill="currentColor">
-                                                    <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />
-                                                    <path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd" />
-                                                </svg>
-                                            </button>
-                                            <!-- Delete Child -->
-                                            <button type="button" wire:click="delete({{ $child->id }})"
-                                                    class="px-0.5 mr-3 inline-block bg-red-600 text-white font-medium text-sm leading-tight rounded shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out">
+{{--                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 p-0.5" viewBox="0 0 20 20" fill="currentColor">--}}
+{{--                                                    <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />--}}
+{{--                                                    <path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd" />--}}
+{{--                                                </svg>--}}
+{{--                                            </button>--}}
+{{--                                            <!-- Delete Child -->--}}
+{{--                                            <button type="button" wire:click="delete({{ $child->id }})"--}}
+{{--                                                    class="px-0.5 mr-3 inline-block bg-red-600 text-white font-medium text-sm leading-tight rounded shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out">--}}
 {{--                                                Delete--}}
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 p-0.5" viewBox="0 0 20 20" fill="currentColor">
-                                                    <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
-                                                </svg>
-                                            </button>
+{{--                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 p-0.5" viewBox="0 0 20 20" fill="currentColor">--}}
+{{--                                                    <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />--}}
+{{--                                                </svg>--}}
+{{--                                            </button>--}}
+                                            <!-- Edit button -->
                                             <a
                                                 href="#"
-                                                class="py-2 px-1 hover:text-red-600"
+                                                class="py-2 px-1 hover:text-blue-600"
+                                                wire:click="edit({{ $child->id }})"
+                                            >
+                                                <svg class="h-6 xl:h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                          d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                                                </svg>
+                                            </a>
+                                            <!-- Delete button -->
+                                            <a
+                                                href="#"
+                                                class="py-2 px-1 hover:text-red-600 pr-4"
                                                 wire:click.prevent="delete({{ $child->id }})"
                                             >
                                                 <svg class="h-6 xl:h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
