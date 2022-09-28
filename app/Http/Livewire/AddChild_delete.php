@@ -3,7 +3,7 @@ namespace App\Http\Livewire;
 use App\Models\Child;
 use Livewire\Component;
 
-class AddChild extends Component
+class AddChildDelete extends Component
 {
 //    public $children, $first_name, $last_name, $birthday, $gender, $selected, $user_id, $team_id, $child_id;
 //    public $isModalOpen = 0;

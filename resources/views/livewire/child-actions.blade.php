@@ -3,7 +3,7 @@
         @include('livewire.add-child')
             <div>
             @if($team_id)
-                <div class="flex">
+                <div class="flex mt-0.5">
 
                     <!-- Icon Child gender -->
                     @if($gender)

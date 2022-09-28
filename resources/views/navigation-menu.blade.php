@@ -254,6 +254,11 @@
                     </x-jet-responsive-nav-link>
                 </form>
 
+                <!-- Child Dropdown -->
+                <div class="flex justify-end">
+                    @livewire('child-actions', ['page'=>request()->fullUrl()])
+                </div>
+
                 <!-- Team Management -->
                 @if (Laravel\Jetstream\Jetstream::hasTeamFeatures())
                     <div class="border-t border-gray-200"></div>

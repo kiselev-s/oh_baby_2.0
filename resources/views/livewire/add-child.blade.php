@@ -1,28 +1,76 @@
-{{--<x-slot name="header">--}}
-{{--    <h2 class="text-center">Laravel 9 Livewire CRUD Demo</h2>--}}
-{{--</x-slot>--}}
-{{--<div class="py-12">--}}
-{{--    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">--}}
-        <div class="">
-            @if (session()->has('message'))
-                <div class="bg-teal-100 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md my-3"
-                     role="alert">
-                    <div class="flex">
-                        <div>
-                            <p class="text-sm">{{ session('message') }}</p>
-                        </div>
-                    </div>
-                </div>
+<div>
+    <a href="#"
+       {{--   wire:click.prevent="resolveNewResource"--}}
+       wire:click="showModal()"
+       type="button"
+       class="inline-flex items-center shadow-sm ml-2 p-2 mr-2 rounded-full border-gray-300 border text-indigo-300 ease-in-out duration-150 hover:text-white bg-white hover:bg-indigo-500 focus:outline-none"
+    >
+        <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd"
+                  d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                  clip-rule="evenodd"/>
+        </svg>
+    </a>
+
+    <x-jet-dialog-modal wire:model="showingModal" >
+
+        <x-slot name="title">
+            @if($child_id)
+                {{ __('Edit Child') }}
+            @else
+                {{ __('Create Child') }}
             @endif
-            <div class="flex mr-4 mt-0.5">
-                <span class="inline-flex rounded-md">
-                    <button wire:click="create()" type="button" class="inline-flex items-center border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:bg-gray-50 hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50 transition">
-                        <img src="{{URL::asset('/add_child.png')}}" alt="boy" width="30">
-                    </button>
-                </span>
+        </x-slot>
+
+        <x-slot name="content">
+            <div class="col-span-6 sm:col-span-4">
+                <x-jet-label for="first_name" value="{{ __('First Name') }}" />
+                <x-jet-input id="first_name" type="text" class="mt-1 block w-full" wire:model.defer="first_name" autocomplete="first_name" />
+                <x-jet-input-error for="first_name" class="mt-2" />
             </div>
-{{--            @if($isModalOpen)--}}
-{{--                @include('livewire.create-child')--}}
-{{--            @endif--}}
-            @includeWhen($isModalOpen, 'livewire.create-child')
+
+            <div class="col-span-6 sm:col-span-4 mt-3">
+                <x-jet-label for="last_name" value="{{ __('Last Name') }}" />
+                <x-jet-input id="last_name" type="text" class="mt-1 block w-full" wire:model.defer="last_name" autocomplete="last_name" />
+                <x-jet-input-error for="last_name" class="mt-2" />
+            </div>
+
+            <div class="mb-4 flex flex-wrap flex-row justify-between mt-3">
+                <div>
+                    <x-jet-label for="gender" value="{{ __('Gender') }}" />
+                    <select wire:model="gender" id="gender" class="mt-1 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm">
+                        <option selected="">Choose gender</option>
+                        <option value="1">Man</option>
+                        <option value="0">Women</option>
+                    </select>
+                    @error('gender') <span class="text-red-500">{{ $message }}</span>@enderror
+                </div>
+                <div class="mt-3">
+{{--                    <x-jet-label for="gender" value="{{ __('Birthday') }}" />--}}
+{{--                    <input wire:model="birthday" type="datetime-local" class="mt-1 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm">--}}
+
+                    <x-jet-label for="meeting" value="{{ __('Birthday') }}" />
+                    <input id="meeting" wire:model.defer="birthday"
+                           type="datetime-local"
+                           class="mt-1 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm">
+                    <x-jet-input-error for="birthday" class="mt-2" />
+                </div>
+            </div>
+        </x-slot>
+
+
+        <x-slot name="footer">
+            <div class="mr-4">
+                <x-jet-button wire:click="store()" wire:loading.attr="disabled">
+                    {{ __('Save')  }}
+                </x-jet-button>
+            </div>
+            <div class="">
+                <x-jet-secondary-button wire:click="cancel()" wire:loading.attr="disabled">
+                    {{ __('Cancel')  }}
+                </x-jet-secondary-button>
+            </div>
+        </x-slot>
+
+    </x-jet-dialog-modal>
 </div>
