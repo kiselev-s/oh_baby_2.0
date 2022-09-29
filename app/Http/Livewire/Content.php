@@ -2,7 +2,9 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Image;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use App\Models\Child;
 
@@ -26,5 +28,12 @@ class Content extends Component
             'child' => $child,
             'childName' => $childName,
         ]);
+    }
+
+    public function export()
+    {
+        $image = Image::where('id', '52')->value('view');
+//        dd($image);
+        return Storage::disk('public')->download($image);
     }
 }
