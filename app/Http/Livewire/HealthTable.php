@@ -97,28 +97,37 @@ class HealthTable extends LivewireTables
 
     public function store()
     {
-        $this->validate([
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'specialization' => 'required',
-            'meeting' => 'required',
+        if(!$this->child_id) {
+            $this->alert('warning', 'Child not selected', [
+                    'position' => 'center',
+                ]);
+        }
+        else {
+            $this->validate([
+                'first_name' => 'required',
+                'last_name' => 'required',
+                'specialization' => 'required',
+                'meeting' => 'required',
 
-        ]);
-
-        Health::updateOrCreate(['id' => $this->health_id], [
-            'first_name' => $this->first_name,
-            'last_name' => $this->last_name,
-            'specialization' => $this->specialization,
-            'meeting' => $this->meeting,
-            'children_id' => $this->child_id,
-        ]);
-
-        $this->alert('success',
-            $this->health_id ?
-                'Meeting to ' . $this->last_name . ' updated.' :
-                'Meeting to ' . $this->last_name . ' created.', [
-                'position' => 'center',
             ]);
+
+            Health::updateOrCreate(['id' => $this->health_id], [
+                'first_name' => $this->first_name,
+                'last_name' => $this->last_name,
+                'specialization' => $this->specialization,
+                'meeting' => $this->meeting,
+                'children_id' => $this->child_id,
+            ]);
+
+            $this->alert('success',
+                $this->health_id ?
+                    'Meeting to ' . $this->last_name . ' updated.' :
+                    'Meeting to ' . $this->last_name . ' created.', [
+                    'position' => 'center',
+                ]);
+        }
+
+        $this->resetModal();
 
         $this->showingModal = false;
     }
