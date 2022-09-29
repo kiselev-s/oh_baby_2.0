@@ -58,11 +58,15 @@ class HealthTable extends LivewireTables
         ];
     }
 
+    public string $defaultSortColumn = 'meeting';
+
+    public string $defaultSortDirection = 'desc';
+
     public function submitDelete($rowId)
     {
         $this->rowId = $rowId;
 
-        $this->alert('warning', 'Are you sure?', [
+        $this->alert('question', 'Are you sure?', [
             'position' => 'center',
             'showConfirmButton' => true,
             'confirmButtonText'=>'Delete',
@@ -82,6 +86,7 @@ class HealthTable extends LivewireTables
     ];
 
     public function newResource(){}
+
     //    public bool $debugEnabled = true;
     //Table End
 
@@ -135,6 +140,10 @@ class HealthTable extends LivewireTables
     {
         $this->showingModal = false;
 
+        $this->resetModal();
+    }
+
+    private function resetModal(){
         $this->health_id = 0;
         $this->first_name = '';
         $this->last_name = '';
