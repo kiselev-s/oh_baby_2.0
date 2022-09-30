@@ -85,7 +85,7 @@ class DocumentsTable extends LivewireTables
 //        'confirmed'
 //    ];
 //
-//    public function newResource(){}
+    public function newResource(){}
 //
 //    //    public bool $debugEnabled = true;
 //    //Table End

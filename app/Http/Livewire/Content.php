@@ -36,4 +36,8 @@ class Content extends Component
 //        dd($image);
         return Storage::disk('public')->download($image);
     }
+
+    public function test()
+    {
+    }
 }

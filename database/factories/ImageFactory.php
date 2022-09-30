@@ -19,7 +19,8 @@ class ImageFactory extends Factory
     {
         return [
             'title'=>$this->faker->word,
-            'view'=>$this->faker->image,
+//            'view'=>$this->faker->image,
+            'path' => $this->faker->filePath(),
             'category'=>$this->faker->word,
             'children_id'=>rand(1,Child::count()),
         ];

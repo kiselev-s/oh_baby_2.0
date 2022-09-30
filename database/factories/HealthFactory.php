@@ -23,7 +23,8 @@ class HealthFactory extends Factory
             'specialization'=>$this->faker->word,
             'meeting' => $this->faker->date(),
            // 'next_meeting' => $this->faker->date(),
-            'medical_opinion' => $this->faker->image,
+//            'medical_opinion' => $this->faker->image,
+            'medical_opinion_path' => $this->faker->filePath(),
             'children_id'=>rand(1,Child::count()),
         ];
     }

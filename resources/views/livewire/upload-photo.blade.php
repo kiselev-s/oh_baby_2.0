@@ -55,4 +55,7 @@
     <button wire:click="export">
         Download File
     </button>
+    <button wire:click="test()">
+        TEST
+    </button>
 </div>

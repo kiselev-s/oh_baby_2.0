@@ -12,27 +12,20 @@ class UploadPhoto extends Component
 
     public function submit()
     {
-        $dataValid = $this->validate([
-            'view' => 'image|max:2048', // 2MB Max
+        $image = $this->validate([
+            'path' => 'image|max:2048', // 2MB Max
             'title' => 'required',
             'category' => 'required',
             'children_id' => 'required',
         ]);
 
-        $dataValid['view'] = $this->view->store('photos');
+        $image['view'] = $this->view->store('imageDocs');
 
-        Image::create($dataValid);
+        Image::create($image);
     }
     public function render()
     {
         return view('livewire.upload-photo');
-    }
-
-    public function export()
-    {
-        $image = Image::where('id', '52')->value('view');
-        dd($image);
-        return Storage::disk('exports')->download('export.jpg', 'name', );
     }
 
 }

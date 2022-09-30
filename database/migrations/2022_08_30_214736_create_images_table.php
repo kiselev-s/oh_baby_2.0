@@ -16,11 +16,12 @@ return new class extends Migration
         Schema::create('images', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->binary('view');
+//            $table->binary('view');
             $table->string('category');
-            $table->timestamps();
-
+            $table->string('path');
             $table->unsignedBigInteger('children_id');
+
+            $table->timestamps();
 
             $table->foreign('children_id')
                 ->references('id')
