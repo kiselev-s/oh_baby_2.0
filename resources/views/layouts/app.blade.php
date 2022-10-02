@@ -21,6 +21,7 @@
 
 {{--        <!-- AlpineJS javascript -->--}}
 {{--        <script src="//cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>--}}
+
     </head>
     <body class="font-sans antialiased">
         <x-jet-banner />

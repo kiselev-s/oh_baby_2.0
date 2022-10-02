@@ -16,41 +16,31 @@
 
         <x-slot name="title">
             @if($health_id)
-                {{ __('Edit Health') }}
+                {{ __('Edit Documents') }}
             @else
-                {{ __('Create Health') }}
+                {{ __('Create Documents') }}
             @endif
         </x-slot>
 
         <x-slot name="content">
             <div class="col-span-6 sm:col-span-4">
-                <x-jet-label for="first_name" value="{{ __('First Name') }}" />
-                <x-jet-input id="first_name" type="text" class="mt-1 block w-full" wire:model.defer="first_name" autocomplete="first_name" />
-                <x-jet-input-error for="first_name" class="mt-2" />
+                <x-jet-label for="title" value="{{ __('Title') }}" />
+                <x-jet-input id="title" type="text" class="mt-1 block w-full" wire:model.defer="title" autocomplete="title" />
+                <x-jet-input-error for="title" class="mt-2" />
             </div>
 
             <div class="col-span-6 sm:col-span-4 mt-3">
-                <x-jet-label for="last_name" value="{{ __('Last Name') }}" />
-                <x-jet-input id="last_name" type="text" class="mt-1 block w-full" wire:model.defer="last_name" autocomplete="last_name" />
-                <x-jet-input-error for="last_name" class="mt-2" />
+                <x-jet-label for="category" value="{{ __('Category') }}" />
+                <x-jet-input id="category" type="text" class="mt-1 block w-full" wire:model.defer="category" autocomplete="category" />
+                <x-jet-input-error for="category" class="mt-2" />
             </div>
 
             <div class="col-span-6 sm:col-span-4 mt-3">
-                <x-jet-label for="specialization" value="{{ __('Specialization') }}" />
-                <x-jet-input id="specialization" type="text" class="mt-1 block w-full" wire:model.defer="specialization" autocomplete="specialization" />
-                <x-jet-input-error for="specialization" class="mt-2" />
-            </div>
-
-            <div class="col-span-6 sm:col-span-4 mt-3">
-                <x-jet-label for="meeting" value="{{ __('Meeting') }}" />
-                <input id="meeting" wire:model.defer="meeting"
-                   type="datetime-local"
-                   class="mt-1 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm">
-                <x-jet-input-error for="meeting" class="mt-2" />
+                <input type="file" class="mt-1 block w-full" wire:model="path">
+                <x-jet-input-error for="path" class="mt-2" />
             </div>
 
         </x-slot>
-
 
         <x-slot name="footer">
             <div class="mr-4">

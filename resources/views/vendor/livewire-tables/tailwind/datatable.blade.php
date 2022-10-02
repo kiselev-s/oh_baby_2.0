@@ -1,3 +1,7 @@
+@if($showImage)
+    <div class="flex flex-wrap">
+        <div class="w-1/2 p-4">
+@endif
 <div>
     <div
         class="relative"
@@ -27,7 +31,12 @@
                         <div>@includeWhen($paginationEnabled && $showPerPage,'livewire-tables::tailwind.includes.per-page')</div>
                         <div class="flex justify-end">
 {{--                            @includeWhen($this->hasNewResource(),'livewire-tables::tailwind.includes.new-resource')--}}
-                            @includeWhen($this->hasNewResource(),'livewire.add-health')
+                            @if($this->hasNewResource() && !$showImage)
+                                @include('livewire.add-health')
+                            @elseif($this->hasNewResource() && $showImage)
+                                @include('livewire.add-docs')
+                            @endif
+{{--                            @includeWhen($this->hasNewResource(),'livewire.add-health')--}}
                         </div>
                     </div>
                 </div>
@@ -39,4 +48,10 @@
     </div>
 
 {{--    <x-livewire-tables::modals.delete-button-modal wire:model.defer="confirmDelete" :itemKey="$itemKey"/>--}}
+
 </div>
+@if($showImage)
+        </div>
+        @include('livewire.image-view')
+    </div>
+@endif

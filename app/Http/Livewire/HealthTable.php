@@ -21,6 +21,8 @@ class HealthTable extends LivewireTables
 
     public $health_id, $first_name, $last_name, $specialization, $meeting, $child_id, $user_id, $team_id;
 
+    public $showImage = false;
+
     // Table Start
     public function query(): Builder
     {
@@ -50,7 +52,7 @@ class HealthTable extends LivewireTables
             Column::make('Last name','last_name')->sortable()->searchable(),
             Column::make('specialization')->sortable()->searchable(),
             Column::make('meeting')->sortable(),
-//        ->searchable()->format(fn(Carbon $v) => $v->diffForHumans()),
+//        ->format(fn(Carbon $v) => $v->diffForHumans()),
             Column::make('children_id')->sortable()->searchable(),
             Column::make('created_at')->format(fn(Carbon $v) => $v->diffForHumans()),
 

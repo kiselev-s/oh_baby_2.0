@@ -8,6 +8,7 @@ use App\Models\Image;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Carbon;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Livewire\WithFileUploads;
 use Luckykenlin\LivewireTables\Views\Action;
 use Luckykenlin\LivewireTables\Views\Column;
 use Luckykenlin\LivewireTables\LivewireTables;
@@ -16,11 +17,21 @@ class DocumentsTable extends LivewireTables
 {
     use LivewireAlert;
 
+    use WithFileUploads;
+
     public $rowId;
 
     public $showingModal = false;
 
     public $health_id, $first_name, $last_name, $specialization, $meeting, $child_id, $user_id, $team_id;
+
+    public $showImage = true;
+
+    public $path, $title, $category;
+
+    public $imagesChild;
+
+    public $count = 0, $countMax = 0;
 
     // Table Start
     public function query(): Builder
@@ -33,6 +44,11 @@ class DocumentsTable extends LivewireTables
         if($child) {
             $id = $child->id;
             $this->child_id = $id;
+
+            $this->imagesChild =
+                Image::where('children_id', $this->child_id)->get();
+
+            $this->countMax = $this->imagesChild->count();
 
             return Image::query()
                 ->where('children_id', $id);
@@ -86,31 +102,63 @@ class DocumentsTable extends LivewireTables
 //    ];
 //
     public function newResource(){}
+
+    public function show($rowId)
+    {
+        $title = Image::where('id', $rowId)->value('title');
+
+        $this->imagesChild =
+            Image::where('children_id', $this->child_id)
+                ->where('title', $title)->get();
+
+        $this->countMax = $this->imagesChild->count();
+    }
+
+    public function countMinus()
+    {
+        if($this->count == 0)
+            $this->count = $this->countMax-1;
+        else
+            $this->count--;
+    }
+
+    public function countPlus()
+    {
+        if($this->count == $this->countMax-1)
+            $this->count = 0;
+        else
+            $this->count++;
+    }
 //
 //    //    public bool $debugEnabled = true;
 //    //Table End
 //
 //    //Modal Start
-//    public function showModal(){
-//        $this->showingModal = true;
-//    }
+    public function showModal(){
+        $this->showingModal = true;
+    }
 //
-//    public function store()
-//    {
-//        if(!$this->child_id) {
-//            $this->alert('warning', 'Child not selected', [
-//                    'position' => 'center',
-//                ]);
-//        }
-//        else {
-//            $this->validate([
-//                'first_name' => 'required',
-//                'last_name' => 'required',
-//                'specialization' => 'required',
-//                'meeting' => 'required',
-//
-//            ]);
-//
+    public function store()
+    {
+        if(!$this->child_id) {
+            $this->alert('warning', 'Child not selected', [
+                    'position' => 'center',
+                ]);
+        }
+        else {
+            $image = $this->validate([
+                'path' => 'image|max:2048', // 2MB Max
+                'title' => 'required',
+                'category' => 'required',
+//                'children_id' => $this->child_id,
+            ]);
+
+            $image['children_id'] = $this->child_id;
+
+            $image['path'] = $this->path->store('imageDocs');
+
+            Image::updateOrCreate($image);
+
 //            Health::updateOrCreate(['id' => $this->health_id], [
 //                'first_name' => $this->first_name,
 //                'last_name' => $this->last_name,
@@ -118,19 +166,19 @@ class DocumentsTable extends LivewireTables
 //                'meeting' => $this->meeting,
 //                'children_id' => $this->child_id,
 //            ]);
-//
-//            $this->alert('success',
-//                $this->health_id ?
-//                    'Meeting to ' . $this->last_name . ' updated.' :
-//                    'Meeting to ' . $this->last_name . ' created.', [
-//                    'position' => 'center',
-//                ]);
-//        }
-//
+
+            $this->alert('success',
+                $this->health_id ?
+                    'Documents to ' . $this->title . ' updated.' :
+                    'Documents to ' . $this->title. ' created.', [
+                    'position' => 'center',
+                ]);
+        }
+
 //        $this->resetModal();
-//
-//        $this->showingModal = false;
-//    }
+
+        $this->showingModal = false;
+    }
 //
 //    public function edit($id)
 //    {
@@ -145,12 +193,12 @@ class DocumentsTable extends LivewireTables
 //        $this->showModal();
 //    }
 //
-//    public function cancel()
-//    {
-//        $this->showingModal = false;
-//
+    public function cancel()
+    {
+        $this->showingModal = false;
+
 //        $this->resetModal();
-//    }
+    }
 //
 //    private function resetModal(){
 //        $this->health_id = 0;
