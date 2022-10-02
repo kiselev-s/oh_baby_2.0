@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Http\Controllers\ChildController;
 use App\Models\Health;
+use App\Models\Documents;
 use App\Models\Image;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Carbon;
@@ -22,16 +23,18 @@ class DocumentsTable extends LivewireTables
     public $rowId;
 
     public $showingModal = false;
-
-    public $health_id, $first_name, $last_name, $specialization, $meeting, $child_id, $user_id, $team_id;
-
     public $showImage = true;
+    public $count = 0, $countMax = 0;
 
-    public $path, $title, $category;
+    public $child_id, $user_id, $team_id, $path, $title, $category;
 
     public $imagesChild;
 
-    public $count = 0, $countMax = 0;
+    public $documents, $documents_id;
+
+    public $test_documents, $test_documents_id, $test_child_id;
+
+//    public $imagePreview;
 
     // Table Start
     public function query(): Builder
@@ -45,72 +48,88 @@ class DocumentsTable extends LivewireTables
             $id = $child->id;
             $this->child_id = $id;
 
-            $this->imagesChild =
-                Image::where('children_id', $this->child_id)->get();
+            $this->documents =
+                Documents::where('children_id', $this->child_id)->first();
 
-            $this->countMax = $this->imagesChild->count();
+            if($this->documents) {
+                $this->documents_id =
+                    Documents::where('children_id', $this->child_id)->value('id');
+                $this->imagesChild =
+                    Image::where('documents_id', $this->documents_id)->get();
+                $this->countMax = $this->imagesChild->count();
+            }
+            else {}
 
-            return Image::query()
-                ->where('children_id', $id);
-//                ->orderBy('meeting', 'desc')->getQuery();
+            return Documents::query()->where('children_id', $id);
         }
         else{
-            return Image::query()->where('children_id', 0);
+            return Documents::query()->where('children_id', 0);
         }
-//        return Image::query();
     }
+
+//    public function preview()
+//    {
+//        foreach ($this->documents as $document)
+//        {
+//            $this->imagePreview
+//        }
+//    }
 
     public function columns(): array
     {
         return [
-            Column::make('#', 'id')->sortable(),
-            Column::make('Title','title')->sortable()->searchable(),
+//            Column::make('#', 'id')->sortable(),
+            Column::make('Category','category')->sortable()->searchable(),
+            Column::make('Avatar')
+                ->sortable()
+                ->searchable()
+                ->render(fn() => view('livewire.image-preview', ['imagesChild' => $this->imagesChild])),
 //            Column::make('Category','category')->sortable()->searchable(),
-            Column::make('children_id')->sortable()->searchable(),
-//            Column::make('created_at')->format(fn(Carbon $v) => $v->diffForHumans()),
+//            Column::make('children_id')->sortable()->searchable(),
+            Column::make('Created', 'created_at')->sortable()->format(fn(Carbon $v) => $v->diffForHumans()),
 
-            Action::make(),
+            Action::make()->hideEditButton(),
         ];
     }
 
+
+    public string $defaultSortColumn = 'updated_at';
+
+    public string $defaultSortDirection = 'desc';
 //
-//    public string $defaultSortColumn = 'meeting';
-//
-//    public string $defaultSortDirection = 'desc';
-//
-//    public function submitDelete($rowId)
-//    {
-//        $this->rowId = $rowId;
-//
-//        $this->alert('question', 'Are you sure?', [
-//            'position' => 'center',
-//            'showConfirmButton' => true,
-//            'confirmButtonText'=>'Delete',
-//            'onConfirmed'=> 'confirmed',
-//            'showCancelButton' => true,
-//            'timer' => null,
-//        ]);
-//    }
-//
-//    public function confirmed()
-//    {
-//        $this->delete($this->rowId);
-//    }
-//
-//    protected $listeners = [
-//        'confirmed'
-//    ];
+    public function submitDelete($rowId)
+    {
+        $this->rowId = $rowId;
+
+        $this->alert('question', 'Are you sure?', [
+            'position' => 'center',
+            'showConfirmButton' => true,
+            'confirmButtonText'=>'Delete',
+            'onConfirmed'=> 'confirmed',
+            'showCancelButton' => true,
+            'timer' => null,
+        ]);
+    }
+
+    public function confirmed()
+    {
+        $this->delete($this->rowId);
+    }
+
+    protected $listeners = [
+        'confirmed'
+    ];
 //
     public function newResource(){}
 
     public function show($rowId)
     {
-        $title = Image::where('id', $rowId)->value('title');
-
+        $documents = Documents::where('id', $rowId)->get();
+        $category = $documents->value('category');
+        $documents_id = $documents->value('id');
         $this->imagesChild =
-            Image::where('children_id', $this->child_id)
-                ->where('title', $title)->get();
-
+            Image::where('documents_id', $documents_id)
+                ->where('category', $category)->get();
         $this->countMax = $this->imagesChild->count();
     }
 
@@ -153,11 +172,43 @@ class DocumentsTable extends LivewireTables
 //                'children_id' => $this->child_id,
             ]);
 
-            $image['children_id'] = $this->child_id;
-
             $image['path'] = $this->path->store('imageDocs');
+            $documents = Documents::where('category', $this->category)
+                                ->where('children_id', $this->child_id);
 
-            Image::updateOrCreate($image);
+            if($documents->value('category'))
+            {
+                $image['documents_id'] = $documents->value('id');
+                Image::updateOrCreate($image);
+            }
+            else{
+                Documents::create([
+                    'category' => $this->category,
+                    'children_id' => $this->child_id,
+                ]);
+                $documents = Documents::where('category', $this->category)
+                                    ->where('children_id', $this->child_id);
+                $image['documents_id'] = $documents->value('id');
+                Image::updateOrCreate($image);
+            }
+
+            $this->documents = Documents::where('children_id', $this->child_id)->first();
+
+            $this->query();
+
+//            dd($this->documents, $this->child_id);
+//
+//            $this->documents_id = $this->documents_id->value('id');
+//            $this->imagesChild =
+//                Image::where('documents_id', $this->documents_id)->get();
+//            $this->countMax = $this->imagesChild->count();
+//                dd('Documents::where( $this->category)->get()');
+
+//            $image['documents_id'] = $this->documents_id;
+
+//            $image['path'] = $this->path->store('imageDocs');
+
+//            Image::updateOrCreate($image);
 
 //            Health::updateOrCreate(['id' => $this->health_id], [
 //                'first_name' => $this->first_name,
@@ -166,16 +217,17 @@ class DocumentsTable extends LivewireTables
 //                'meeting' => $this->meeting,
 //                'children_id' => $this->child_id,
 //            ]);
+//            $this->query()->make();
 
             $this->alert('success',
-                $this->health_id ?
+                $this->documents_id ?
                     'Documents to ' . $this->title . ' updated.' :
                     'Documents to ' . $this->title. ' created.', [
                     'position' => 'center',
                 ]);
         }
 
-//        $this->resetModal();
+        $this->resetModal();
 
         $this->showingModal = false;
     }
@@ -197,16 +249,15 @@ class DocumentsTable extends LivewireTables
     {
         $this->showingModal = false;
 
-//        $this->resetModal();
+        $this->resetModal();
     }
 //
-//    private function resetModal(){
-//        $this->health_id = 0;
-//        $this->first_name = '';
-//        $this->last_name = '';
-//        $this->specialization = '';
-//        $this->meeting = null;
-//        $this->children_id = 0;
-//    }
+    private function resetModal(){
+        $this->documents_id = 0;
+        $this->title = '';
+        $this->category = '';
+        $this->path = '';
+        $this->children_id = 0;
+    }
 //    //Modal End
 }

@@ -15,11 +15,12 @@
     <x-jet-dialog-modal wire:model="showingModal" >
 
         <x-slot name="title">
-            @if($health_id)
-                {{ __('Edit Documents') }}
-            @else
+{{--            @if($documents_id)--}}
+{{--                {{ __('Edit Documents') }}--}}
+{{--            @else--}}
+{{--                {{ __('Create Documents') }}--}}
+{{--            @endif--}}
                 {{ __('Create Documents') }}
-            @endif
         </x-slot>
 
         <x-slot name="content">

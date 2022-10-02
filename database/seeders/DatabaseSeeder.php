@@ -29,6 +29,7 @@ class DatabaseSeeder extends Seeder
          //   TeamFactory::class,
             ChildSeeder::class,
             EvolutionSeeder::class,
+            DocumentsSeeder::class,
             ImageSeeder::class,
             HealthSeeder::class,
         ]);

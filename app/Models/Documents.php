@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Image extends Model
+class Documents extends Model
 {
     use HasFactory;
 
@@ -15,14 +15,12 @@ class Image extends Model
      * @var string[]
      */
     protected $fillable = [
-        'title',
         'category',
-        'path',
-        'documents_id',
+        'children_id',
     ];
 
     public function children(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(Documents::class);
+        return $this->belongsTo(Child::class);
     }
 }
