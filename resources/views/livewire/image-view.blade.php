@@ -1,4 +1,5 @@
-<div class="w-1/2 p-4 border-amber-400 border-2 rounded-md flex justify-items-center flex-col">
+{{--<div class="w-1/2 p-4 border-amber-400 border-2 rounded-md flex justify-items-center flex-col">--}}
+<div class="w-1/2 p-4 flex justify-items-center flex-col">
     <div class="flex mb-4 justify-between">
         <div class="">
             <x-jet-secondary-button wire:click="countMinus()" wire:loading.attr="disabled">
@@ -36,18 +37,22 @@
             </x-jet-secondary-button>
         </div>
     </div>
-    <div>
+    <div class="flex justify-center">
 {{--        <div>--}}
 {{--            <h1>document_id = {{$documents_id}}</h1>--}}
 {{--            <h1>document_id = {{$test_documents_id}}</h1>--}}
 {{--            <h1>child_id = {{$child_id}}</h1>--}}
 {{--            <h1>imagesChild = {{$imagesChild}}</h1>--}}
 {{--        </div>--}}
+{{--        <h1>{{$imagesChild}}</h1>--}}
+{{--        <h1>{{$test_image}}</h1>--}}
+{{--        <h1>{{$test_image}}</h1>--}}
         @if($imagesChild)
             <img
+{{--                class="w-full h-full object-cover"--}}
                 src="{{URL::asset('storage/'.$imagesChild[$count]->path)}}"
                 alt="image of {{$imagesChild[$count]->title}}"
-                width="100%" height="100%" class="object-contain"
+{{--                width="100%" height="100%" class="object-cover"--}}
             >
         @else
             <div class="flex justify-center">

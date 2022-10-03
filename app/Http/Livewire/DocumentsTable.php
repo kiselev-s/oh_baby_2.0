@@ -6,6 +6,7 @@ use App\Http\Controllers\ChildController;
 use App\Models\Health;
 use App\Models\Documents;
 use App\Models\Image;
+use Cassandra\Rows;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Carbon;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
@@ -26,66 +27,78 @@ class DocumentsTable extends LivewireTables
     public $showImage = true;
     public $count = 0, $countMax = 0;
 
-    public $child_id, $user_id, $team_id, $path, $title, $category;
+    public $child, $child_id, $user_id, $team_id, $path, $title, $category;
 
     public $imagesChild;
 
     public $documents, $documents_id;
 
-    public $test_documents, $test_documents_id, $test_child_id;
+    public $test_documents, $test_documents_id, $imagePreview, $test_child_id;
 
 //    public $imagePreview;
 
     // Table Start
     public function query(): Builder
     {
-        $data = ChildController::data();
-        $child = $data['child'];
-        $this->team_id = $data['team_id'];
-        $this->user_id = $data['user']->id;
+        $this->getData();
 
-        if($child) {
-            $id = $child->id;
-            $this->child_id = $id;
+        if($this->child) {
+//            $id = $this->child->id;
+//            $this->child_id = $id;
+            $this->child_id = $this->child->id;
+            $this->setPreview();
 
             $this->documents =
-                Documents::where('children_id', $this->child_id)->first();
+                Documents::where('children_id', $this->child_id)
+                    ->first();
 
-            if($this->documents) {
-                $this->documents_id =
-                    Documents::where('children_id', $this->child_id)->value('id');
-                $this->imagesChild =
-                    Image::where('documents_id', $this->documents_id)->get();
-                $this->countMax = $this->imagesChild->count();
-            }
-            else {}
+            if($this->documents)
+                $this->setImages();
 
-            return Documents::query()->where('children_id', $id);
+            return Documents::query()->where('children_id', $this->child_id);
+//            return Documents::query()->where('children_id', $id);
         }
         else{
             return Documents::query()->where('children_id', 0);
         }
     }
 
-//    public function preview()
-//    {
-//        foreach ($this->documents as $document)
-//        {
-//            $this->imagePreview
-//        }
-//    }
+    private function setPreview()
+    {
+        $documents =
+            Documents::where('children_id', $this->child_id)->pluck('id');
+        for ($i=0; $i< $documents->count(); $i++)
+        {
+            $this->imagePreview[$documents[$i]] =
+                Image::where('documents_id', $documents[$i])->value('path');
+        }
+    }
+
+    private function setImages()
+    {
+        $this->documents_id =
+            Documents::where('children_id', $this->child_id)->value('id');
+        $this->imagesChild =
+            Image::where('documents_id', $this->documents_id)->get();
+        $this->countMax = $this->imagesChild->count();
+    }
+
+    private function getData()
+    {
+        $data = ChildController::data();
+        $this->child = $data['child'];
+        $this->team_id = $data['team_id'];
+        $this->user_id = $data['user']->id;
+    }
 
     public function columns(): array
     {
         return [
 //            Column::make('#', 'id')->sortable(),
             Column::make('Category','category')->sortable()->searchable(),
-            Column::make('Avatar')
-                ->sortable()
-                ->searchable()
-                ->render(fn() => view('livewire.image-preview', ['imagesChild' => $this->imagesChild])),
-//            Column::make('Category','category')->sortable()->searchable(),
-//            Column::make('children_id')->sortable()->searchable(),
+            Column::make('Preview')
+                ->render(fn(Documents $documents) => view('livewire.image-preview',
+                    ['preview' => $this->imagePreview, 'id' => $documents->id])),
             Column::make('Created', 'created_at')->sortable()->format(fn(Carbon $v) => $v->diffForHumans()),
 
             Action::make()->hideEditButton(),
@@ -96,6 +109,10 @@ class DocumentsTable extends LivewireTables
     public string $defaultSortColumn = 'updated_at';
 
     public string $defaultSortDirection = 'desc';
+
+    public array $perPageOptions = [5, 10, 15, 20];
+
+    public int $perPage = 5;
 //
     public function submitDelete($rowId)
     {
@@ -124,6 +141,7 @@ class DocumentsTable extends LivewireTables
 
     public function show($rowId)
     {
+        $this->count = 0;
         $documents = Documents::where('id', $rowId)->get();
         $category = $documents->value('category');
         $documents_id = $documents->value('id');
@@ -154,47 +172,49 @@ class DocumentsTable extends LivewireTables
 //
 //    //Modal Start
     public function showModal(){
-        $this->showingModal = true;
+        if($this->child_id) {
+            $this->showingModal = true;
+        }
+        else {
+            $this->alert('warning', 'Child not selected', [
+                'position' => 'center',
+            ]);
+        }
     }
 //
     public function store()
     {
-        if(!$this->child_id) {
-            $this->alert('warning', 'Child not selected', [
-                    'position' => 'center',
-                ]);
-        }
-        else {
-            $image = $this->validate([
-                'path' => 'image|max:2048', // 2MB Max
-                'title' => 'required',
-                'category' => 'required',
+        $image = $this->validate([
+            'path' => 'image|max:2048', // 2MB Max
+            'title' => 'required',
+            'category' => 'required',
 //                'children_id' => $this->child_id,
-            ]);
+        ]);
 
-            $image['path'] = $this->path->store('imageDocs');
+        $image['path'] = $this->path->store('imageDocs');
+        $documents = Documents::where('category', $this->category)
+                            ->where('children_id', $this->child_id);
+
+        if($documents->value('category'))
+        {
+            $image['documents_id'] = $documents->value('id');
+            Image::updateOrCreate($image);
+        }
+        else{
+            Documents::create([
+                'category' => $this->category,
+                'children_id' => $this->child_id,
+            ]);
             $documents = Documents::where('category', $this->category)
                                 ->where('children_id', $this->child_id);
+            $image['documents_id'] = $documents->value('id');
+            Image::updateOrCreate($image);
+        }
 
-            if($documents->value('category'))
-            {
-                $image['documents_id'] = $documents->value('id');
-                Image::updateOrCreate($image);
-            }
-            else{
-                Documents::create([
-                    'category' => $this->category,
-                    'children_id' => $this->child_id,
-                ]);
-                $documents = Documents::where('category', $this->category)
-                                    ->where('children_id', $this->child_id);
-                $image['documents_id'] = $documents->value('id');
-                Image::updateOrCreate($image);
-            }
+        $this->documents = Documents::where('children_id', $this->child_id)
+            ->first();
 
-            $this->documents = Documents::where('children_id', $this->child_id)->first();
-
-            $this->query();
+        $this->query();
 
 //            dd($this->documents, $this->child_id);
 //
@@ -225,7 +245,7 @@ class DocumentsTable extends LivewireTables
                     'Documents to ' . $this->title. ' created.', [
                     'position' => 'center',
                 ]);
-        }
+//        }
 
         $this->resetModal();
 
