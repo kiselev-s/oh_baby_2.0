@@ -12,5 +12,6 @@
     @foreach($children as $child)
         <div>{{$child->first_name}}</div>
     @endforeach
-    @livewire('upload-photo')
+    {{--    @livewire('upload-photo')--}}
+    @include('sliders.image-view-2')
 </div>

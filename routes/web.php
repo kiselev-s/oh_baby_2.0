@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\SliderController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
 
@@ -18,6 +19,8 @@ use App\Http\Controllers\MainController;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('sliders', [SliderController::class,'index'])->name('sliders');
 
 Route::middleware([
     'auth:sanctum',

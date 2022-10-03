@@ -22,6 +22,8 @@
 {{--        <!-- AlpineJS javascript -->--}}
 {{--        <script src="//cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>--}}
 
+        @stack('styles')
+
     </head>
     <body class="font-sans antialiased">
         <x-jet-banner />
@@ -50,5 +52,7 @@
         <!-- For Alert -->
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <x-livewire-alert::scripts />
+
+        @stack('scripts')
     </body>
 </html>
