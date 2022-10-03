@@ -4,7 +4,7 @@
         href="https://unpkg.com/swiper/swiper-bundle.min.css"
     />
 @endpush
-<div class="w-1/2">
+<div class="w-1/2 mt-4">
     <div class="flex absolute z-10">
         <div class="flex">
             <a
