@@ -52,7 +52,7 @@
             </div>
             @if($showImage)
         </div>
-        {{--        @include('livewire.image-view')--}}
-        @include('sliders.image-view-3')
+{{--                @include('livewire.image-view')--}}
+        @include('sliders.image-view-6')
     </div>
 @endif
