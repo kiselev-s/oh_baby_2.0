@@ -22,21 +22,21 @@
 {{--        <!-- AlpineJS javascript -->--}}
 {{--        <script src="//cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>--}}
 
-        @stack('styles')
+{{--        @stack('styles')--}}
 
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tw-elements/dist/css/index.min.css" />
         <script src="https://cdn.tailwindcss.com"></script>
-        <script>
-            tailwind.config = {
-                theme: {
-                    extend: {
-                        fontFamily: {
-                            sans: ['Inter', 'sans-serif'],
-                        },
-                    }
-                }
-            }
-        </script>
+{{--        <script>--}}
+{{--            tailwind.config = {--}}
+{{--                theme: {--}}
+{{--                    extend: {--}}
+{{--                        fontFamily: {--}}
+{{--                            sans: ['Inter', 'sans-serif'],--}}
+{{--                        },--}}
+{{--                    }--}}
+{{--                }--}}
+{{--            }--}}
+{{--        </script>--}}
 
     </head>
     <body class="font-sans antialiased">
@@ -67,8 +67,8 @@
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <x-livewire-alert::scripts />
 
-        @stack('scripts')
-
+{{--        @stack('scripts')--}}
+        <!-- For Carousel -->
         <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/index.min.js"></script>
     </body>
 </html>

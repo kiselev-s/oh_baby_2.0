@@ -30,6 +30,7 @@ class DocumentsTable extends LivewireTables
     public $child, $child_id, $user_id, $team_id, $path, $title, $category;
 
     public $imagesChild;
+    public $indexImage = 0;
 
     public $documents, $documents_id;
 
@@ -280,4 +281,26 @@ class DocumentsTable extends LivewireTables
         $this->children_id = 0;
     }
 //    //Modal End
+
+    public function editImage($id)
+    {
+        dump('EditImage= ', $id);
+//        $health = Health::findOrFail($id);
+//        $this->health_id = $id;
+//        $this->first_name = $health->first_name;
+//        $this->last_name = $health->last_name;
+//        $this->specialization = $health->specialization;
+//        $this->meeting = $health->meeting;
+//        $this->children_id = $health->children_id;
+//
+//        $this->showModal();
+    }
+
+    public function showImage($id)
+    {
+        $this->alert('success',
+            'edit ' . $id, [
+                'position' => 'center',
+            ]);
+    }
 }
