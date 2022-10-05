@@ -6,7 +6,7 @@
                     type="button"
                     data-bs-target="#carouselExampleCaptions"
                     data-bs-slide-to={{$key}}
-                    class="active"
+                    class="{{ $loop->first ? ' active' : '' }}"
                     aria-current="true"
                     aria-label="Slide {{$key}}"
                 ></button>
