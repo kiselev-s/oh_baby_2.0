@@ -36,6 +36,7 @@
                                         @elseif($this->hasNewResource() && $showImage)
                                             @include('livewire.Modals.add-docs')
                                             @include('livewire.Modals.edit-docs')
+                                            @include('livewire.Modals.edit-image')
                                         @endif
                                         {{--                            @includeWhen($this->hasNewResource(),'livewire.add-health')--}}
                                     </div>

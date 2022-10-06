@@ -11,15 +11,20 @@
 {{--        </svg>--}}
 {{--    </a>--}}
 
-    <x-jet-dialog-modal wire:model="showingEditModal" >
+    <x-jet-dialog-modal wire:model="showingEditImageModal" >
 
         <x-slot name="title">
             @if($documents_id)
-                {{ __('Edit Documents') }}
+                {{ __('Edit Image') }}
             @endif
         </x-slot>
 
         <x-slot name="content">
+            <div class="col-span-6 sm:col-span-4">
+                <x-jet-label for="title" value="{{ __('Title') }}" />
+                <x-jet-input id="title" type="text" class="mt-1 block w-full" wire:model.defer="title" autocomplete="title" />
+                <x-jet-input-error for="title" class="mt-2" />
+            </div>
 
             <div class="col-span-6 sm:col-span-4 mt-3">
                 <x-jet-label for="category" value="{{ __('Category') }}" />
@@ -27,22 +32,39 @@
                 <x-jet-input-error for="category" class="mt-2" />
             </div>
 
+            <div class="col-span-6 sm:col-span-4 mt-3">
+                <x-jet-label for="category" value="{{ __('Category') }}" />
+                <select wire:model="category" id="category" class="mt-1 w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm">
+{{--                    <option selected="">Choose category</option>--}}
+                    @foreach($documents as $document)
+                    <option>{{value($document->category)}}</option>
+{{--                    <option value="0">Women</option>--}}
+                    @endforeach
+                </select>
+                <x-jet-input-error for="category" class="mt-2" />
+            </div>
+
             <div class="flex flex-row flex-wrap mt-3">
-                @foreach($imagesChild as $key => $image)
-                    <div class="p-1">
+                <div class="p-1">
+                    @if($this->image_id != -1)
                         <img
-                             src="{{URL::asset('storage/'.$image->path)}}"
+                             src="{{URL::asset('storage/'.$imagesChild[$this->image_id]->path)}}"
                              class="block rounded"
-                             width="100px"
+                             width="650px"
                              alt="..."
                         />
-                    </div>
-                @endforeach
+                    @endif
+                </div>
             </div>
 
         </x-slot>
 
         <x-slot name="footer">
+            <div class="mr-4">
+                <x-jet-danger-button wire:click="store()" wire:loading.attr="disabled">
+                    {{ __('Delete')  }}
+                </x-jet-danger-button>
+            </div>
             <div class="mr-4">
                 <x-jet-button wire:click="store()" wire:loading.attr="disabled">
                     {{ __('Save')  }}

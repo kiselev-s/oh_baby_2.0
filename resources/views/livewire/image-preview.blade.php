@@ -7,7 +7,9 @@
 {{--    >--}}
     <div class="w-12 h-12">
 {{--        <img class="w-full h-full object-cover rounded-full" src='{{URL::asset('storage/'.$imagesChild[0]->path)}}'>--}}
-        <img class="w-full h-full object-cover rounded-full" src='{{URL::asset('storage/'.$preview[$id])}}'>
+        <img wire:click="showEditModal({{$id}})"
+            class="w-full h-full object-cover rounded-full cursor-pointer"
+            src='{{URL::asset('storage/'.$preview[$id])}}'>
     </div>
 {{--</div>--}}
 </div>

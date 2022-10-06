@@ -16,9 +16,10 @@
             @foreach($imagesChild as $key => $image)
             <div class="carousel-item float-left w-full{{ $loop->first ? ' active' : '' }} {{ $loop->first ? $indexImage = $key : '' }}">
 {{--                <img wire:click="showImage({{$key}})"--}}
-                <img wire:click="showEditModal({{$key}})"
+                <img
+                    wire:click="showEditImage({{$key}})"
                     src="{{URL::asset('storage/'.$image->path)}}"
-                        class="block w-full rounded"
+                    class="block w-full rounded"
                     alt="..."
                 />
             </div>

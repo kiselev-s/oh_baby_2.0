@@ -25,6 +25,7 @@ class DocumentsTable extends LivewireTables
 
     public $showingModal = false;
     public $showingEditModal = false;
+    public $showingEditImageModal = false;
     public $showImage = true;
 //    public $count = 0, $countMax = 0;
 
@@ -33,9 +34,9 @@ class DocumentsTable extends LivewireTables
     public $imagesChild;
     public $indexImage = 0;
 
-    public $documents, $documents_id;
+    public $document, $documents_id;
 
-    public $test_documents, $test_documents_id, $imagePreview;//, $test_child_id;
+    public $image_id = -1, $test_documents_id, $imagePreview;//, $test_child_id;
 
 //    public $imagePreview;
 
@@ -51,10 +52,10 @@ class DocumentsTable extends LivewireTables
             $this->setPreview();
 
             $this->documents =
-                Documents::where('children_id', $this->child_id)
-                    ->first();
+                Documents::where('children_id', $this->child_id)->get();
+            $this->document = $this->documents->first();
 
-            if($this->documents)
+            if($this->document)
                 $this->setImages();
 
             return Documents::query()->where('children_id', $this->child_id);
@@ -189,8 +190,12 @@ class DocumentsTable extends LivewireTables
         }
     }
 
-    public function showEditModal(){
+    public function showEditModal($id){
         if($this->child_id) {
+            $this->imagesChild =
+                Image::where('documents_id', $id)
+                    ->orderBy('updated_at', 'desc')
+                    ->get();
             $this->showingEditModal = true;
         }
         else {
@@ -229,7 +234,7 @@ class DocumentsTable extends LivewireTables
             Image::updateOrCreate($image);
         }
 
-        $this->documents = Documents::where('children_id', $this->child_id)
+        $this->document = Documents::where('children_id', $this->child_id)
             ->first();
 
         $this->query();
@@ -287,6 +292,8 @@ class DocumentsTable extends LivewireTables
     {
         $this->showingModal = false;
         $this->showingEditModal = false;
+        $this->showingEditImageModal = false;
+        $this->image_id = -1;
 
         $this->resetModal();
     }
@@ -314,11 +321,15 @@ class DocumentsTable extends LivewireTables
 //        $this->showModal();
     }
 
-    public function showImage($id)
+    public function showEditImage($id)
     {
-        $this->alert('success',
-            'edit ' . $id, [
-                'position' => 'center',
-            ]);
+        $this->image_id = $id;
+        $this->title = $this->imagesChild[$id]->title;
+        $this->category = $this->imagesChild->value('category');
+        $this->showingEditImageModal = true;
+//        $this->alert('success',
+//            'edit ' . $id, [
+//                'position' => 'center',
+//            ]);
     }
 }
