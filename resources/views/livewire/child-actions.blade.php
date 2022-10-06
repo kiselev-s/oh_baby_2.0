@@ -1,6 +1,6 @@
 @if (Laravel\Jetstream\Jetstream::hasTeamFeatures())
     <div class="flex">
-        @include('livewire.add-child')
+        @include('livewire.Modals.add-child')
             <div>
             @if($team_id)
                 <div class="flex mt-0.5">

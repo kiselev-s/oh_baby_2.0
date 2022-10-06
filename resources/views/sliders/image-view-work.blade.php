@@ -15,7 +15,8 @@
         <div class="carousel-inner w-full overflow-hidden card-img rounded bg-gray-100" wire:model="indexImage">
             @foreach($imagesChild as $key => $image)
             <div class="carousel-item float-left w-full{{ $loop->first ? ' active' : '' }} {{ $loop->first ? $indexImage = $key : '' }}">
-                <img wire:click="showImage({{$key}})"
+{{--                <img wire:click="showImage({{$key}})"--}}
+                <img wire:click="showEditModal({{$key}})"
                     src="{{URL::asset('storage/'.$image->path)}}"
                         class="block w-full rounded"
                     alt="..."

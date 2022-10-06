@@ -24,8 +24,9 @@ class DocumentsTable extends LivewireTables
     public $rowId;
 
     public $showingModal = false;
+    public $showingEditModal = false;
     public $showImage = true;
-    public $count = 0, $countMax = 0;
+//    public $count = 0, $countMax = 0;
 
     public $child, $child_id, $user_id, $team_id, $path, $title, $category;
 
@@ -34,7 +35,7 @@ class DocumentsTable extends LivewireTables
 
     public $documents, $documents_id;
 
-    public $test_documents, $test_documents_id, $imagePreview, $test_child_id;
+    public $test_documents, $test_documents_id, $imagePreview;//, $test_child_id;
 
 //    public $imagePreview;
 
@@ -71,16 +72,21 @@ class DocumentsTable extends LivewireTables
         for ($i=0; $i< $documents->count(); $i++)
         {
             $this->imagePreview[$documents[$i]] =
-                Image::where('documents_id', $documents[$i])->value('path');
+                Image::where('documents_id', $documents[$i])
+                    ->orderBy('updated_at', 'desc')
+                    ->value('path');
         }
     }
 
     private function setImages()
     {
         $this->documents_id =
-            Documents::where('children_id', $this->child_id)->value('id');
+            Documents::where('children_id', $this->child_id)
+                ->value('id');
         $this->imagesChild =
-            Image::where('documents_id', $this->documents_id)->get();
+            Image::where('documents_id', $this->documents_id)
+                ->orderBy('updated_at', 'desc')
+                ->get();
         $this->countMax = $this->imagesChild->count();
     }
 
@@ -152,21 +158,21 @@ class DocumentsTable extends LivewireTables
         $this->countMax = $this->imagesChild->count();
     }
 
-    public function countMinus()
-    {
-        if($this->count == 0)
-            $this->count = $this->countMax-1;
-        else
-            $this->count--;
-    }
-
-    public function countPlus()
-    {
-        if($this->count == $this->countMax-1)
-            $this->count = 0;
-        else
-            $this->count++;
-    }
+//    public function countMinus()
+//    {
+//        if($this->count == 0)
+//            $this->count = $this->countMax-1;
+//        else
+//            $this->count--;
+//    }
+//
+//    public function countPlus()
+//    {
+//        if($this->count == $this->countMax-1)
+//            $this->count = 0;
+//        else
+//            $this->count++;
+//    }
 //
 //    //    public bool $debugEnabled = true;
 //    //Table End
@@ -175,6 +181,17 @@ class DocumentsTable extends LivewireTables
     public function showModal(){
         if($this->child_id) {
             $this->showingModal = true;
+        }
+        else {
+            $this->alert('warning', 'Child not selected', [
+                'position' => 'center',
+            ]);
+        }
+    }
+
+    public function showEditModal(){
+        if($this->child_id) {
+            $this->showingEditModal = true;
         }
         else {
             $this->alert('warning', 'Child not selected', [
@@ -269,6 +286,7 @@ class DocumentsTable extends LivewireTables
     public function cancel()
     {
         $this->showingModal = false;
+        $this->showingEditModal = false;
 
         $this->resetModal();
     }

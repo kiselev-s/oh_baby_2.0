@@ -32,9 +32,10 @@
                                     <div class="flex justify-end">
                                         {{--                            @includeWhen($this->hasNewResource(),'livewire-tables::tailwind.includes.new-resource')--}}
                                         @if($this->hasNewResource() && !$showImage)
-                                            @include('livewire.add-health')
+                                            @include('livewire.Modals.add-health')
                                         @elseif($this->hasNewResource() && $showImage)
-                                            @include('livewire.add-docs')
+                                            @include('livewire.Modals.add-docs')
+                                            @include('livewire.Modals.edit-docs')
                                         @endif
                                         {{--                            @includeWhen($this->hasNewResource(),'livewire.add-health')--}}
                                     </div>
