@@ -21,7 +21,7 @@ class DocumentsTable extends LivewireTables
 
     use WithFileUploads;
 
-    public $rowId;
+    public $rowId, $imageId;
 
     public $showingModal = false;
     public $showingEditModal = false;
@@ -142,9 +142,37 @@ class DocumentsTable extends LivewireTables
     }
 
     protected $listeners = [
-        'confirmed'
+        'confirmed',
+        'confirmedDeleteImage',
     ];
-//
+
+    public function submitDeleteImage($Id)
+    {
+        $this->imageId = $Id;
+
+        $this->alert('question', 'Are you sure?', [
+            'position' => 'center',
+            'showConfirmButton' => true,
+            'confirmButtonText'=>'Delete',
+            'onConfirmed'=> 'confirmedDeleteImage',
+            'showCancelButton' => true,
+            'timer' => null,
+        ]);
+    }
+
+    public function confirmedDeleteImage()
+    {
+        $title_image = Image::where('id', $this->imageId)->value('title');
+        Image::find($this->imageId)->delete();
+
+        $this->alert('success', 'Image ' . $title_image . ' deleted', [
+            'position' => 'center',
+        ]);
+
+        $this->query();
+        $this->showingEditImageModal = false;
+    }
+
     public function newResource(){}
 
     public function show($rowId)
@@ -196,6 +224,7 @@ class DocumentsTable extends LivewireTables
                 Image::where('documents_id', $id)
                     ->orderBy('updated_at', 'desc')
                     ->get();
+            $this->category = $this->imagesChild->value('category');
             $this->showingEditModal = true;
         }
         else {
@@ -307,18 +336,21 @@ class DocumentsTable extends LivewireTables
     }
 //    //Modal End
 
-    public function editImage($id)
+    public function saveEditedImage($id)
     {
-        dump('EditImage= ', $id);
-//        $health = Health::findOrFail($id);
-//        $this->health_id = $id;
-//        $this->first_name = $health->first_name;
-//        $this->last_name = $health->last_name;
-//        $this->specialization = $health->specialization;
-//        $this->meeting = $health->meeting;
-//        $this->children_id = $health->children_id;
-//
-//        $this->showModal();
+        $tempImage = Image::where('id', $id)->get();
+        $image = $this->validate([
+            'title' => 'required',
+            'category' => 'required',
+        ]);
+        $image['documents_id'] = $tempImage->value('documents_id');
+        $image['path'] = $tempImage->value('path');
+        Image::updateOrCreate(['id' => $id], $image);
+//        $this->imagesChild =
+//            Image::where('documents_id', $this->documents_id)
+//                ->orderBy('updated_at', 'desc')
+//                ->get();
+        $this->showingEditImageModal = false;
     }
 
     public function showEditImage($id)

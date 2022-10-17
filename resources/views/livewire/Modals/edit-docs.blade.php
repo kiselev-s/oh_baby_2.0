@@ -14,9 +14,9 @@
     <x-jet-dialog-modal wire:model="showingEditModal" >
 
         <x-slot name="title">
-            @if($documents_id)
-                {{ __('Edit Documents') }}
-            @endif
+{{--            @if($documents_id)--}}
+                {{ __('Edit Document') }}
+{{--            @endif--}}
         </x-slot>
 
         <x-slot name="content">

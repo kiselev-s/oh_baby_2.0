@@ -14,9 +14,9 @@
     <x-jet-dialog-modal wire:model="showingEditImageModal" >
 
         <x-slot name="title">
-            @if($documents_id)
+{{--            @if($documents_id)--}}
                 {{ __('Edit Image') }}
-            @endif
+{{--            @endif--}}
         </x-slot>
 
         <x-slot name="content">
@@ -26,11 +26,11 @@
                 <x-jet-input-error for="title" class="mt-2" />
             </div>
 
-            <div class="col-span-6 sm:col-span-4 mt-3">
-                <x-jet-label for="category" value="{{ __('Category') }}" />
-                <x-jet-input id="category" type="text" class="mt-1 block w-full" wire:model.defer="category" autocomplete="category" />
-                <x-jet-input-error for="category" class="mt-2" />
-            </div>
+{{--            <div class="col-span-6 sm:col-span-4 mt-3">--}}
+{{--                <x-jet-label for="category" value="{{ __('Category') }}" />--}}
+{{--                <x-jet-input id="category" type="text" class="mt-1 block w-full" wire:model.defer="category" autocomplete="category" />--}}
+{{--                <x-jet-input-error for="category" class="mt-2" />--}}
+{{--            </div>--}}
 
             <div class="col-span-6 sm:col-span-4 mt-3">
                 <x-jet-label for="category" value="{{ __('Category') }}" />
@@ -60,16 +60,18 @@
         </x-slot>
 
         <x-slot name="footer">
-            <div class="mr-4">
-                <x-jet-danger-button wire:click="store()" wire:loading.attr="disabled">
-                    {{ __('Delete')  }}
-                </x-jet-danger-button>
-            </div>
-            <div class="mr-4">
-                <x-jet-button wire:click="store()" wire:loading.attr="disabled">
-                    {{ __('Save')  }}
-                </x-jet-button>
-            </div>
+            @if($this->image_id != -1)
+                <div class="mr-4">
+                    <x-jet-danger-button wire:click="submitDeleteImage({{$imagesChild[$this->image_id]->id}})" wire:loading.attr="disabled">
+                        {{ __('Delete')  }}
+                    </x-jet-danger-button>
+                </div>
+                <div class="mr-4">
+                    <x-jet-button wire:click="saveEditedImage({{$imagesChild[$this->image_id]->id}})" wire:loading.attr="disabled">
+                        {{ __('Save')  }}
+                    </x-jet-button>
+                </div>
+            @endif
             <div class="">
                 <x-jet-secondary-button wire:click="cancel()" wire:loading.attr="disabled">
                     {{ __('Cancel')  }}
