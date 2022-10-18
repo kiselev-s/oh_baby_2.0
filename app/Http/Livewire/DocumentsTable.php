@@ -34,11 +34,9 @@ class DocumentsTable extends LivewireTables
     public $imagesChild;
     public $indexImage = 0;
 
-    public $document, $documents_id;
+    public $documents, $document, $documents_id;
 
     public $image_id = -1, $test_documents_id, $imagePreview;//, $test_child_id;
-
-//    public $imagePreview;
 
     // Table Start
     public function query(): Builder
@@ -68,9 +66,9 @@ class DocumentsTable extends LivewireTables
 
     private function setPreview()
     {
-        $documents =
-            Documents::where('children_id', $this->child_id)->pluck('id');
-        for ($i=0; $i< $documents->count(); $i++)
+        $documents = Documents::where('children_id', $this->child_id)
+                        ->pluck('id');
+        for ($i = 0; $i< $documents->count(); $i++)
         {
             $this->imagePreview[$documents[$i]] =
                 Image::where('documents_id', $documents[$i])
@@ -338,18 +336,15 @@ class DocumentsTable extends LivewireTables
 
     public function saveEditedImage($id)
     {
-        $tempImage = Image::where('id', $id)->get();
         $image = $this->validate([
             'title' => 'required',
             'category' => 'required',
         ]);
-        $image['documents_id'] = $tempImage->value('documents_id');
-        $image['path'] = $tempImage->value('path');
+        $image['documents_id'] = $this->documents->where('category', $image['category'])->value('id');
+        $image['path'] = Image::where('id', $id)->value('path');
         Image::updateOrCreate(['id' => $id], $image);
-//        $this->imagesChild =
-//            Image::where('documents_id', $this->documents_id)
-//                ->orderBy('updated_at', 'desc')
-//                ->get();
+
+        $this->setImages();
         $this->showingEditImageModal = false;
     }
 
