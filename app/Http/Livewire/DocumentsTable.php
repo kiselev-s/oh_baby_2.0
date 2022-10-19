@@ -360,10 +360,11 @@ class DocumentsTable extends LivewireTables
             $new_document_id = $this->documents->where('category', $this->category)->value('id');
             foreach ($this->imagesChild as $image){
                 $image['documents_id'] = $new_document_id;
-                Image::updateOrCreate(['id' => $image->id], $image->get()->values()->all());
+                $image['category'] = $this->category;
+                Image::updateOrCreate(['id' => $image->id], $image->toArray());
             }
-//            Documents::find($this->document_id)->delete();
-            dump($this->category, $this->imagesChild, $new_document_id, $this->document_id);
+            Documents::find($this->document_id)->delete();
+            $this->showingEditModal = false;
         }
     }
 
@@ -377,5 +378,10 @@ class DocumentsTable extends LivewireTables
 //            'edit ' . $id, [
 //                'position' => 'center',
 //            ]);
+    }
+
+    public function deleteImage($index)
+    {
+        dump($index);
     }
 }
