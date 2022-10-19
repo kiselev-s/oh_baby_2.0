@@ -9,6 +9,7 @@ use App\Models\Image;
 use Cassandra\Rows;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\WithFileUploads;
 use Luckykenlin\LivewireTables\Views\Action;
@@ -34,7 +35,7 @@ class DocumentsTable extends LivewireTables
     public $imagesChild;
     public $indexImage = 0;
 
-    public $documents, $document, $documents_id;
+    public $document, $document_id, $documents, $documents_id;
 
     public $image_id = -1, $test_documents_id, $imagePreview;//, $test_child_id;
 
@@ -224,6 +225,7 @@ class DocumentsTable extends LivewireTables
                     ->get();
             $this->category = $this->imagesChild->value('category');
             $this->showingEditModal = true;
+            $this->document_id = $id;
         }
         else {
             $this->alert('warning', 'Child not selected', [
@@ -245,8 +247,7 @@ class DocumentsTable extends LivewireTables
         $documents = Documents::where('category', $this->category)
                             ->where('children_id', $this->child_id);
 
-        if($documents->value('category'))
-        {
+        if($documents->value('category')){
             $image['documents_id'] = $documents->value('id');
             Image::updateOrCreate($image);
         }
@@ -346,6 +347,24 @@ class DocumentsTable extends LivewireTables
 
         $this->setImages();
         $this->showingEditImageModal = false;
+    }
+
+    public function saveEditedDocuments()
+    {
+        if($this->category === "") {
+            $this->alert('warning', 'Select or enter a category', [
+                'position' => 'center',
+            ]);
+        }
+        else {
+            $new_document_id = $this->documents->where('category', $this->category)->value('id');
+            foreach ($this->imagesChild as $image){
+                $image['documents_id'] = $new_document_id;
+                Image::updateOrCreate(['id' => $image->id], $image->get()->values()->all());
+            }
+//            Documents::find($this->document_id)->delete();
+            dump($this->category, $this->imagesChild, $new_document_id, $this->document_id);
+        }
     }
 
     public function showEditImage($id)

@@ -21,9 +21,21 @@
 
         <x-slot name="content">
 
+{{--            <div class="col-span-6 sm:col-span-4 mt-3">--}}
+{{--                <x-jet-label for="category" value="{{ __('Category') }}" />--}}
+{{--                <x-jet-input id="category" type="text" class="mt-1 block w-full" wire:model.defer="category" autocomplete="category" />--}}
+{{--                <x-jet-input-error for="category" class="mt-2" />--}}
+{{--            </div>--}}
+
             <div class="col-span-6 sm:col-span-4 mt-3">
-                <x-jet-label for="category" value="{{ __('Category') }}" />
-                <x-jet-input id="category" type="text" class="mt-1 block w-full" wire:model.defer="category" autocomplete="category" />
+{{--                <x-jet-label for="category" value="{{ __('Category') }} : {{$category}}" wire:model="category" />--}}
+                <x-jet-label for="category" value="{{ __('Category') }}"/>
+                <x-jet-input type="text" class="mt-1 block w-full" list="category-list" wire:model="category" autocomplete="category"/>
+                <datalist id="category-list">
+                    @foreach($documents as $document)
+                        <option>{{value($document->category)}}</option>
+                    @endforeach
+                </datalist>
                 <x-jet-input-error for="category" class="mt-2" />
             </div>
 
@@ -44,7 +56,7 @@
 
         <x-slot name="footer">
             <div class="mr-4">
-                <x-jet-button wire:click="store()" wire:loading.attr="disabled">
+                <x-jet-button wire:click="saveEditedDocuments()" wire:loading.attr="disabled">
                     {{ __('Save')  }}
                 </x-jet-button>
             </div>
