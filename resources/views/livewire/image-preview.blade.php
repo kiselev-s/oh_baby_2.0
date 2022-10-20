@@ -9,7 +9,9 @@
 {{--        <img class="w-full h-full object-cover rounded-full" src='{{URL::asset('storage/'.$imagesChild[0]->path)}}'>--}}
         <img wire:click="showEditModal({{$id}})"
             class="w-full h-full object-cover rounded-full cursor-pointer"
-            src='{{URL::asset('storage/'.$preview[$id])}}'>
+{{--            @if(array_key_exists($id, $preview))--}}
+                src='{{URL::asset('storage/'.$preview[$id])}}'>
+{{--            @endif--}}
     </div>
 {{--</div>--}}
 </div>
