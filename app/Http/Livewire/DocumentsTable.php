@@ -30,7 +30,7 @@ class DocumentsTable extends LivewireTables
 
     public $child, $child_id, $user_id, $team_id, $path, $title, $category;
 
-    public $imagesChild;
+    public $imagesChild, $countMax;
     public $indexImage = 0;
 
     public $document, $document_id, $documents, $documents_id;
@@ -67,7 +67,7 @@ class DocumentsTable extends LivewireTables
     {
         $documents = Documents::where('children_id', $this->child_id)
                         ->pluck('id');
-        for ($i = 0; $i< $documents->count(); $i++)
+        for ($i = 0; $i < $documents->count(); $i++)
         {
             $this->imagePreview[$documents[$i]] =
                 Image::where('documents_id', $documents[$i])
@@ -176,7 +176,9 @@ class DocumentsTable extends LivewireTables
         $documents_id = $documents->value('id');
         $this->imagesChild =
             Image::where('documents_id', $documents_id)
-                ->where('category', $category)->get();
+                ->where('category', $category)
+                ->orderBy('updated_at', 'desc')
+                ->get();
         $this->countMax = $this->imagesChild->count();
     }
 //
@@ -261,6 +263,14 @@ class DocumentsTable extends LivewireTables
         $this->resetModal();
     }
 
+    public function cancelEditImage()
+    {
+        $this->showingEditImageModal = false;
+        $this->image_id = -1;
+
+        $this->resetModal();
+    }
+
     private function resetModal(){
         $this->documents_id = 0;
         $this->title = '';
@@ -281,6 +291,8 @@ class DocumentsTable extends LivewireTables
         Image::updateOrCreate(['id' => $id], $image);
 
         $this->setImages();
+
+        $this->query();
         $this->showingEditImageModal = false;
     }
 

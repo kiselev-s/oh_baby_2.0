@@ -44,9 +44,9 @@
                 <x-jet-input-error for="category" class="mt-2" />
             </div>
 
-            <div class="flex flex-row flex-wrap mt-3">
+            <div class="flex flex-row flex-wrap mt-3" wire:model="countMax">
                 <div class="p-1">
-                    @if($this->image_id != -1)
+                    @if($this->image_id != -1 && $this->image_id <= $countMax-1)
                         <img
                              src="{{URL::asset('storage/'.$imagesChild[$this->image_id]->path)}}"
                              class="block rounded"
@@ -60,7 +60,7 @@
         </x-slot>
 
         <x-slot name="footer">
-            @if($this->image_id != -1)
+            @if($this->image_id != -1 && $this->image_id <= $countMax-1)
                 <div class="mr-4">
                     <x-jet-danger-button wire:click="submitDeleteImage({{$imagesChild[$this->image_id]->id}})" wire:loading.attr="disabled">
                         {{ __('Delete')  }}
@@ -73,7 +73,7 @@
                 </div>
             @endif
             <div class="">
-                <x-jet-secondary-button wire:click="cancel()" wire:loading.attr="disabled">
+                <x-jet-secondary-button wire:click="cancelEditImage()" wire:loading.attr="disabled">
                     {{ __('Cancel')  }}
                 </x-jet-secondary-button>
             </div>

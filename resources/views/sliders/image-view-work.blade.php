@@ -1,6 +1,6 @@
 <div class="w-1/2">
-    <div id="carouselExampleCaptions" class="carousel slide relative p-4" data-bs-ride="carousel">
-        <div class="carousel-indicators absolute right-0 bottom-0 left-0 flex justify-center p-0 mb-4">
+    <div id="carouselExampleCaptions" class="carousel slide relative p-4" data-bs-ride="carousel" wire:model="imagesChild">
+        <div class="carousel-indicators absolute right-0 bottom-0 left-0 flex justify-center p-0 mb-4" >
             @foreach($imagesChild as $key => $image)
                 <button
                     type="button"
@@ -12,9 +12,11 @@
                 ></button>
             @endforeach
         </div>
-        <div class="carousel-inner w-full overflow-hidden card-img rounded bg-gray-100" wire:model="indexImage">
+        <div class="carousel-inner w-full overflow-hidden card-img rounded bg-gray-100">
             @foreach($imagesChild as $key => $image)
-            <div class="carousel-item float-left w-full{{ $loop->first ? ' active' : '' }} {{ $loop->first ? $indexImage = $key : '' }}">
+            <div class="carousel-item float-left w-full{{ $loop->first ? ' active' : '' }}
+{{--            {{ $loop->first ? $indexImage = $key : '' }}--}}
+                ">
 {{--                <img wire:click="showImage({{$key}})"--}}
                 <img
                     wire:click="showEditImage({{$key}})"

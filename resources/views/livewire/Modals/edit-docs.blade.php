@@ -40,7 +40,8 @@
             </div>
             {{--View Images--}}
             <div class="flex flex-row flex-wrap justify-center mt-3">
-                @foreach($imagesChild as $key => $image)
+{{--                @foreach($imagesChild as $key => $image)--}}
+                    @foreach($imagesChild as $image)
                     <div class="p-1">
                         <div class="flex absolute px-20">
                             <a
@@ -56,10 +57,11 @@
                         </div>
                         <div>
                             <img
-                                 src="{{URL::asset('storage/'.$image->path)}}"
-                                 class="block rounded"
-                                 width="115px"
-                                 alt="..."
+{{--                                wire:click="showEditImage({{$key}})"--}}
+                                src="{{URL::asset('storage/'.$image->path)}}"
+                                class="block rounded"
+                                width="115px"
+                                alt="..."
                             />
                         </div>
                     </div>
