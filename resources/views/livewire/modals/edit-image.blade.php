@@ -36,10 +36,12 @@
                 <x-jet-label for="category" value="{{ __('Category') }}" />
                 <select wire:model="category" id="category" class="mt-1 w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm">
 {{--                    <option selected="">Choose category</option>--}}
-                    @foreach($documents as $document)
-                    <option>{{value($document->category)}}</option>
-{{--                    <option value="0">Women</option>--}}
-                    @endforeach
+                    @if($documents != null)
+                        @foreach($documents as $document)
+                        <option>{{value($document->category)}}</option>
+    {{--                    <option value="0">Women</option>--}}
+                        @endforeach
+                    @endif
                 </select>
                 <x-jet-input-error for="category" class="mt-2" />
             </div>

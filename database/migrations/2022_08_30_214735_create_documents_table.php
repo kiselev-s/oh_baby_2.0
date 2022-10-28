@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('category');
             $table->unsignedBigInteger('children_id');
+            $table->boolean('selected');
 
             $table->timestamps();
 

@@ -17,6 +17,7 @@ class Documents extends Model
     protected $fillable = [
         'category',
         'children_id',
+        'selected'
     ];
 
     public function children(): \Illuminate\Database\Eloquent\Relations\BelongsTo

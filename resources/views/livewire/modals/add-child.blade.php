@@ -1,6 +1,5 @@
 <div>
     <a href="#"
-       {{--   wire:click.prevent="resolveNewResource"--}}
        wire:click="showModal()"
        type="button"
        class="inline-flex items-center shadow-sm ml-2 p-2 mr-2 rounded-full border-gray-300 border text-indigo-300 ease-in-out duration-150 hover:text-white bg-white hover:bg-indigo-500 focus:outline-none"

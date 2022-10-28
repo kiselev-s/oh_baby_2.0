@@ -32,11 +32,11 @@
                                     <div class="flex justify-end">
                                         {{--                            @includeWhen($this->hasNewResource(),'livewire-tables::tailwind.includes.new-resource')--}}
                                         @if($this->hasNewResource() && !$showImage)
-                                            @include('livewire.Modals.add-health')
+                                            @include('livewire.modals.add-health')
                                         @elseif($this->hasNewResource() && $showImage)
-                                            @include('livewire.Modals.add-docs')
-                                            @include('livewire.Modals.edit-docs')
-                                            @include('livewire.Modals.edit-image')
+                                            @include('livewire.modals.add-docs')
+                                            @include('livewire.modals.edit-docs')
+                                            @include('livewire.modals.edit-image')
                                         @endif
                                         {{--                            @includeWhen($this->hasNewResource(),'livewire.add-health')--}}
                                     </div>
@@ -55,6 +55,6 @@
             @if($showImage)
         </div>
 {{--                @include('livewire.image-view')--}}
-        @include('sliders.image-view-work')
+        @include('sliders.image-view')
     </div>
 @endif

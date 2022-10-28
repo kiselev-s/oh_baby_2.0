@@ -20,6 +20,7 @@ class DocumentsFactory extends Factory
         return [
             'category'=>$this->faker->word,
             'children_id'=>rand(1,Child::count()),
+            'selected' => rand(true, false),
         ];
     }
 }
