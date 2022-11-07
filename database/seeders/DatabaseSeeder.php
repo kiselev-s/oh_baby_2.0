@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Expense;
 use Database\Factories\TeamFactory;
 use Illuminate\Database\Seeder;
 
@@ -25,13 +26,15 @@ class DatabaseSeeder extends Seeder
         \App\Models\User::factory(10)->withPersonalTeam()->create();
 
         $this->call([
-         //   UserSeeder::class,
-         //   TeamFactory::class,
             ChildSeeder::class,
             EvolutionSeeder::class,
             DocumentsSeeder::class,
             ImageSeeder::class,
             HealthSeeder::class,
         ]);
+
+//        $this->call([
+//            Expense::class,
+//        ]);
     }
 }

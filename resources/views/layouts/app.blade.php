@@ -19,7 +19,7 @@
 {{--        <!-- TailwindCSS styles -->--}}
 {{--        <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">--}}
 
-{{--        <!-- AlpineJS javascript -->--}}
+        <!-- AlpineJS javascript -->
 {{--        <script src="//cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>--}}
 
 {{--        @stack('styles')--}}
@@ -71,5 +71,13 @@
 {{--        @stack('scripts')--}}
         <!-- For Carousel -->
         <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/index.min.js"></script>
+
+        <!-- For Charts -->
+{{--        @livewireCharts--}}
+        @livewireChartsScripts
+{{--        <livewire:livewire-charts/>--}}
+{{--        <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"></script>--}}
+{{--        <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>--}}
+
     </body>
 </html>
