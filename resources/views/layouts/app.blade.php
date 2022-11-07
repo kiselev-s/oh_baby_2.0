@@ -73,7 +73,7 @@
         <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/index.min.js"></script>
 
         <!-- For Charts -->
-{{--        @livewireCharts--}}
+        @livewireCharts
         @livewireChartsScripts
 {{--        <livewire:livewire-charts/>--}}
 {{--        <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"></script>--}}

@@ -1,7 +1,7 @@
 @if($showImage)
     <div class="flex flex-wrap">
         <div class="w-1/2 p-4">
-            @endif
+@endif
             <div>
                 <div
                     class="relative"
@@ -52,9 +52,8 @@
                 {{--    <x-livewire-tables::modals.delete-button-modal wire:model.defer="confirmDelete" :itemKey="$itemKey"/>--}}
 
             </div>
-            @if($showImage)
+@if($showImage)
         </div>
-{{--                @include('livewire.image-view')--}}
         @include('sliders.image-view')
     </div>
 @endif

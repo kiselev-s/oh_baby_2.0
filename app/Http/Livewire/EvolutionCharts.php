@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Livewire;
 use App\Models\Expense;
+use App\Models\Evolution;
 use Asantibanez\LivewireCharts\Models\AreaChartModel;
 use Asantibanez\LivewireCharts\Models\ColumnChartModel;
 use Asantibanez\LivewireCharts\Models\LineChartModel;
@@ -8,7 +9,7 @@ use Asantibanez\LivewireCharts\Models\PieChartModel;
 use Livewire\Component;
 class EvolutionCharts extends Component
 {
-    public $types = ['food', 'shopping', 'entertainment', 'travel', 'other'];
+//    public $types = ['8', 'food', 'shopping', 'entertainment', 'travel', 'other'];
     public $colors = [
         'food' => '#f6ad55',
         'shopping' => '#fc8181',
@@ -18,36 +19,49 @@ class EvolutionCharts extends Component
     ];
     public $firstRun = true;
 
+    public $showAdd = true;
+
+    public function add()
+    {
+        $this->showAdd = true;
+    }
+
+    public function store()
+    {
+        $this->showAdd = false;
+    }
+
+    public function cancel()
+    {
+        $this->showAdd = false;
+    }
+
     public function render()
     {
-        $expenses = Expense::whereIn('type', $this->types)->get();
+        $evolution = Evolution::where('children_id', 8)
+            ->orderBy('age_month', 'asc')
+            ->get();
 
-        $lineChartModel = $expenses
-            ->reduce(function (LineChartModel $lineChartModel, $data) use ($expenses) {
-                $index = $expenses->search($data);
-                $amountSum = $expenses->take($index + 1)->sum('amount');
-//                $lineChartModel->addPoint($index, $amountSum, ['id' => $data->id]);
-                $lineChartModel->addSeriesPoint('$index', $amountSum, ['id' => $data->id]);
-                $lineChartModel->addSeriesPoint('$index2', $amountSum, ['id' => $data->id]);
-//                $lineChartModel->addSeriesPoint($index, $amountSum, ['id' => $data->id]);
+        $ChartModel = $evolution
+            ->reduce(function (LineChartModel $lineChartModel, $data) use ($evolution) {
+
+                $lineChartModel->addSeriesPoint('Рост',$data->age_month, $data->growth, ['id' => $data]);
+                $lineChartModel->addSeriesPoint('Вес', $data->age_month, $data->weight, ['id' => $data]);
 
                 return $lineChartModel;
             }, (new LineChartModel())
-                ->setTitle('Expenses Evolution')
+                ->setTitle('Evolution relative to age')
                 ->setAnimated($this->firstRun)
                 ->setSmoothCurve()
                 ->multiLine()
-//                ->withOnPointClickEvent('onPointClick')
+                ->withOnPointClickEvent('onPointClick')
             );
 
         $this->firstRun = false;
 
         return view('livewire.evolution-charts')
             ->with([
-//                'columnChartModel' => $columnChartModel,
-//                'pieChartModel' => $pieChartModel,
-                'lineChartModel' => $lineChartModel,
-//                'areaChartModel' => $areaChartModel,
+                'ChartModel' => $ChartModel,
             ]);
     }
 
