@@ -1,5 +1,6 @@
 <div class="flex flex-wrap">
-    <div class="flex flex-wrap lg:w-1/2 sm:w-full">
+{{--    <div class="flex flex-wrap lg:w-1/2 sm:w-full">--}}
+        <div class="flex flex-wrap justify-center w-full lg:justify-start lg:w-1/2">
         <div class="mr-4">
             {{'Возраст:'}}
         </div>
@@ -49,7 +50,7 @@
             </div>
         </div>
     </div>
-    <div class="flex flex-wrap lg:w-1/2 sm:w-full">
+    <div class="flex flex-wrap justify-center w-full lg:justify-start lg:w-auto lg:w-1/2">
         <div class="mr-4">
             {{'Параметры:'}}
         </div>
