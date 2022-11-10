@@ -21,6 +21,16 @@ class EvolutionCharts extends Component
 
     public $showAdd = true;
 
+    public $afterYear = false;
+
+    public $age = [0,1,2];
+
+    public function changeAge()
+    {
+//        dd($this->afterYear);
+        $this->afterYear = !$this->afterYear;
+    }
+
     public function add()
     {
         $this->showAdd = true;
@@ -35,6 +45,8 @@ class EvolutionCharts extends Component
     {
         $this->showAdd = false;
     }
+
+
 
     public function render()
     {
