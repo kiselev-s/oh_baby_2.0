@@ -3,18 +3,20 @@
 {{--    <div class="flex flex-wrap lg:w-1/2 sm:w-full">--}}
     <div class="flex flex-wrap justify-center w-full lg:justify-start lg:w-1/2">
 {{--        <x-jet-label for="" value="{{$afterYear ? 'true' : 'false'}}" />--}}
+{{--        <x-jet-label for="" value="{{$selectAge}}" />--}}
+{{--        {{$evolution}}--}}
         <div class="mr-4">
             {{'Возраст:'}}
         </div>
-        <div wire:model="$afterYear">
+        <div>
             <div class="flex items-center">
                 <div class="flex items-center w-1/3">
                     <svg class="h-10 w-10
         {{--            hover:bg-gray-100 focus:bg-gray-100 focus:outline-none focus:ring-0 active:bg-gray-200--}}
-                        hover:text-green-200 hover:cursor-pointer
-                        {{ $afterYear ? ' text-gray-300' : ' text-green-400' }}
+{{--                        hover:text-green-200 hover:cursor-pointer--}}
+                        {{ !$afterYear ? ' text-gray-300 hover:text-green-200 hover:cursor-pointer' : ' text-green-400' }}
                         "
-                         wire:click="{{ !$afterYear ? '' : 'changeAge()' }}"
+                         wire:click="{{ !$afterYear ? 'changeAge()' : '' }}"
                          fill="none" stroke-linecap="round"
                          stroke-linejoin="round" stroke-width="2" stroke="currentColor"
                          viewBox="0 0 24 24">
@@ -29,24 +31,25 @@
                 </div>
 
 {{--                <x-jet-input id="growth" type="text" class="mt-1 block" wire:model.defer="growth" autocomplete="growth"/>--}}
-                <select id="age" class="mt-1 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm">
-{{--                    <option selected="">Choose category</option>--}}
-{{--                    <option value="0">0</option>--}}
-{{--                    <option value="1">1</option>--}}
-                        @foreach($age as $a)
-                            <option>{{value($a)}}</option>
+                <select id="age" class="mt-1 w-7/12 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
+                    wire:model="selectAge"
+                    {{ $afterYear ? '' : 'disabled' }}
+                >
+                    <option selected="">Choose month</option>
+                        @foreach($month as $m)
+                            <option>{{value($m)}}</option>
                             {{--                    <option value="0">Women</option>--}}
                         @endforeach
                 </select>
-{{--                <x-jet-input-error for="age" class="mt-2" />--}}
+                <x-jet-input-error for="selectAge" class="mt-2" />
             </div>
             <div class="flex items-center">
                 <div class="flex items-center w-1/3">
                     <svg class="h-10 w-10
-                        hover:text-green-200 hover:cursor-pointer
-                        {{ !$afterYear ? ' text-gray-300' : ' text-green-400' }}
+{{--                        hover:text-green-200 hover:cursor-pointer--}}
+                        {{ $afterYear ? ' text-gray-300 hover:text-green-200 hover:cursor-pointer' : ' text-green-400' }}
                         "
-                         wire:click="{{ $afterYear ? '' : 'changeAge()' }}"
+                         wire:click="{{ !$afterYear ? '' : 'changeAge()' }}"
                          fill="none" stroke-linecap="round"
                          stroke-linejoin="round" stroke-width="2" stroke="currentColor"
                          viewBox="0 0 24 24">
@@ -60,8 +63,11 @@
                     </a>
                 </div>
 
-                <x-jet-input id="growth" type="text" class="mt-1 block" wire:model.defer="growth" autocomplete="growth" />
-                <x-jet-input-error for="growth" class="mt-2" />
+                <x-jet-input id="inputAge" type="text" class="mt-1 w-7/12 block" autocomplete="inputAge"
+                     disabled="{{$afterYear ? true : false}}"
+                     wire:model.defer="inputAge"
+                />
+                <x-jet-input-error for="inputAge" class="mt-2" />
             </div>
         </div>
     </div>
@@ -75,7 +81,7 @@
                     <x-jet-label for="growth" value="{{ __('Growth') }}" />
                 </div>
 
-                <x-jet-input id="growth" type="text" class="mt-1 block" wire:model.defer="growth" autocomplete="growth" />
+                <x-jet-input id="growth" type="text" class="mt-1 w-10/12 block" wire:model.defer="growth" autocomplete="growth" />
                 <x-jet-input-error for="growth" class="mt-2" />
             </div>
             <div class="flex items-center">
@@ -83,8 +89,8 @@
                     <x-jet-label for="weight" value="{{ __('Weight') }}" />
                 </div>
 
-                <x-jet-input id="growth" type="text" class="mt-1 block" wire:model.defer="growth" autocomplete="growth" />
-                <x-jet-input-error for="growth" class="mt-2" />
+                <x-jet-input id="weight" type="text" class="mt-1 w-10/12 block" wire:model.defer="weight" autocomplete="weight" />
+                <x-jet-input-error for="weight" class="mt-2" />
             </div>
         </div>
     </div>

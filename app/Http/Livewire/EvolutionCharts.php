@@ -1,48 +1,105 @@
 <?php
 namespace App\Http\Livewire;
+use App\Http\Controllers\ChildController;
 use App\Models\Expense;
 use App\Models\Evolution;
 use Asantibanez\LivewireCharts\Models\AreaChartModel;
 use Asantibanez\LivewireCharts\Models\ColumnChartModel;
 use Asantibanez\LivewireCharts\Models\LineChartModel;
 use Asantibanez\LivewireCharts\Models\PieChartModel;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 class EvolutionCharts extends Component
 {
+    use LivewireAlert;
 //    public $types = ['8', 'food', 'shopping', 'entertainment', 'travel', 'other'];
-    public $colors = [
-        'food' => '#f6ad55',
-        'shopping' => '#fc8181',
-        'entertainment' => '#90cdf4',
-        'travel' => '#66DA26',
-        'other' => '#cbd5e0',
-    ];
+//    public $colors = [
+//        'food' => '#f6ad55',
+//        'shopping' => '#fc8181',
+//        'entertainment' => '#90cdf4',
+//        'travel' => '#66DA26',
+//        'other' => '#cbd5e0',
+//    ];
     public $firstRun = true;
+
+    public $child, $child_id, $user_id, $team_id;
 
     public $showAdd = true;
 
-    public $afterYear = false;
+    public $afterYear = true;
 
-    public $age = [0,1,2];
+    public $month = [1,2,3,4,5,6,7,8,9,10,12];
+    public $selectAge, $inputAge, $age;
+    public $growth, $weight;
+
+    public $evolution;
 
     public function changeAge()
     {
-//        dd($this->afterYear);
         $this->afterYear = !$this->afterYear;
     }
 
     public function add()
     {
+        $this->resetValues();
         $this->showAdd = true;
+    }
+
+    private function resetValues()
+    {
+        $this->selectAge = null;
+        $this->inputAge = '';
+        $this->growth = '';
+        $this->weight = '';
     }
 
     public function store()
     {
+        if(!$this->child_id) {
+            $this->alert('warning', 'Child not selected', [
+                'position' => 'center',
+            ]);
+        }
+        else {
+            if($this->afterYear) {
+                $this->validate([
+                    'selectAge' => 'required|numeric',
+                    'growth' => 'required|numeric',
+                    'weight' => 'required|numeric',
+                ]);
+                $this->age = $this->selectAge;
+            }
+            else {
+                $this->validate([
+                    'inputAge' => 'required|numeric|min:1',
+                    'growth' => 'required|numeric',
+                    'weight' => 'required|numeric',
+                ]);
+                $this->age = $this->inputAge * 12;
+            }
+
+            Evolution::updateOrCreate(
+//                ['id' => $this->health_id],
+                [
+                'age_month' => $this->age,
+                'growth' => $this->growth,
+                'weight' => $this->weight,
+                'children_id' => $this->child_id,
+            ]);
+
+            $this->alert('success',
+            'Data has been added',
+                [
+                    'position' => 'center',
+                ]);
+        }
+
         $this->showAdd = false;
     }
 
     public function cancel()
     {
+        $this->clearValidation();
         $this->showAdd = false;
     }
 
@@ -50,15 +107,31 @@ class EvolutionCharts extends Component
 
     public function render()
     {
-        $evolution = Evolution::where('children_id', 8)
+        $data = ChildController::data();
+        $this->child = $data['child'];
+        $this->child_id = $this->child->id;
+        $this->team_id = $data['team_id'];
+        $this->user_id = $data['user']->id;
+
+        $evolution = Evolution::where('children_id', $this->child_id)
+            ->orderBy('age_month', 'asc')
+            ->get();
+
+        $this->evolution = Evolution::where('children_id', $this->child_id)
             ->orderBy('age_month', 'asc')
             ->get();
 
         $ChartModel = $evolution
             ->reduce(function (LineChartModel $lineChartModel, $data) use ($evolution) {
 
-                $lineChartModel->addSeriesPoint('Рост',$data->age_month, $data->growth, ['id' => $data]);
-                $lineChartModel->addSeriesPoint('Вес', $data->age_month, $data->weight, ['id' => $data]);
+                $lineChartModel->addSeriesPoint('Рост',
+//                    $data->age_month,
+                    $data->age_month > 12 ? $data->age_month/12 . ' лет' : $data->age_month . ' мес.',
+                    $data->growth, ['id' => $data]);
+                $lineChartModel->addSeriesPoint('Вес',
+//                    $data->age_month,
+                    $data->age_month > 12 ? $data->age_month/12 . ' лет' : $data->age_month . ' мес.',
+                    $data->weight, ['id' => $data]);
 
                 return $lineChartModel;
             }, (new LineChartModel())

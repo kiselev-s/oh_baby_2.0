@@ -13,5 +13,5 @@
         <div>{{$child->first_name}}</div>
     @endforeach
     {{--    @livewire('upload-photo')--}}
-    @include('sliders.image-view-2.blade_DELETE.php')
+{{--    @include('sliders.image-view-2.blade_DELETE.php')--}}
 </div>
