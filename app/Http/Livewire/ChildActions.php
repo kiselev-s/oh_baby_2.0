@@ -17,7 +17,8 @@ class ChildActions extends Component
     public $user;
     public $child_name;
     public $deleteId;
-    public $path;
+    public $selectGender;
+
     public $page;
 
     public $showingModal = false;
@@ -46,12 +47,10 @@ class ChildActions extends Component
             $this->gender = 1;
         }
 
-//        $this->selected = 0;
-
         return view('livewire.child-actions');
     }
 
-    public function selectChild($id, $path) {
+    public function selectChild($id) {
 
         Child::
             where('team_id', $this->team_id)
@@ -62,15 +61,11 @@ class ChildActions extends Component
             where('id', $id)
             ->update(['selected' => true]);
 
-//        return redirect()->to($path);
-//        return redirect()->to($this->path);
         return redirect($this->page);
     }
 
     public function delete($id)
     {
-//        Child::find($id)->delete();
-
         $this->deleteId = $id;
 
         $this->alert('question', 'Are you sure?', [
@@ -102,6 +97,7 @@ class ChildActions extends Component
 
     //Modal Start
     public function showModal(){
+        $this->resetModal();
         $this->showingModal = true;
     }
 
@@ -110,11 +106,15 @@ class ChildActions extends Component
         if(!$this->child_id)
             $this->selected = 0;
 
+        if($this->children->count() === 0) {
+            $this->selected = 1;
+        }
+
         $this->validate([
             'first_name' => 'required',
             'last_name' => 'required',
             'birthday' => 'required',
-            'gender' => 'required',
+            'selectGender' => 'required',
             'selected' => 'required',
         ]);
 
@@ -122,8 +122,9 @@ class ChildActions extends Component
             'first_name' => $this->first_name,
             'last_name' => $this->last_name,
             'birthday' => $this->birthday,
-            'gender' => $this->gender,
-            'selected' => $this->selected, //TODO
+//            'gender' => $this->gender,
+            'gender' => $this->selectGender,
+            'selected' => $this->selected,
             'user_id' => $this->user->id,
             'team_id' => $this->team_id,
         ]);
@@ -136,6 +137,8 @@ class ChildActions extends Component
             ]);
 
         $this->showingModal = false;
+        $this->clearValidation();
+        redirect($this->page);
     }
 
     public function edit($id)
@@ -146,6 +149,7 @@ class ChildActions extends Component
         $this->last_name = $child->last_name;
         $this->birthday = $child->birthday;
         $this->gender= $child->gender;
+        $this->selectGender = $child->gender;
         $this->selected = $child->selected;
         $this->user_id = $child->user_id;
         $this->team_id = $child->team_id;
@@ -169,6 +173,7 @@ class ChildActions extends Component
         $this->gender = '';
         $this->user_id = '';
         $this->team_id = '';
+        $this->clearValidation();
     }
     //Modal End
 }

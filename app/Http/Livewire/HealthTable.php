@@ -47,14 +47,14 @@ class HealthTable extends LivewireTables
     public function columns(): array
     {
         return [
-            Column::make('#', 'id')->sortable(),
+//            Column::make('#', 'id')->sortable(),
             Column::make('First name','first_name')->sortable()->searchable(),
             Column::make('Last name','last_name')->sortable()->searchable(),
             Column::make('specialization')->sortable()->searchable(),
             Column::make('meeting')->sortable(),
 //        ->format(fn(Carbon $v) => $v->diffForHumans()),
-            Column::make('children_id')->sortable()->searchable(),
-            Column::make('created_at')->format(fn(Carbon $v) => $v->diffForHumans()),
+//            Column::make('children_id')->sortable()->searchable(),
+            Column::make('Created','created_at')->format(fn(Carbon $v) => $v->diffForHumans()),
 
             Action::make(),
         ];

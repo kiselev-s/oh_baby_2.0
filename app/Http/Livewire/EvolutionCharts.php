@@ -21,18 +21,13 @@ class EvolutionCharts extends Component
 //        'other' => '#cbd5e0',
 //    ];
     public $firstRun = true;
-
-    public $child, $child_id, $user_id, $team_id;
-
-    public $showAdd = true;
-
+    public $showAdd = false;
     public $afterYear = true;
 
+    public $child, $child_id, $user_id, $team_id;
     public $month = [1,2,3,4,5,6,7,8,9,10,12];
     public $selectAge, $inputAge, $age;
     public $growth, $weight;
-
-    public $evolution;
 
     public function changeAge()
     {
@@ -109,45 +104,50 @@ class EvolutionCharts extends Component
     {
         $data = ChildController::data();
         $this->child = $data['child'];
-        $this->child_id = $this->child->id;
-        $this->team_id = $data['team_id'];
-        $this->user_id = $data['user']->id;
+        if($this->child) {
+            $this->child_id = $this->child->id;
+            $this->team_id = $data['team_id'];
+            $this->user_id = $data['user']->id;
 
-        $evolution = Evolution::where('children_id', $this->child_id)
-            ->orderBy('age_month', 'asc')
-            ->get();
+//            $this->showAdd = false;
 
-        $this->evolution = Evolution::where('children_id', $this->child_id)
-            ->orderBy('age_month', 'asc')
-            ->get();
+            $evolution = Evolution::where('children_id', $this->child_id)
+                ->orderBy('age_month', 'asc')
+                ->get();
 
-        $ChartModel = $evolution
-            ->reduce(function (LineChartModel $lineChartModel, $data) use ($evolution) {
+            if($evolution->count() > 0) {
+                $ChartModel = $evolution
+                    ->reduce(function (LineChartModel $lineChartModel, $data) use ($evolution) {
 
-                $lineChartModel->addSeriesPoint('Рост',
+                        $lineChartModel->addSeriesPoint('Рост',
 //                    $data->age_month,
-                    $data->age_month > 12 ? $data->age_month/12 . ' лет' : $data->age_month . ' мес.',
-                    $data->growth, ['id' => $data]);
-                $lineChartModel->addSeriesPoint('Вес',
+                            $data->age_month > 12 ? round($data->age_month / 12, 1) . ' year' : $data->age_month . ' month',
+                            $data->growth, ['id' => $data]);
+                        $lineChartModel->addSeriesPoint('Вес',
 //                    $data->age_month,
-                    $data->age_month > 12 ? $data->age_month/12 . ' лет' : $data->age_month . ' мес.',
-                    $data->weight, ['id' => $data]);
+                            $data->age_month > 12 ? round($data->age_month / 12, 1) . ' year' : $data->age_month . ' month',
+                            $data->weight, ['id' => $data]);
 
-                return $lineChartModel;
-            }, (new LineChartModel())
-                ->setTitle('Evolution relative to age')
-                ->setAnimated($this->firstRun)
-                ->setSmoothCurve()
-                ->multiLine()
-                ->withOnPointClickEvent('onPointClick')
-            );
+                        return $lineChartModel;
+                    }, (new LineChartModel())
+                        ->setTitle('Evolution relative to age')
+                        ->setAnimated($this->firstRun)
+                        ->setSmoothCurve()
+                        ->multiLine()
+                        ->withOnPointClickEvent('onPointClick')
+                    );
 
-        $this->firstRun = false;
+                $this->firstRun = false;
 
-        return view('livewire.evolution-charts')
-            ->with([
-                'ChartModel' => $ChartModel,
-            ]);
+                return view('livewire.evolution-charts')
+                    ->with([
+                        'ChartModel' => $ChartModel,
+                    ]);
+            }
+        }
+
+        $this->showAdd = true;
+        return view('livewire.no-chart');
     }
 
     protected $listeners = [

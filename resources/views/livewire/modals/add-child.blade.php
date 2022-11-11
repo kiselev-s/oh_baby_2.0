@@ -36,9 +36,11 @@
 
             <div class="mb-4 flex flex-wrap flex-row justify-between mt-3">
                 <div>
-                    <x-jet-label for="gender" value="{{ __('Gender') }}" />
-                    <select wire:model="gender" id="gender" class="mt-1 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm">
-                        <option selected="">Choose gender</option>
+                    <x-jet-label for="selectGender" value="{{ __('Gender') }}" />
+                    <select wire:model.defer="selectGender" id="gender" class="mt-1 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm">
+                        <option
+                            selected=""
+                        >Choose gender</option>
                         <option value="1">Man</option>
                         <option value="0">Women</option>
                     </select>

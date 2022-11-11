@@ -6,11 +6,11 @@
 {{--        <x-jet-label for="" value="{{$selectAge}}" />--}}
 {{--        {{$evolution}}--}}
         <div class="mr-4">
-            {{'Возраст:'}}
+            {{'Age:'}}
         </div>
         <div>
             <div class="flex items-center">
-                <div class="flex items-center w-1/3">
+                <div class="flex items-center py-2 w-1/3">
                     <svg class="h-10 w-10
         {{--            hover:bg-gray-100 focus:bg-gray-100 focus:outline-none focus:ring-0 active:bg-gray-200--}}
 {{--                        hover:text-green-200 hover:cursor-pointer--}}
@@ -26,7 +26,7 @@
                     <!-- Select  -->
                     <a id="" href="#"
                        class="w-full ml-3 inline-block px-1 py-2 bg-transparent text-gray-700 font-medium text-sm leading-tight transition duration-150 ease-in-out">
-                        {{'up to one year'}}
+                        {{'month'}}
                     </a>
                 </div>
 
@@ -59,7 +59,7 @@
                     <!-- Select  -->
                     <a id="" href="#"
                        class="w-full ml-3 px-1 py-2 bg-transparent text-gray-700 font-medium text-sm leading-tight transition duration-150 ease-in-out">
-                        {{'after one year'}}
+                        {{'year'}}
                     </a>
                 </div>
 
@@ -73,7 +73,7 @@
     </div>
     <div class="flex flex-wrap justify-center w-full lg:justify-start lg:w-auto lg:w-1/2">
         <div class="mr-4">
-            {{'Параметры:'}}
+            {{'Values:'}}
         </div>
         <div>
             <div class="flex items-center py-1">

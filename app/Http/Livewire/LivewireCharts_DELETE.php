@@ -6,7 +6,7 @@ use Asantibanez\LivewireCharts\Models\ColumnChartModel;
 use Asantibanez\LivewireCharts\Models\LineChartModel;
 use Asantibanez\LivewireCharts\Models\PieChartModel;
 use Livewire\Component;
-class LivewireCharts extends Component
+class LivewireChartsDELETE extends Component
 {
     public $types = ['food', 'shopping', 'entertainment', 'travel', 'other'];
     public $colors = [

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use App\Models\Image;
-class UploadPhoto extends Component
+class UploadPhotoDELETE extends Component
 {
     use WithFileUploads;
 

@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use App\Models\Child;
 
-class Content extends Component
+class ContentDELETE extends Component
 {
     public function render()
     {
