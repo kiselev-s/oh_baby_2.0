@@ -147,6 +147,7 @@ class ChildActions extends Component
         $this->child_id = $id;
         $this->first_name = $child->first_name;
         $this->last_name = $child->last_name;
+//        dd($this->first_name, $this->last_name);
         $this->birthday = $child->birthday;
         $this->gender= $child->gender;
         $this->selectGender = $child->gender;

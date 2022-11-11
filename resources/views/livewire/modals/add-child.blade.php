@@ -11,7 +11,7 @@
         </svg>
     </a>
 
-    <x-jet-dialog-modal wire:model="showingModal" >
+    <x-jet-dialog-modal wire:model="showingModal">
 
         <x-slot name="title">
             @if($child_id)
