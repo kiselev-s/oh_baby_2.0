@@ -46,7 +46,7 @@
                     </select>
                     @error('gender') <span class="text-red-500">{{ $message }}</span>@enderror
                 </div>
-                <div class="mt-3">
+                <div class="">
 {{--                    <x-jet-label for="gender" value="{{ __('Birthday') }}" />--}}
 {{--                    <input wire:model="birthday" type="datetime-local" class="mt-1 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm">--}}
 
