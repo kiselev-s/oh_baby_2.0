@@ -34,52 +34,36 @@ class HomeCharts extends Component
             $this->team_id = $data['team_id'];
             $this->user_id = $data['user']->id;
 
-            $evolution = Evolution::where('children_id', $this->child_id)
-                ->orderBy('age_month', 'asc')
-                ->get();
-
-//            $evolutions = DB::table('users')
-//                ->where()
-//                ->join('contacts', 'users.id', '=', 'contacts.user_id')
-//                ->join('orders', 'users.id', '=', 'orders.user_id')
-//                ->select('users.*', 'contacts.phone', 'orders.price')
+//            $evolution = Evolution::where('children_id', $this->child_id)
+//                ->orderBy('age_month', 'asc')
 //                ->get();
 
-            $this->evolutions = DB::table('children')
+            $maxWeight = DB::table('evolutions')
+                ->select('children_id', DB::raw('MAX(weight) as max_weight'))
+                ->groupBy('children_id');
+
+//            $this->evolutions
+            $evolution
+                = DB::table('children')
                 ->where('team_id', $this->team_id)
-                ->join('evolutions', 'children.id', '=', 'evolutions.children_id')
-//                ->join('orders', 'users.id', '=', 'orders.user_id')
-                ->select('children.first_name', 'evolutions.weight', 'evolutions.id')
+                ->joinSub($maxWeight, 'max_weight', function ($join) {
+                    $join->on('children.id', '=', 'max_weight.children_id');
+                })
+                ->select('id', 'first_name', 'max_weight')
                 ->get();
+//                ->orderBy('id', 'asc');
+//                ->pluck('max_weight', 'first_name');
 
-//            $latestPosts = DB::table('posts')
-//                ->select('user_id', DB::raw('MAX(created_at) as last_post_created_at'))
-//                ->where('is_published', true)
-//                ->groupBy('user_id');
-
-//            $this->evolutionsMax = DB::table('evolutions')
-//                ->select('children_id', DB::raw('MAX(created_at) as last_post_created_at'))
-////                ->where('is_published', true)
-//                ->groupBy('children_id');
-
-//            dd($this->evolutionsMax);
-
-//            $this->children = DB::table('children')
-//                ->joinSub($this->evolutionsMax, 'latest_posts', function ($join) {
-//                    $join->on('children.id', '=', 'latest_posts.children_id');
-//                })->get();
-//
-//            $this->children = DB::table('children')
-//                ->where('team_id', $this->team_id)
-//                ->joinSub($this->evolutionsMax, 'weight_max', function ($join) {
-//                    $join->on('children.id', '=', 'weight_max.children_id');
-//                })->get();
+//            dd($this->evolutions->value('id'));
+//            dd($evolution);
 
             if ($evolution->count() > 0) {
                 $columnChartModel = $evolution->groupBy('id')
                     ->reduce(function (ColumnChartModel $columnChartModel, $data) {
-                        $type = $data->first()->id;
-                        $value = $data->first()->weight;
+//                        $type = $data->first()->id;
+//                        $value = $data->first()->weight;
+                        $type = $data->value('first_name');
+                        $value = $data->value('max_weight');
 //                        return $columnChartModel->addColumn($type, $value, $this->colors[$type]);
                         return $columnChartModel->addColumn($type, $value, $this->colors[rand(0,4)]);
 
@@ -90,8 +74,10 @@ class HomeCharts extends Component
                     );
                 $pieChartModel = $evolution->groupBy('id')
                     ->reduce(function (PieChartModel $pieChartModel, $data) {
-                        $type = $data->first()->id;
-                        $value = $data->first()->weight;
+//                        $type = $data->first()->id;
+//                        $value = $data->first()->weight;
+                        $type = $data->value('first_name');
+                        $value = $data->value('max_weight');
                         return $pieChartModel->addSlice($type, $value, $this->colors[rand(0,4)]);
                     }, (new PieChartModel())
                         ->setTitle('Evolution by Weight')

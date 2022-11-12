@@ -1,7 +1,7 @@
 <div class="container mt-4 mx-auto space-y-4 p-4 sm:p-0">
 
 {{--    <a href="">{{$evolutions}}</a>--}}
-{{--    <a href="">{{'$evolutions'}}</a>--}}
+    <a href="">{{$evolutions}}</a>
 {{--    <a href="">{{$children}}</a>--}}
 
 {{--    @if(!$showAdd)--}}
