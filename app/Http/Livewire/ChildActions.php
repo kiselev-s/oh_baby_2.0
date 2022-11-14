@@ -97,7 +97,7 @@ class ChildActions extends Component
 
     //Modal Start
     public function showModal(){
-        $this->resetModal();
+//        $this->resetModal();
         $this->showingModal = true;
     }
 
@@ -137,7 +137,8 @@ class ChildActions extends Component
             ]);
 
         $this->showingModal = false;
-        $this->clearValidation();
+//        $this->clearValidation();
+        $this->resetModal();
         redirect($this->page);
     }
 
