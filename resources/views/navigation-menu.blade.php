@@ -1,4 +1,4 @@
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
+<nav x-data="{ open: false }" class="bg-white border-b dark:bg-gray-800 border-gray-100 dark:border-blue-300">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
@@ -53,17 +53,7 @@
 
             <div class="hidden sm:flex sm:items-center sm:ml-6">
 
-                <!-- Add Child -->
-{{--                @livewire('add-child')--}}
-
-                <!-- Add Child -->
-{{--                <div class="flex mr-4">--}}
-{{--                    <span class="inline-flex rounded-md">--}}
-{{--                        <button type="button" class="inline-flex items-center border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:bg-gray-50 hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50 transition">--}}
-{{--                            <img src="{{URL::asset('/add_child.png')}}" alt="boy" width="30">--}}
-{{--                        </button>--}}
-{{--                    </span>--}}
-{{--                </div>--}}
+                @include('theme-button')
 
                 <!-- Child Dropdown -->
                 @livewire('child-actions', ['page'=>request()->fullUrl()])
@@ -74,7 +64,7 @@
                         <x-jet-dropdown align="right" width="60">
                             <x-slot name="trigger">
                                 <span class="inline-flex rounded-md">
-                                    <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:bg-gray-50 hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50 transition">
+                                    <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-200 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 hover:text-gray-700 dark:hover:text-gray-400 focus:outline-none focus:bg-gray-50 active:bg-gray-50 transition">
                                         {{ Auth::user()->currentTeam->name }}
 
                                         <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
@@ -102,7 +92,7 @@
                                         </x-jet-dropdown-link>
                                     @endcan
 
-                                    <div class="border-t border-gray-100"></div>
+                                    <div class="border-t border-gray-100 dark:border-gray-900"></div>
 
                                     <!-- Team Switcher -->
                                     <div class="block px-4 py-2 text-xs text-gray-400">

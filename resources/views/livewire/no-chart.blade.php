@@ -1,8 +1,8 @@
-<div>
+<div class="w-full">
     @include('livewire.add-evolution')
 
-    <div class="flex justify-around w-full">
-        <div class="flex justify-center items-center space-x-2 dark:bg-gray-800">
+    <div class="flex justify-around w-full mt-4">
+        <div class="flex justify-center items-center w-full space-x-2 rounded-lg dark:bg-gray-800">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-gray-400" fill="none"
                  viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

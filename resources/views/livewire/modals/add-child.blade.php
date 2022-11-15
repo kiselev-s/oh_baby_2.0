@@ -2,7 +2,7 @@
     <a href="#"
        wire:click="showModal()"
        type="button"
-       class="inline-flex items-center shadow-sm ml-2 p-2 mr-2 rounded-full border-gray-300 border text-indigo-300 ease-in-out duration-150 hover:text-white bg-white hover:bg-indigo-500 focus:outline-none"
+       class="inline-flex items-center shadow-sm ml-2 p-2 mr-2 rounded-full border-gray-300 dark:border-gray-900 border text-indigo-300 dark:text-blue-400 ease-in-out duration-150 hover:text-white dark:hover:text-indigo-900 bg-white dark:bg-gray-700 hover:bg-indigo-500 dark:hover:bg-gray-600 focus:outline-none"
     >
         <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
             <path fill-rule="evenodd"

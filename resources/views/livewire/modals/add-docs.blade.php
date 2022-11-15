@@ -1,9 +1,8 @@
 <div>
     <a href="#"
-       {{--   wire:click.prevent="resolveNewResource"--}}
-       wire:click="showModal()"
+       wire:click.prevent="showModal()"
        type="button"
-       class="inline-flex items-center shadow-sm ml-2 p-2 rounded border-gray-300 border text-indigo-300 ease-in-out duration-150 hover:text-white bg-white hover:bg-indigo-500 focus:outline-none"
+       class="inline-flex items-center shadow-sm ml-2 p-2 rounded border-gray-300 dark:border-gray-600 border text-indigo-300 dark:text-blue-400 ease-in-out duration-150 hover:text-white dark:hover:text-indigo-900 bg-white dark:bg-gray-700 hover:bg-indigo-500 dark:hover:bg-gray-600 focus:outline-none"
     >
         <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
             <path fill-rule="evenodd"
@@ -15,11 +14,6 @@
     <x-jet-dialog-modal wire:model="showingModal" >
 
         <x-slot name="title">
-{{--            @if($documents_id)--}}
-{{--                {{ __('Edit Documents') }}--}}
-{{--            @else--}}
-{{--                {{ __('Create Documents') }}--}}
-{{--            @endif--}}
                 {{ __('Create Documents') }}
         </x-slot>
 

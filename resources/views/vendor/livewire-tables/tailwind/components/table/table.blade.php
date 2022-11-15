@@ -6,7 +6,7 @@
         </tr>
         </thead>
 
-        <tbody class="bg-white divide-y divide-gray-200 dark:divide-none">
+        <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-none">
         {{ $body }}
         </tbody>
     </table>

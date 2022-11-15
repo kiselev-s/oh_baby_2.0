@@ -43,12 +43,12 @@
     <body class="font-sans antialiased">
         <x-jet-banner />
 
-        <div class="min-h-screen bg-gray-100">
+        <div class="min-h-screen bg-gray-100 dark:bg-gray-700">
             @livewire('navigation-menu')
 
             <!-- Page Heading -->
             @if (isset($header))
-                <header class="bg-white shadow">
+                <header class="bg-white shadow dark:bg-gray-800">
                     <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                         {{ $header }}
                     </div>
@@ -78,6 +78,37 @@
 {{--        <livewire:livewire-charts/>--}}
 {{--        <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"></script>--}}
 {{--        <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>--}}
+        <script>
+            // On page load or when changing themes, best to add inline in `head` to avoid FOUC
+            if (localStorage.theme === 'dark' ||
+                (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches))
+            {
+                document.documentElement.classList.add('dark')
+            } else {
+                document.documentElement.classList.remove('dark')
+            }
+
+            document.getElementById('switchTheme').addEventListener('click', () =>
+            {
+               let htmlClasses = document.querySelector('html').classList;
+               if(localStorage.theme == 'dark') {
+                   htmlClasses.remove('dark');
+                   localStorage.removeItem('theme')
+               } else {
+                   htmlClasses.add('dark');
+                   localStorage.theme = 'dark';
+               }
+            });
+
+            // // Whenever the user explicitly chooses light mode
+            // localStorage.theme = 'light'
+            //
+            // // Whenever the user explicitly chooses dark mode
+            // localStorage.theme = 'dark'
+            //
+            // // Whenever the user explicitly chooses to respect the OS preference
+            // localStorage.removeItem('theme')
+        </script>
 
     </body>
 </html>

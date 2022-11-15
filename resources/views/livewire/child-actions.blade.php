@@ -18,7 +18,7 @@
                                 <!-- Current Child -->
                                 <span class="inline-flex rounded-md">
                                     <button type="button"
-                                            class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:bg-gray-50 hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50 transition">
+                                            class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-200 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 hover:text-gray-700 dark:hover:text-gray-400 focus:outline-none focus:bg-gray-50 active:bg-gray-50 transition">
                                         {{$child_name}}
                                         <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg"
                                              viewBox="0 0 20 20" fill="currentColor">
@@ -40,7 +40,7 @@
                                     <!-- All Child -->
                                     @foreach ($children as $child)
                                         <div
-                                            class="flex items-center hover:bg-gray-100 focus:bg-gray-100 focus:outline-none focus:ring-0 active:bg-gray-200 text-gray-400">
+                                            class="flex items-center hover:bg-gray-100 dark:hover:bg-gray-900 focus:bg-gray-100 dark:focus:bg-gray-900 focus:outline-none focus:ring-0 active:bg-gray-200 text-gray-400">
                                             @if($child->selected)
                                                 <svg class="ml-4 h-10 w-10 text-green-400" fill="none" stroke-linecap="round"
                                                      stroke-linejoin="round" stroke-width="2" stroke="currentColor"
@@ -50,7 +50,7 @@
                                             @endif
                                             <!-- Select Child -->
                                             <a id="{{$child->id}}" type="button" href="#"
-                                               class="w-full ml-3 inline-block px-1 py-2 bg-transparent text-gray-700 font-medium text-sm leading-tight transition duration-150 ease-in-out"
+                                               class="w-full ml-3 inline-block px-1 py-2 bg-transparent text-gray-700 dark:text-gray-300 font-medium text-sm leading-tight transition duration-150 ease-in-out"
                                                wire:click="selectChild({{ $child->id }})">
                                                 {{$child->first_name}}
                                             </a>
