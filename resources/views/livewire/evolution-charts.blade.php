@@ -54,7 +54,7 @@
 {{--            />--}}
 {{--        </div>--}}
 {{--    </div>--}}
-    <div class="shadow rounded p-4 border bg-white" style="height: 32rem;">
+    <div class="shadow rounded p-4 border dark:border-blue-300 bg-white dark:bg-gray-800" style="height: 32rem;">
         <livewire:livewire-line-chart
             key="{{ $ChartModel->reactiveKey() }}"
             :line-chart-model="$ChartModel"

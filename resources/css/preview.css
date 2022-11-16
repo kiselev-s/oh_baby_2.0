@@ -4,6 +4,18 @@
     align-items: center;
 }
 
+@media (prefers-color-scheme: dark) {
+    .apexcharts-text.apexcharts-yaxis-label {
+        color: #295dac;
+        fill: #2e548d;
+    }
+
+    .apexcharts-text.apexcharts-xaxis-label {
+        color: #366bba;
+        fill: #244e8e;
+    }
+}
+
 /*.swiper {*/
 /*    margin-left: auto;*/
 /*    margin-right: auto;*/
