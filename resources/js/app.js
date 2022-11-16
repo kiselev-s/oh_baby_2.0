@@ -1,4 +1,5 @@
 import './bootstrap';
+import './themeDark'
 
 import Alpine from 'alpinejs';
 

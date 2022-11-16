@@ -18,6 +18,14 @@ module.exports = {
                 sans: ['Nunito', ...defaultTheme.fontFamily.sans],
             },
         },
+        // mode: 'light',
+        // palette: 'palette1',
+        // monochrome: {
+        //     enabled: false,
+        //     color: '#255aee',
+        //     shadeTo: 'light',
+        //     shadeIntensity: 0.65
+        // },
     },
 
     plugins: [

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="dark">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -48,7 +48,7 @@
 
             <!-- Page Heading -->
             @if (isset($header))
-                <header class="bg-white shadow dark:bg-gray-800">
+                <header class="bg-white shadow dark:shadow-indigo-900 dark:bg-gray-800">
                     <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                         {{ $header }}
                     </div>
@@ -77,38 +77,31 @@
         @livewireChartsScripts
 {{--        <livewire:livewire-charts/>--}}
 {{--        <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"></script>--}}
-{{--        <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>--}}
-        <script>
-            // On page load or when changing themes, best to add inline in `head` to avoid FOUC
-            if (localStorage.theme === 'dark' ||
-                (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches))
-            {
-                document.documentElement.classList.add('dark')
-            } else {
-                document.documentElement.classList.remove('dark')
-            }
+        <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
-            document.getElementById('switchTheme').addEventListener('click', () =>
-            {
-               let htmlClasses = document.querySelector('html').classList;
-               if(localStorage.theme == 'dark') {
-                   htmlClasses.remove('dark');
-                   localStorage.removeItem('theme')
-               } else {
-                   htmlClasses.add('dark');
-                   localStorage.theme = 'dark';
-               }
-            });
 
-            // // Whenever the user explicitly chooses light mode
-            // localStorage.theme = 'light'
-            //
-            // // Whenever the user explicitly chooses dark mode
-            // localStorage.theme = 'dark'
-            //
-            // // Whenever the user explicitly chooses to respect the OS preference
-            // localStorage.removeItem('theme')
-        </script>
+{{--        <script>--}}
+{{--            On page load or when changing themes, best to add inline in `head` to avoid FOUC--}}
+{{--            if (localStorage.theme === 'dark' ||--}}
+{{--                (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches))--}}
+{{--            {--}}
+{{--                document.documentElement.classList.add('dark')--}}
+{{--            } else {--}}
+{{--                document.documentElement.classList.remove('dark')--}}
+{{--            }--}}
+
+{{--            document.getElementById('switchTheme').addEventListener('click', () =>--}}
+{{--            {--}}
+{{--               let htmlClasses = document.querySelector('html').classList;--}}
+{{--               if(localStorage.theme == 'dark') {--}}
+{{--                   htmlClasses.remove('dark');--}}
+{{--                   localStorage.removeItem('theme')--}}
+{{--               } else {--}}
+{{--                   htmlClasses.add('dark');--}}
+{{--                   localStorage.theme = 'dark';--}}
+{{--               }--}}
+{{--            });--}}
+{{--        </script>--}}
 
     </body>
 </html>
