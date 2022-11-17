@@ -7,7 +7,7 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-900 overflow-hidden shadow-xl dark:shadow-cyan-900 sm:rounded-lg p-4">
+            <div class="bg-white dark:bg-gray-900 overflow-hidden shadow-xl dark:shadow-emerald-800 sm:rounded-lg p-4">
                 @livewire('evolution-charts')
             </div>
         </div>

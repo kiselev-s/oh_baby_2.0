@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="dark">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -81,7 +81,7 @@
 
 
 {{--        <script>--}}
-{{--            On page load or when changing themes, best to add inline in `head` to avoid FOUC--}}
+{{--            // On page load or when changing themes, best to add inline in `head` to avoid FOUC--}}
 {{--            if (localStorage.theme === 'dark' ||--}}
 {{--                (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches))--}}
 {{--            {--}}
