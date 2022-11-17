@@ -1,8 +1,23 @@
 .card-img {
-    height: 73vh;
+    height: 70vh;
     display: flex;
     align-items: center;
 }
+
+.best-color {
+    color: #3aebca;
+}
+
+.dark .dark\:border-best-color {
+    --tw-border-opacity: 1;
+    border-color: #3aebca;
+    /*border-color: rgb(58 235 202 / var(--tw-text-opacity));*/
+}
+
+/*.dark .dark\:border-best- {*/
+/*    --tw-border-opacity: 1;*/
+/*    border-color: rgb(79 70 229 / var(--tw-border-opacity));*/
+/*}*/
 
 @media (prefers-color-scheme: dark) {
     .apexcharts-text.apexcharts-yaxis-label {
