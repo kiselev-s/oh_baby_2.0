@@ -22,7 +22,7 @@
 
             <div class="col-span-6 sm:col-span-4 mt-3">
                 <x-jet-label for="category" value="{{ __('Category') }}" />
-                <select wire:model="category" id="category" class="mt-1 w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm">
+                <select wire:model="category" id="category" class="mt-1 w-full dark:text-gray-400 dark:bg-gray-700 border-gray-300 dark:border-cyan-700 dark:focus:border-cyan-800 focus:border-indigo-300 focus:ring focus:ring-indigo-200 dark:focus:ring-cyan-800 focus:ring-opacity-50 rounded-md shadow-sm">
 {{--                    <option selected="">Choose category</option>--}}
                     @if($documents != null)
                         @foreach($documents as $document)
