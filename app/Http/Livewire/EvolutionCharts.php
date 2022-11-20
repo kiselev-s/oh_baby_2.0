@@ -119,11 +119,11 @@ class EvolutionCharts extends Component
                 $ChartModel = $evolution
                     ->reduce(function (LineChartModel $lineChartModel, $data) use ($evolution) {
 
-                        $lineChartModel->addSeriesPoint('Рост',
+                        $lineChartModel->addSeriesPoint('Growth',
 //                    $data->age_month,
                             $data->age_month > 12 ? round($data->age_month / 12, 1) . ' year' : $data->age_month . ' month',
                             $data->growth, ['id' => $data]);
-                        $lineChartModel->addSeriesPoint('Вес',
+                        $lineChartModel->addSeriesPoint('Weight',
 //                    $data->age_month,
                             $data->age_month > 12 ? round($data->age_month / 12, 1) . ' year' : $data->age_month . ' month',
                             $data->weight, ['id' => $data]);

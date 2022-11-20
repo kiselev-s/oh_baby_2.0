@@ -1,6 +1,6 @@
 @if($showImage)
     <div class="flex flex-wrap">
-        <div class="w-1/2 p-4">
+        <div class="w-full sm:w-1/2 p-4">
 @endif
             <div>
                 <div

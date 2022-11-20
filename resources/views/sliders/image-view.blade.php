@@ -1,4 +1,4 @@
-<div class="w-1/2">
+<div class="w-full sm:w-1/2">
     <div id="carouselExampleCaptions" class="carousel slide relative p-4" data-bs-ride="carousel" wire:model="imagesChild">
         <div class="carousel-indicators absolute right-0 bottom-0 left-0 flex justify-center p-0 mb-4" >
             @if($imagesChild != null)
@@ -21,7 +21,7 @@
                         <img
                             wire:click="showEditImage({{$key}})"
                             src="{{URL::asset('storage/'.$image->path)}}"
-                            class="block w-full rounded"
+                            class="block w-full rounded hover:opacity-50 cursor-zoom-in"
                             alt="..."
                         />
                     </div>

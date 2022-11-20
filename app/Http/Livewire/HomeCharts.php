@@ -8,9 +8,11 @@ use Asantibanez\LivewireCharts\Models\HasColors;
 use Asantibanez\LivewireCharts\Models\LineChartModel;
 use Asantibanez\LivewireCharts\Models\PieChartModel;
 use Illuminate\Support\Facades\DB;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 class HomeCharts extends Component
 {
+    use LivewireAlert;
 //    public $types = ['food', 'shopping', 'entertainment', 'travel', 'other'];
     public $colors = [
         '0' => '#f6ad55',
@@ -64,10 +66,11 @@ class HomeCharts extends Component
                         $type = $data->value('first_name');
                         $value = $data->value('max_weight');
 //                        return $columnChartModel->addColumn($type, $value, $this->colors[$type]);
-                        return $columnChartModel->addColumn($type, $value, $this->colors);
+                        return $columnChartModel->addColumn($type, $value, $this->colors, $data[0]);
 
                     }, (new ColumnChartModel())
                         ->setTitle('Evolution by Weight')
+                        ->setDataLabelsEnabled('true')
                         ->setAnimated($this->firstRun)
                         ->setColors($this->colors)
                         ->withOnColumnClickEventName('onColumnClick')
@@ -78,7 +81,7 @@ class HomeCharts extends Component
 //                        $value = $data->first()->weight;
                         $type = $data->value('first_name');
                         $value = $data->value('max_weight');
-                        return $pieChartModel->addSlice($type, $value, $this->colors);
+                        return $pieChartModel->addSlice($type, $value, $this->colors, $data[0]);
                     }, (new PieChartModel())
                         ->setTitle('Evolution by Weight')
                         ->setAnimated($this->firstRun)
@@ -112,6 +115,12 @@ class HomeCharts extends Component
     }
     public function handleOnColumnClick($column)
     {
-        dd($column);
+//        dd($column['extras']);
+        $this->alert('success',
+            $column['extras']['first_name'] . ": maximum weight " . $column['extras']['max_weight'],
+            [
+            'position' => 'center',
+                'showConfirmButton' => true
+        ]);
     }
 }
