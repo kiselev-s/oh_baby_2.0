@@ -25,7 +25,7 @@
             </div>
 
             <div class="flex items-center justify-between mt-4">
-                <a href="{{ url('/dashboard') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Home</a>
+                <a href="{{ url('/dashboard') }}" class="text-sm text-gray-700 dark:text-gray-500 dark:hover:text-blue-300 underline">Home</a>
                 <x-jet-button>
                     {{ __('Email Password Reset Link') }}
                 </x-jet-button>

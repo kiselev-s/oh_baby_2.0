@@ -24,21 +24,6 @@
 
 {{--        @stack('styles')--}}
 
-{{--        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tw-elements/dist/css/index.min.css" />--}}
-{{--        <script src="https://cdn.tailwindcss.com"></script>--}}
-{{--        <script src="./node_modules/tw-elements/dist/js/index.min.js"></script>--}}
-{{--        <script>--}}
-{{--            tailwind.config = {--}}
-{{--                theme: {--}}
-{{--                    extend: {--}}
-{{--                        fontFamily: {--}}
-{{--                            sans: ['Inter', 'sans-serif'],--}}
-{{--                        },--}}
-{{--                    }--}}
-{{--                }--}}
-{{--            }--}}
-{{--        </script>--}}
-
     </head>
     <body class="font-sans antialiased">
         <x-jet-banner />
@@ -64,44 +49,19 @@
         @stack('modals')
 
         @livewireScripts
+
         <!-- For Alert -->
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <x-livewire-alert::scripts />
 
-{{--        @stack('scripts')--}}
         <!-- For Carousel -->
         <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/index.min.js"></script>
 
         <!-- For Charts -->
 {{--        @livewireCharts--}}
         @livewireChartsScripts
-{{--        <livewire:livewire-charts/>--}}
 {{--        <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"></script>--}}
         <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-
-
-{{--        <script>--}}
-{{--            // On page load or when changing themes, best to add inline in `head` to avoid FOUC--}}
-{{--            if (localStorage.theme === 'dark' ||--}}
-{{--                (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches))--}}
-{{--            {--}}
-{{--                document.documentElement.classList.add('dark')--}}
-{{--            } else {--}}
-{{--                document.documentElement.classList.remove('dark')--}}
-{{--            }--}}
-
-{{--            document.getElementById('switchTheme').addEventListener('click', () =>--}}
-{{--            {--}}
-{{--               let htmlClasses = document.querySelector('html').classList;--}}
-{{--               if(localStorage.theme == 'dark') {--}}
-{{--                   htmlClasses.remove('dark');--}}
-{{--                   localStorage.removeItem('theme')--}}
-{{--               } else {--}}
-{{--                   htmlClasses.add('dark');--}}
-{{--                   localStorage.theme = 'dark';--}}
-{{--               }--}}
-{{--            });--}}
-{{--        </script>--}}
 
     </body>
 </html>

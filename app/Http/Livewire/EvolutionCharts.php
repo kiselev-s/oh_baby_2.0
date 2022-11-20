@@ -147,7 +147,7 @@ class EvolutionCharts extends Component
         }
 
         $this->showAdd = true;
-        return view('livewire.no-chart');
+        return view('livewire.no-chart-evolution');
     }
 
     protected $listeners = [

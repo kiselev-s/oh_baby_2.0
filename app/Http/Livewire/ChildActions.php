@@ -4,7 +4,6 @@ namespace App\Http\Livewire;
 
 use App\Models\Child;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\Request;
@@ -97,7 +96,6 @@ class ChildActions extends Component
 
     //Modal Start
     public function showModal(){
-//        $this->resetModal();
         $this->showingModal = true;
     }
 
@@ -122,7 +120,6 @@ class ChildActions extends Component
             'first_name' => $this->first_name,
             'last_name' => $this->last_name,
             'birthday' => $this->birthday,
-//            'gender' => $this->gender,
             'gender' => $this->selectGender,
             'selected' => $this->selected,
             'user_id' => $this->user->id,
@@ -137,7 +134,6 @@ class ChildActions extends Component
             ]);
 
         $this->showingModal = false;
-//        $this->clearValidation();
         $this->resetModal();
         redirect($this->page);
     }
@@ -148,7 +144,6 @@ class ChildActions extends Component
         $this->child_id = $id;
         $this->first_name = $child->first_name;
         $this->last_name = $child->last_name;
-//        dd($this->first_name, $this->last_name);
         $this->birthday = $child->birthday;
         $this->gender= $child->gender;
         $this->selectGender = $child->gender;

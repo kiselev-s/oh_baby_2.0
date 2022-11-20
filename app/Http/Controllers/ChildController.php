@@ -10,20 +10,16 @@ class ChildController extends Controller
 {
     public static $gender;
 
-//    public static function findChild($userId, $teamId)
     public static function findChild($teamId)
     {
         return Child::all()
-          //  ->where('user_id', $userId)
             ->where('team_id', $teamId)
             ->first();
     }
 
-//    public static function getAllChild($userId, $teamId)
     public static function getAllChild($teamId)
     {
         return Child::all()
-          //  ->where('user_id', $userId)
             ->where('team_id', $teamId);
     }
 
@@ -50,26 +46,19 @@ class ChildController extends Controller
                     ->where('id', $child->id)
                     ->update(['selected' => true]);
             });
-
-//        self::$gender=Child::all()
-//            ->where('id', $id)->value('gender');
     }
 
-//    public static function getCurrentChild($userId, $teamId)
     public static function getCurrentChild($teamId)
     {
         return Child::all()
-          //  ->where('user_id', $userId)
             ->where('team_id', $teamId)
             ->where('selected', true)
             ->value('first_name');
     }
 
-//    public static function getGender($userId, $teamId)
     public static function getGender($teamId)
     {
         return Child::all()
-          //  ->where('user_id', $userId)
             ->where('team_id', $teamId)
             ->where('selected', true)
             ->value('gender');
@@ -78,20 +67,18 @@ class ChildController extends Controller
     public static function getFIO($teamId)
     {
         $child = Child::all()
-            //  ->where('user_id', $userId)
             ->where('team_id', $teamId)
             ->where('selected', true)
             ->first();
         if($child)
             return $child->first_name . ' ' . $child->last_name;
         else
-            return 'not child';//TODO
+            return 'Not child';//TODO
     }
 
     public static function getBirthday($teamId)
     {
         $birth = Child::all()
-            //  ->where('user_id', $userId)
             ->where('team_id', $teamId)
             ->where('selected', true)
             ->value('birthday');
@@ -100,20 +87,11 @@ class ChildController extends Controller
 
     public static function getGrowth($teamId)
     {
-//        SELECT * FROM table ORDER BY date DESC
         $id = Child::all()
-            //  ->where('user_id', $userId)
             ->where('team_id', $teamId)
             ->where('selected', true)
             ->value('id');
-//        dd($id);
-//        return Evolution::all()
-//            ->where('children_id', $id) //TODO
-//            ->value('growth');
-//        return Evolution::all()
-//            ->where('children_id', $id) //TODO
-//            ->where()
-//            ->value('growth');
+
         return DB::table('evolutions')
             ->where('children_id', $id)
             ->orderByDesc('created_at')
@@ -133,6 +111,48 @@ class ChildController extends Controller
             ->value('weight');
     }
 
+    public static function getMeeting($teamId)
+    {
+        $id = Child::all()
+            ->where('team_id', $teamId)
+            ->where('selected', true)
+            ->value('id');
+
+        $meeting =
+            DB::table('healths')
+                ->where('children_id', $id)
+                ->orderByDesc('created_at')
+                ->value('meeting');
+
+        if($meeting != null)
+            return $meeting;
+        else
+            return 'No meeting';
+    }
+
+    public static function getHoliday($teamId)
+    {
+        $birth = Child::all()
+            ->where('team_id', $teamId)
+            ->where('selected', true)
+            ->value('birthday');
+        $date = stristr($birth, ' ', true);
+
+        return self::diff($date);
+    }
+
+    private static function diff($birthday) {
+        $cd = new \DateTime('today'); // Сегодня, время 00:00:00
+        $bd = new \DateTime($birthday); // Объект Дата дня рождения
+        $bd->setDate($cd->format('Y'), $bd->format('m'), $bd->format('d')); // Устанавливаем текущий год, оставляем месяц и день
+        $tmp = $cd->diff($bd); // Разница дат
+        if($tmp->invert){ // Если в этом году уже был (разница "отрицательная")
+            $bd->modify('+1 year'); // Добавляем год
+            $tmp = $cd->diff($bd); // Снова вычисляем разницу
+        }
+        return $tmp->days; // Результат в днях
+    }
+
     public static function data()
     {
         $user = Auth::user();
@@ -147,7 +167,7 @@ class ChildController extends Controller
             $gender = $child->gender;
         }
         else{
-            $child_name = 'not child';
+            $child_name = 'Not child';
             $gender = 1;
         }
 

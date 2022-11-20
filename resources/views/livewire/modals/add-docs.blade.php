@@ -19,15 +19,15 @@
 
         <x-slot name="content">
             <div class="col-span-6 sm:col-span-4">
-                <x-jet-label for="title" value="{{ __('Title') }}" />
-                <x-jet-input id="title" type="text" class="mt-1 block w-full" wire:model.defer="title" autocomplete="title" />
-                <x-jet-input-error for="title" class="mt-2" />
+                <x-jet-label for="title_add" value="{{ __('Title') }}" />
+                <x-jet-input id="title_add" type="text" class="mt-1 block w-full" wire:model.defer="title" autocomplete="title_add" />
+                <x-jet-input-error for="title_add" class="mt-2" />
             </div>
 
             <div class="col-span-6 sm:col-span-4 mt-3">
-                <x-jet-label for="category" value="{{ __('Category') }}" />
-                <x-jet-input id="category" type="text" class="mt-1 block w-full" wire:model.defer="category" autocomplete="category" />
-                <x-jet-input-error for="category" class="mt-2" />
+                <x-jet-label for="category_add" value="{{ __('Category') }}" />
+                <x-jet-input id="category_add" type="text" class="mt-1 block w-full" wire:model.defer="category" autocomplete="category_add" />
+                <x-jet-input-error for="category_add" class="mt-2" />
             </div>
 
             <div class="col-span-6 sm:col-span-4 mt-3">

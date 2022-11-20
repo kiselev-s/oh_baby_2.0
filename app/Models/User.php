@@ -67,14 +67,4 @@ class User extends Authenticatable
     {
         $this->hasMany(Child::class);
     }
-
-//    public function getChild($id)
-//    {
-//        return Child::all()->where('user_id', $id)->first();
-//    }
-//
-//    public function getAllChild($id)
-//    {
-//        return Child::all()->where('user_id', $id)->pluck('first_name');
-//    }
 }

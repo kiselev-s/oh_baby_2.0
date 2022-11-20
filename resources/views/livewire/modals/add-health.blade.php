@@ -23,21 +23,21 @@
 
         <x-slot name="content">
             <div class="col-span-6 sm:col-span-4">
-                <x-jet-label for="first_name" value="{{ __('First Name') }}" />
-                <x-jet-input id="first_name" type="text" class="mt-1 block w-full" wire:model.defer="first_name" autocomplete="first_name" />
-                <x-jet-input-error for="first_name" class="mt-2" />
+                <x-jet-label for="first_name_add" value="{{ __('First Name') }}" />
+                <x-jet-input id="first_name_add" type="text" class="mt-1 block w-full" wire:model.defer="first_name" autocomplete="first_name_add" />
+                <x-jet-input-error for="first_name_add" class="mt-2" />
             </div>
 
             <div class="col-span-6 sm:col-span-4 mt-3">
-                <x-jet-label for="last_name" value="{{ __('Last Name') }}" />
-                <x-jet-input id="last_name" type="text" class="mt-1 block w-full" wire:model.defer="last_name" autocomplete="last_name" />
-                <x-jet-input-error for="last_name" class="mt-2" />
+                <x-jet-label for="last_name_add" value="{{ __('Last Name') }}" />
+                <x-jet-input id="last_name_add" type="text" class="mt-1 block w-full" wire:model.defer="last_name" autocomplete="last_name_add" />
+                <x-jet-input-error for="last_name_add" class="mt-2" />
             </div>
 
             <div class="col-span-6 sm:col-span-4 mt-3">
-                <x-jet-label for="specialization" value="{{ __('Specialization') }}" />
-                <x-jet-input id="specialization" type="text" class="mt-1 block w-full" wire:model.defer="specialization" autocomplete="specialization" />
-                <x-jet-input-error for="specialization" class="mt-2" />
+                <x-jet-label for="specialization_add" value="{{ __('Specialization') }}" />
+                <x-jet-input id="specialization_add" type="text" class="mt-1 block w-full" wire:model.defer="specialization" autocomplete="specialization_add" />
+                <x-jet-input-error for="specialization_add" class="mt-2" />
             </div>
 
             <div class="col-span-6 sm:col-span-4 mt-3">
@@ -45,7 +45,6 @@
                 <input id="meeting" wire:model.defer="meeting"
                    type="datetime-local"
                        class="mt-1 dark:text-gray-400 dark:bg-gray-700 border-gray-300 dark:border-cyan-700 dark:focus:border-cyan-800 focus:border-indigo-300 focus:ring focus:ring-indigo-200 dark:focus:ring-cyan-800 focus:ring-opacity-50 rounded-md shadow-sm">
-{{--                   class="mt-1 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm">--}}
                 <x-jet-input-error for="meeting" class="mt-2" />
             </div>
 

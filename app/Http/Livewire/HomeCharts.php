@@ -37,15 +37,10 @@ class HomeCharts extends Component
             $this->team_id = $data['team_id'];
             $this->user_id = $data['user']->id;
 
-//            $evolution = Evolution::where('children_id', $this->child_id)
-//                ->orderBy('age_month', 'asc')
-//                ->get();
-
             $maxWeight = DB::table('evolutions')
                 ->select('children_id', DB::raw('MAX(weight) as max_weight'))
                 ->groupBy('children_id');
 
-//            $this->evolutions
             $evolution
                 = DB::table('children')
                 ->where('team_id', $this->team_id)
@@ -54,11 +49,6 @@ class HomeCharts extends Component
                 })
                 ->select('id', 'first_name', 'max_weight')
                 ->get();
-//                ->orderBy('id', 'asc');
-//                ->pluck('max_weight', 'first_name');
-
-//            dd($this->evolutions->value('id'));
-//            dd($evolution);
 
             if ($evolution->count() > 0) {
                 $columnChartModel = $evolution->groupBy('id')
@@ -93,10 +83,9 @@ class HomeCharts extends Component
                         'pieChartModel' => $pieChartModel,
                     ]);
             }
-
-            $this->firstRun = false;
-            return view('livewire.no-chart');
         }
+        $this->firstRun = false;
+        return view('livewire.no-chart-home');
     }
 
     protected $listeners = [
