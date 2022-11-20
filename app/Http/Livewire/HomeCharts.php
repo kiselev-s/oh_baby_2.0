@@ -11,8 +11,6 @@ use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 class HomeCharts extends Component
 {
-//    use HasTheme;
-
 //    public $types = ['food', 'shopping', 'entertainment', 'travel', 'other'];
     public $colors = [
         '0' => '#f6ad55',
@@ -20,6 +18,14 @@ class HomeCharts extends Component
         '2' => '#90cdf4',
         '3' => '#66DA26',
         '4' => '#cbd5e0',
+        '5' => '#ffffff',
+        '6' => '#3f3cbb',
+        '7' => '#121063',
+        '8' => '#565584',
+        '9' => '#3ab7bf',
+        '10' => '#ecebff',
+        '11' => '#ff77e9',
+        '12' => '#78dcca',
     ];
 
     public $child, $child_id, $user_id, $team_id;
@@ -58,11 +64,12 @@ class HomeCharts extends Component
                         $type = $data->value('first_name');
                         $value = $data->value('max_weight');
 //                        return $columnChartModel->addColumn($type, $value, $this->colors[$type]);
-                        return $columnChartModel->addColumn($type, $value, $this->colors[rand(0,4)]);
+                        return $columnChartModel->addColumn($type, $value, $this->colors);
 
                     }, (new ColumnChartModel())
                         ->setTitle('Evolution by Weight')
                         ->setAnimated($this->firstRun)
+                        ->setColors($this->colors)
                         ->withOnColumnClickEventName('onColumnClick')
                     );
                 $pieChartModel = $evolution->groupBy('id')
@@ -71,10 +78,11 @@ class HomeCharts extends Component
 //                        $value = $data->first()->weight;
                         $type = $data->value('first_name');
                         $value = $data->value('max_weight');
-                        return $pieChartModel->addSlice($type, $value, $this->colors[rand(0,4)]);
+                        return $pieChartModel->addSlice($type, $value, $this->colors);
                     }, (new PieChartModel())
                         ->setTitle('Evolution by Weight')
                         ->setAnimated($this->firstRun)
+                        ->setColors($this->colors)
                         ->withOnSliceClickEvent('onSliceClick')
                     );
                 return view('livewire.home-charts')
