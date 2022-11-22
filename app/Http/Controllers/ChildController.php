@@ -1,123 +1,31 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Child;
-use App\Models\Evolution;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class ChildController extends Controller
 {
-    public static $gender;
-
-    public static function findChild($teamId)
+    private static function getGrowth($id)
     {
-        return Child::all()
-            ->where('team_id', $teamId)
-            ->first();
-    }
-
-    public static function getAllChild($teamId)
-    {
-        return Child::all()
-            ->where('team_id', $teamId);
-    }
-
-    public static function setCurrentChild($id)
-    {
-        $teamId = DB::table('children')->where('id', $id)
-            ->value('team_id');
-
-        DB::table('children')
-            ->where('team_id', $teamId)
-            ->where('selected', true)
-            ->lazyById()
-            ->each(function ($child) {
-                DB::table('children')
-                    ->where('id', $child->id)
-                    ->update(['selected' => false]);
-            });
-
-        DB::table('children')
-            ->where('id', $id)
-            ->lazyById()
-            ->each(function ($child) {
-                DB::table('children')
-                    ->where('id', $child->id)
-                    ->update(['selected' => true]);
-            });
-    }
-
-    public static function getCurrentChild($teamId)
-    {
-        return Child::all()
-            ->where('team_id', $teamId)
-            ->where('selected', true)
-            ->value('first_name');
-    }
-
-    public static function getGender($teamId)
-    {
-        return Child::all()
-            ->where('team_id', $teamId)
-            ->where('selected', true)
-            ->value('gender');
-    }
-
-    public static function getFIO($teamId)
-    {
-        $child = Child::all()
-            ->where('team_id', $teamId)
-            ->where('selected', true)
-            ->first();
-        if($child)
-            return $child->first_name . ' ' . $child->last_name;
-        else
-            return 'Not child';//TODO
-    }
-
-    public static function getBirthday($teamId)
-    {
-        $birth = Child::all()
-            ->where('team_id', $teamId)
-            ->where('selected', true)
-            ->value('birthday');
-        return stristr($birth, ' ', true);
-    }
-
-    public static function getGrowth($teamId)
-    {
-        $id = Child::all()
-            ->where('team_id', $teamId)
-            ->where('selected', true)
-            ->value('id');
-
         return DB::table('evolutions')
             ->where('children_id', $id)
             ->orderByDesc('created_at')
             ->value('growth');
     }
 
-    public static function getWeight($teamId)
+    private static function getWeight($id)
     {
-        $id = Child::all()
-            ->where('team_id', $teamId)
-            ->where('selected', true)
-            ->value('id');
-
         return DB::table('evolutions')
             ->where('children_id', $id)
             ->orderByDesc('created_at')
             ->value('weight');
     }
 
-    public static function getMeeting($teamId)
+    private static function getMeeting($id)
     {
-        $id = Child::all()
-            ->where('team_id', $teamId)
-            ->where('selected', true)
-            ->value('id');
-
         $meeting =
             DB::table('healths')
                 ->where('children_id', $id)
@@ -128,17 +36,6 @@ class ChildController extends Controller
             return $meeting;
         else
             return 'No meeting';
-    }
-
-    public static function getHoliday($teamId)
-    {
-        $birth = Child::all()
-            ->where('team_id', $teamId)
-            ->where('selected', true)
-            ->value('birthday');
-        $date = stristr($birth, ' ', true);
-
-        return self::diff($date);
     }
 
     private static function diff($birthday) {
@@ -164,20 +61,42 @@ class ChildController extends Controller
             ->first();
         if($child) {
             $child_name = $child->first_name;
+            $child_id = $child->id;
+            $child_last_name = $child->last_name;
             $gender = $child->gender;
+            $fio = $child_name . ' ' . $child_last_name;
+            $birthday = $child->birthday;
+            $holiday = self::diff(stristr($birthday, ' ', true));
+            $weight = self::getWeight($child_id);
+            $growth = self::getGrowth($child_id);
+            $meeting = self::getMeeting($child_id);
         }
         else{
             $child_name = 'Not child';
+            $child_last_name = 'No last name';
             $gender = 1;
+            $fio = 'Not child';
+            $birthday = 'Not birthday';
+            $holiday = 'No holiday';
+            $weight = 'No weight';
+            $growth = 'No growth';
+            $meeting = 'No meeting';
         }
-
         $data = [
-            'user'=>$user,
-            'team_id'=>$team_id,
-            'children'=>$children,
-            'child'=>$child,
-            'child_name'=>$child_name,
-            'gender'=>$gender,
+            'user' => $user,
+            'team_id' => $team_id,
+            'children' => $children,
+            'child' => $child,
+            'child_name' => $child_name,
+            'child_id' => $child_id,
+            'gender' => $gender,
+            'child_last_name' => $child_last_name,
+            'fio' => $fio,
+            'birthday' => stristr($birthday, ' ', true),
+            'holiday' => $holiday,
+            'weight' => $weight,
+            'growth' => $growth,
+            'meeting' => $meeting,
         ];
 
         return $data;

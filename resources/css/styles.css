@@ -8,6 +8,17 @@
     color: #3aebca;
 }
 
+/*Работает!!! Кроме Логин*/
+
+/*input:-webkit-autofill,*/
+/*input:-webkit-autofill:hover,*/
+/*input:-webkit-autofill:focus,*/
+/*input:-webkit-autofill:active{*/
+/*    --tw-bg-opacity: 1;*/
+/*    !*background-color: rgb(55 65 81 / var(--tw-bg-opacity));*!*/
+/*    -webkit-box-shadow:0 0 0 30px rgb(55 65 81) inset !important;*/
+/*}*/
+
 /*.dark .dark\:border-best-color {*/
 /*    --tw-border-opacity: 1;*/
 /*    border-color: #3aebca;*/

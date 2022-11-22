@@ -1,4 +1,4 @@
-<div class="text-center mt-4">
+<div class="text-center dark:text-gray-400 mt-4">
     <p class="mb-6">or sign up with:</p>
 </div>
 <div class="flex justify-center">

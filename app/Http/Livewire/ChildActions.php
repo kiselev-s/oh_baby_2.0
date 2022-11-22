@@ -4,19 +4,17 @@ namespace App\Http\Livewire;
 
 use App\Models\Child;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
-use Livewire\Request;
 
 class ChildActions extends Component
 {
     use LivewireAlert;
 
-    public $children, $first_name, $last_name, $birthday, $gender, $selected, $user_id, $team_id, $child_id;
-    public $user;
-    public $child_name;
+    public $children, $child_name, $first_name, $last_name, $birthday, $gender, $selectGender, $selected, $child_id;
     public $deleteId;
-    public $selectGender;
+    public $user, $user_id, $team_id;
 
     public $page;
 
@@ -31,12 +29,17 @@ class ChildActions extends Component
     {
         $this->user = Auth::user();
         $this->team_id = $this->user->currentTeam->id;
-        $this->children = Child::where('team_id', $this->team_id)->orderBy('selected', 'desc')->get();
+        $this->children =
+            DB::table('children')
+                ->where('team_id', $this->team_id)
+                ->orderByDesc('selected')
+                ->get();
 
         $child = $this->children
             ->where('team_id', $this->team_id)
             ->where('selected', true)
             ->first();
+
         if($child) {
             $this->child_name = $child->first_name;
             $this->gender = $child->gender;
@@ -51,14 +54,24 @@ class ChildActions extends Component
 
     public function selectChild($id) {
 
-        Child::
-            where('team_id', $this->team_id)
+        DB::table('children')
+            ->where('team_id', $this->team_id)
             ->where('selected', true)
-            ->update(['selected' => false]);
+            ->lazyById()
+            ->each(function ($child) {
+                DB::table('children')
+                    ->where('id', $child->id)
+                    ->update(['selected' => false]);
+            });
 
-        Child::
-            where('id', $id)
-            ->update(['selected' => true]);
+        DB::table('children')
+            ->where('id', $id)
+            ->lazyById()
+            ->each(function ($child) {
+                DB::table('children')
+                    ->where('id', $child->id)
+                    ->update(['selected' => true]);
+            });
 
         return redirect($this->page);
     }
@@ -79,9 +92,14 @@ class ChildActions extends Component
 
     public function confirmed()
     {
-        $child_name = Child::where('id', $this->deleteId)->value('first_name');
+        $child_name =
+                DB::table('children')
+                    ->where('id', $this->deleteId)
+                    ->value('first_name');
 
-        Child::find($this->deleteId)->delete();
+        DB::table('children')
+            ->where('id', $this->deleteId)
+            ->delete();
 
         $this->alert('success', 'Child ' . $child_name . ' deleted', [
             'position' => 'center',
@@ -157,9 +175,7 @@ class ChildActions extends Component
     public function cancel()
     {
         $this->showingModal = false;
-
         $this->child_id = 0;
-
         $this->resetModal();
     }
 

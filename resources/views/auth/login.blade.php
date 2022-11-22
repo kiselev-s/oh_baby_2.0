@@ -18,7 +18,6 @@
             <div>
                 <x-jet-label for="email" value="{{ __('Email') }}" />
                 <x-jet-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
-            </div>
 
             <div class="mt-4" x-data="{ show: true }">
                 <x-jet-label for="password" value="{{ __('Password') }}" />
@@ -32,7 +31,7 @@
 ">
                     <div class="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5">
 
-                        <svg class="h-6 text-gray-700 dark:text-gray-400" fill="none" @click="show = !show"
+                        <svg class="h-6 text-gray-700 dark:text-gray-400 cursor-pointer hover:opacity-70" fill="none" @click="show = !show"
                              :class="{'hidden': !show, 'block':show }" xmlns="http://www.w3.org/2000/svg"
                              viewbox="0 0 576 512">
                             <path fill="currentColor"
@@ -40,7 +39,7 @@
                             </path>
                         </svg>
 
-                        <svg class="h-6 text-gray-700 dark:text-gray-400" fill="none" @click="show = !show"
+                        <svg class="h-6 text-gray-700 dark:text-gray-400 cursor-pointer hover:opacity-70" fill="none" @click="show = !show"
                              :class="{'block': !show, 'hidden':show }" xmlns="http://www.w3.org/2000/svg"
                              viewbox="0 0 640 512">
                             <path fill="currentColor"

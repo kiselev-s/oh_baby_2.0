@@ -116,11 +116,14 @@ class HomeCharts extends Component
     public function handleOnColumnClick($column)
     {
 //        dd($column['extras']);
-        $this->alert('success',
-            $column['extras']['first_name'] . ": maximum weight " . $column['extras']['max_weight'],
+        $this->alert('info',
+            $column['extras']['first_name'] . ':',
             [
-            'position' => 'center',
-                'showConfirmButton' => true
+                'position' => 'center',
+                'showConfirmButton' => true,
+                'timer' => 10000,
+                'text' =>
+                     "maximum weight " . $column['extras']['max_weight'],
         ]);
     }
 }
