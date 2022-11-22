@@ -1,4 +1,6 @@
-<button id="switchTheme" class="h-10 w-10 flex justify-center items-center focus:outline-none text-gray-800 dark:text-gray-200">
+<button id="switchTheme" class="h-10 w-10 flex justify-center items-center focus:outline-none text-gray-800 dark:text-gray-200"
+        wire:click="switchTheme()"
+>
 <!--    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">-->
 <!--        <path fill-rule="evenodd"-->
 <!--              d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z">-->

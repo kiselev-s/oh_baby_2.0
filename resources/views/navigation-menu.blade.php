@@ -12,11 +12,7 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <!--
-                    <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
-                    </x-jet-nav-link>
-                    -->
+
                     <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         <div class="flex mr-1 mb-1">
                             <img src="{{URL::asset('/home.png')}}" alt="boy" width="30">
@@ -41,19 +37,11 @@
                         </div>
                         {{ __('Evolution') }}
                     </x-jet-nav-link>
-{{--                    <x-jet-nav-link href="{{ url('test') }}" :active="request()->routeIs('test')">--}}
-{{--                        <div class="flex mr-1">--}}
-{{--                            <img src="{{URL::asset('/parent.png')}}" alt="boy" width="30">--}}
-{{--                        </div>--}}
-{{--                        {{ __('Test') }}--}}
-{{--                    </x-jet-nav-link>--}}
 
                 </div>
             </div>
 
             <div class="hidden sm:flex sm:items-center sm:ml-6">
-
-                @include('theme-button')
 
                 <!-- Child Dropdown -->
                 @livewire('child-actions', ['page'=>request()->fullUrl()])

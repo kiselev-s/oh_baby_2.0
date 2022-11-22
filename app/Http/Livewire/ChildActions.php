@@ -15,6 +15,7 @@ class ChildActions extends Component
     public $children, $child_name, $first_name, $last_name, $birthday, $gender, $selectGender, $selected, $child_id;
     public $deleteId;
     public $user, $user_id, $team_id;
+    public $theme;
 
     public $page;
 
@@ -28,6 +29,7 @@ class ChildActions extends Component
     public function render()
     {
         $this->user = Auth::user();
+        $this->theme = $this->user->theme;
         $this->team_id = $this->user->currentTeam->id;
         $this->children =
             DB::table('children')
@@ -189,4 +191,23 @@ class ChildActions extends Component
         $this->clearValidation();
     }
     //Modal End
+
+    public function switchTheme()
+    {
+//        dd($this->theme);
+        if($this->theme != 'dark')
+            $this->theme = 'dark';
+        else
+            $this->theme = null;
+
+
+        DB::table('users')
+            ->where('id', $this->user->id)
+            ->lazyById()
+            ->each(function ($user) {
+                DB::table('users')
+                    ->where('id', $user->id)
+                    ->update(['theme' => $this->theme]);
+            });
+    }
 }

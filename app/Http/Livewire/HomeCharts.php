@@ -34,8 +34,6 @@ class HomeCharts extends Component
 
     public $firstRun = true;
 
-    public $evolutions, $evolutionsMax, $children;
-
     public function render()
     {
         $data = ChildController::data();
@@ -58,11 +56,22 @@ class HomeCharts extends Component
                 ->select('id', 'first_name', 'max_weight')
                 ->get();
 
+            $count = DB::table('healths')
+                ->select('children_id', DB::raw('COUNT(children_id) as count_health'))
+                ->groupBy('children_id');
+
+            $health
+                = DB::table('children')
+                ->where('team_id', $this->team_id)
+                ->joinSub($count, 'count_health', function ($join) {
+                    $join->on('children.id', '=', 'count_health.children_id');
+                })
+                ->select('id', 'first_name', 'count_health')
+                ->get();
+
             if ($evolution->count() > 0) {
                 $columnChartModel = $evolution->groupBy('id')
                     ->reduce(function (ColumnChartModel $columnChartModel, $data) {
-//                        $type = $data->first()->id;
-//                        $value = $data->first()->weight;
                         $type = $data->value('first_name');
                         $value = $data->value('max_weight');
 //                        return $columnChartModel->addColumn($type, $value, $this->colors[$type]);
@@ -75,15 +84,13 @@ class HomeCharts extends Component
                         ->setColors($this->colors)
                         ->withOnColumnClickEventName('onColumnClick')
                     );
-                $pieChartModel = $evolution->groupBy('id')
+                $pieChartModel = $health->groupBy('id')
                     ->reduce(function (PieChartModel $pieChartModel, $data) {
-//                        $type = $data->first()->id;
-//                        $value = $data->first()->weight;
                         $type = $data->value('first_name');
-                        $value = $data->value('max_weight');
+                        $value = $data->value('count_health');
                         return $pieChartModel->addSlice($type, $value, $this->colors, $data[0]);
                     }, (new PieChartModel())
-                        ->setTitle('Evolution by Weight')
+                        ->setTitle('Doctor visit statistics')
                         ->setAnimated($this->firstRun)
                         ->setColors($this->colors)
                         ->withOnSliceClickEvent('onSliceClick')
