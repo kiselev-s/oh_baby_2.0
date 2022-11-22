@@ -42,28 +42,42 @@
 /*    }*/
 /*}*/
 
-.apexcharts-text.apexcharts-yaxis-label {
-    /*color: #5dac29;*/
-    fill: #f594a4;
+.dark-apexcharts-yaxis-label {
+    color: #ff0028 !important;
+    fill: #ff0028 !important;
+}
+.dark-apexcharts-yaxis-title-text {
+    color: #ff0028 !important;
+    fill: #ff0028 !important;
 }
 
-.apexcharts-text.apexcharts-yaxis-title-text {
-    /*color: #5dac29;*/
-    fill: #3aebca;
+.dark-apexcharts-xaxis-label {
+    color: #ff0028 !important;
+    fill: #ff0028 !important;
 }
+
+.dark-apexcharts-legend-text {
+    color: #ff0028 !important;
+    fill: #ff0028 !important;
+}
+
+/*.apexcharts-text.apexcharts-yaxis-title-text {*/
+/*    !*color: #5dac29;*!*/
+/*    fill: #3aebca;*/
+/*}*/
 
 .apexcharts-text.apexcharts-xaxis-label {
     /*color: #e0c81e;*/
     fill: #5ee106;
 }
 
-.apexcharts-title-text {
-    /*color: #e0c81e;*/
-    fill: #3aebca;
+.dark-apexcharts-title-text {
+    color: #ff0028 !important;
+    fill: #ff0028 !important;
 }
 
-.apexcharts-pie-area {
-    stroke: rgb(31 41 55);
+.dark-apexcharts-pie-area {
+    stroke: rgb(31 41 55) !important;
 }
 
 /*html {*/

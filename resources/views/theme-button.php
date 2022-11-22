@@ -1,5 +1,5 @@
 <button id="switchTheme" class="h-10 w-10 flex justify-center items-center focus:outline-none text-gray-800 dark:text-gray-200"
-        wire:click="switchTheme()"
+<!--        wire:click="switchTheme()"-->
 >
 <!--    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">-->
 <!--        <path fill-rule="evenodd"-->
@@ -76,3 +76,40 @@
 <!--        </svg>-->
 <!--    </span>-->
 <!--</button>-->
+
+<button id="switchTheme2" class="h-10 w-10 flex justify-center items-center focus:outline-none text-gray-800 dark:text-gray-200"
+<!--        wire:click="switchTheme()"-->
+>
+<!--    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">-->
+<!--        <path fill-rule="evenodd"-->
+<!--              d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z">-->
+<!--        </path>-->
+<!--    </svg>-->
+
+<!--        <svg viewBox="0 0 24 24"-->
+<!--             fill="currentColor"-->
+<!--             stroke-width="2"-->
+<!--             stroke-linecap="round"-->
+<!--             stroke-linejoin="round"-->
+<!--             class="w-6 h-6">-->
+<!--            <path-->
+<!--                d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"-->
+<!--                class="stroke-slate-400 dark:stroke-slate-500">-->
+<!--            </path>-->
+<!--            <path d="M12 4v1M17.66 6.344l-.828.828M20.005 12.004h-1M17.66 17.664l-.828-.828M12 20.01V19M6.34 17.664l.835-.836M3.995 12.004h1.01M6 6l.835.836"-->
+<!--                  class="stroke-slate-400 dark:stroke-slate-500">-->
+<!--            </path>-->
+<!--        </svg>-->
+
+<svg
+    class="w-6 h-6"
+    viewBox="0 0 24 24"
+    fill="currentColor"
+    xmlns="http://www.w3.org/2000/svg"
+>
+    <path
+        fill-rule="evenodd"
+        d="M7.5,2C5.71,3.15 4.5,5.18 4.5,7.5C4.5,9.82 5.71,11.85 7.53,13C4.46,13 2,10.54 2,7.5A5.5,5.5 0 0,1 7.5,2M19.07,3.5L20.5,4.93L4.93,20.5L3.5,19.07L19.07,3.5M12.89,5.93L11.41,5L9.97,6L10.39,4.3L9,3.24L10.75,3.12L11.33,1.47L12,3.1L13.73,3.13L12.38,4.26L12.89,5.93M9.59,9.54L8.43,8.81L7.31,9.59L7.65,8.27L6.56,7.44L7.92,7.35L8.37,6.06L8.88,7.33L10.24,7.36L9.19,8.23L9.59,9.54M19,13.5A5.5,5.5 0 0,1 13.5,19C12.28,19 11.15,18.6 10.24,17.93L17.93,10.24C18.6,11.15 19,12.28 19,13.5M14.6,20.08L17.37,18.93L17.13,22.28L14.6,20.08M18.93,17.38L20.08,14.61L22.28,17.15L18.93,17.38M20.08,12.42L18.94,9.64L22.28,9.88L20.08,12.42M9.63,18.93L12.4,20.08L9.87,22.27L9.63,18.93Z"
+    />
+</svg>
+</button>
