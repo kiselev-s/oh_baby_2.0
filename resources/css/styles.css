@@ -1,111 +1,44 @@
+/*Slider Images*/
 .card-img {
     height: 70vh;
     display: flex;
     align-items: center;
 }
 
-.best-color {
-    color: #3aebca;
+/*Фон автозаполнения*/
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active{
+    -webkit-box-shadow:0 0 0 30px rgb(55 65 81) inset !important;
+    -webkit-text-fill-color: rgb(156 163 175);
 }
 
-/*Работает!!! Кроме Логин*/
-
-/*input:-webkit-autofill,*/
-/*input:-webkit-autofill:hover,*/
-/*input:-webkit-autofill:focus,*/
-/*input:-webkit-autofill:active{*/
-/*    --tw-bg-opacity: 1;*/
-/*    !*background-color: rgb(55 65 81 / var(--tw-bg-opacity));*!*/
-/*    -webkit-box-shadow:0 0 0 30px rgb(55 65 81) inset !important;*/
-/*}*/
-
-/*.dark .dark\:border-best-color {*/
-/*    --tw-border-opacity: 1;*/
-/*    border-color: #3aebca;*/
-/*    !*border-color: rgb(58 235 202 / var(--tw-text-opacity));*!*/
-/*}*/
-
-/*.dark .dark\:border-best- {*/
-/*    --tw-border-opacity: 1;*/
-/*    border-color: rgb(79 70 229 / var(--tw-border-opacity));*/
-/*}*/
-
-/*@media (prefers-color-scheme: dark) {*/
-/*    .apexcharts-text.apexcharts-yaxis-label {*/
-/*        color: #295dac;*/
-/*        fill: #2e548d;*/
-/*    }*/
-
-/*    .apexcharts-text.apexcharts-xaxis-label {*/
-/*        color: #366bba;*/
-/*        fill: #244e8e;*/
-/*    }*/
-/*}*/
-
-.dark-apexcharts-yaxis-label {
-    color: #ff0028 !important;
-    fill: #ff0028 !important;
+/*Charts Dark*/
+.apexcharts-yaxis-label {
+    fill: #249380 !important;
 }
-.dark-apexcharts-yaxis-title-text {
-    color: #ff0028 !important;
-    fill: #ff0028 !important;
+.apexcharts-yaxis-title-text {
+    fill: #249380 !important;
 }
 
-.dark-apexcharts-xaxis-label {
-    color: #ff0028 !important;
-    fill: #ff0028 !important;
+.apexcharts-xaxis-label {
+    fill: #249380 !important;
 }
 
-.dark-apexcharts-legend-text {
-    color: #ff0028 !important;
-    fill: #ff0028 !important;
+.apexcharts-legend-text {
+    fill: #249380 !important;
 }
 
-/*.apexcharts-text.apexcharts-yaxis-title-text {*/
-/*    !*color: #5dac29;*!*/
-/*    fill: #3aebca;*/
-/*}*/
-
-.apexcharts-text.apexcharts-xaxis-label {
-    /*color: #e0c81e;*/
-    fill: #5ee106;
+.apexcharts-legend-text {
+    color: #249380 !important;
 }
 
-.dark-apexcharts-title-text {
-    color: #ff0028 !important;
-    fill: #ff0028 !important;
+.apexcharts-title-text {
+    fill: #249380 !important;
 }
 
-.dark-apexcharts-pie-area {
-    stroke: rgb(31 41 55) !important;
+.apexcharts-pie-area {
+    stroke: transparent !important;
 }
-
-/*html {*/
-/*    --text-color-normal: #0a244d;*/
-/*    --text-color-light: #8cabd9;*/
-/*}*/
-/*html[class='dark'] {*/
-/*    --text-color-normal: hsl(210, 10%, 62%);*/
-/*    --text-color-light: hsl(210, 15%, 35%);*/
-/*    --text-color-richer: hsl(210, 50%, 72%);*/
-/*    --text-color-highlight: hsl(25, 70%, 45%);*/
-/*}*/
-
-/*html[data-theme='normal'] {*/
-/*    --theme-color: #3aebca;*/
-/*}*/
-
-/*.class-name {*/
-/*    color: var(--color);*/
-/*    background-color: var(--background-color);*/
-/*}*/
-
-/*html [class='d'] {*/
-/*     --color: #801111;*/
-/*     --background-color: #cb8888;*/
-/* }*/
-/*html [data-theme-style='dark'] {*/
-/*     --color: 'hsl(var(--theme-color), 70%, 31%)';*/
-/*     --background-color: 'hsl(var(--theme-color), 3%, 3%)';*/
-/*}*/
 

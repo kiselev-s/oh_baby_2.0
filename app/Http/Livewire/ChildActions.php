@@ -16,10 +16,9 @@ class ChildActions extends Component
     public $deleteId;
     public $user, $user_id, $team_id;
     public $theme;
-
-    public $page;
-
+    public $firstRun = true;
     public $showingModal = false;
+    public $page;
 
     public function mount($page)
     {
@@ -29,7 +28,12 @@ class ChildActions extends Component
     public function render()
     {
         $this->user = Auth::user();
-        $this->theme = $this->user->theme;
+
+        if($this->firstRun) {
+            $this->theme = $this->user->theme;
+            $this->firstRun = false;
+        }
+
         $this->team_id = $this->user->currentTeam->id;
         $this->children =
             DB::table('children')
@@ -194,12 +198,12 @@ class ChildActions extends Component
 
     public function switchTheme()
     {
-//        dd($this->theme);
         if($this->theme != 'dark')
+        {
             $this->theme = 'dark';
+        }
         else
             $this->theme = null;
-
 
         DB::table('users')
             ->where('id', $this->user->id)

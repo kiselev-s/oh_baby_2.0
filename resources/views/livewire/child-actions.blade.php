@@ -1,10 +1,10 @@
 @if (Laravel\Jetstream\Jetstream::hasTeamFeatures())
     <div class="flex">
 
-        @include('theme-button')
+        @include('livewire.theme-button')
 
         @include('livewire.modals.add-child')
-            <div>
+        <div>
             @if($team_id)
                 <div class="flex mt-0.5">
 
@@ -15,7 +15,7 @@
                         <img src="{{URL::asset('/girl.png')}}" alt="girl" width="30">
                     @endif
 
-                    <div class="ml-1 relative">
+                    <div class="ml-1 relative dark:text-gray-400">
                         <x-jet-dropdown align="right" width="60">
                             <x-slot name="trigger">
                                 <!-- Current Child -->
@@ -45,7 +45,8 @@
                                         <div
                                             class="flex items-center hover:bg-gray-100 dark:hover:bg-gray-900 focus:bg-gray-100 dark:focus:bg-gray-900 focus:outline-none focus:ring-0 active:bg-gray-200 text-gray-400">
                                             @if($child->selected)
-                                                <svg class="ml-4 h-10 w-10 text-green-400" fill="none" stroke-linecap="round"
+                                                <svg class="ml-4 h-10 w-10 text-green-400" fill="none"
+                                                     stroke-linecap="round"
                                                      stroke-linejoin="round" stroke-width="2" stroke="currentColor"
                                                      viewBox="0 0 24 24">
                                                     <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
@@ -63,8 +64,10 @@
                                                 class="py-2 px-1 hover:text-blue-600"
                                                 wire:click="edit({{ $child->id }})"
                                             >
-                                                <svg class="h-6 xl:h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                <svg class="h-6 xl:h-5" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                     viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                          stroke-width="2"
                                                           d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
                                                 </svg>
                                             </a>
@@ -74,8 +77,10 @@
                                                 class="py-2 px-1 hover:text-red-600 pr-4"
                                                 wire:click.prevent="delete({{ $child->id }})"
                                             >
-                                                <svg class="h-6 xl:h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                <svg class="h-6 xl:h-5" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                     viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                          stroke-width="2"
                                                           d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
                                                 </svg>
                                             </a>
@@ -87,6 +92,6 @@
                     </div>
                 </div>
             @endif
-            </div>
+        </div>
     </div>
 @endif

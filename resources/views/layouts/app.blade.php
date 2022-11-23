@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="{{Auth::user()->theme}}">
+
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -29,6 +30,7 @@
         <x-jet-banner />
 
         <div class="min-h-screen bg-gray-100 dark:bg-gray-700">
+
             @livewire('navigation-menu')
 
             <!-- Page Heading -->
