@@ -31,7 +31,6 @@
 
                 @if($imagesChild != null)
                         @foreach($imagesChild as $key => $image)
-{{--                    @foreach($imagesChild as $image)--}}
                         <div class="p-1">
                             <div class="flex absolute px-20">
                                 <a
@@ -49,7 +48,7 @@
                                 <img
                                     wire:click="showEditImage({{$key}})"
                                     src="{{URL::asset('storage/'.$image->path)}}"
-                                    class="block rounded cursor-pointer"
+                                    class="block rounded cursor-pointer hover:border hover:border-green-400 dark:hover:border-blue-500"
                                     width="115px"
                                     alt="..."
                                 />
