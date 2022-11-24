@@ -1,4 +1,5 @@
 <div class="container mx-auto space-y-4 p-4 sm:p-0">
+    @include('livewire.modals.view-visit-doc-statistics')
 
 {{--    <ul class="flex flex-col sm:flex-row sm:space-x-8 sm:items-center">--}}
 {{--        <li>--}}

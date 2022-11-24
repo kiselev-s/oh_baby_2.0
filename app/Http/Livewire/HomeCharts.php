@@ -30,8 +30,8 @@ class HomeCharts extends Component
         '12' => '#78dcca',
     ];
 
-    public $child, $child_id, $user_id, $team_id;
-
+    public $child, $child_id, $child_name, $user_id, $team_id, $healths;
+    public $showingVisitDocs = false;
     public $firstRun = true;
 
     public function render()
@@ -118,7 +118,19 @@ class HomeCharts extends Component
     }
     public function handleOnSliceClick($slice)
     {
-        dd($slice);
+        $children_id = $slice['extras']['id'];
+        $this->healths =
+            DB::table('healths')
+                ->where('children_id', $children_id)
+                ->orderByDesc('meeting')
+                ->get();
+//        dd($this->healths);
+        $this->child_name =
+            DB::table('children')
+                ->where('id', $children_id)
+                ->value('first_name');
+//        dd($this->healths);
+        $this->showingVisitDocs = true;
     }
     public function handleOnColumnClick($column)
     {
@@ -132,5 +144,10 @@ class HomeCharts extends Component
                 'text' =>
                      "maximum weight " . $column['extras']['max_weight'],
         ]);
+    }
+
+    public function cancelViewVisitDocs()
+    {
+        $this->showingVisitDocs = false;
     }
 }
