@@ -10,7 +10,6 @@ use Illuminate\Support\Carbon;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\WithFileUploads;
 use Luckykenlin\LivewireTables\Views\Action;
-use Luckykenlin\LivewireTables\Views\Boolean;
 use Luckykenlin\LivewireTables\Views\Column;
 use Luckykenlin\LivewireTables\LivewireTables;
 
@@ -33,6 +32,11 @@ class DocumentsTable extends LivewireTables
     public $image_id = -1;
 
     public $document, $document_id, $documents, $documents_id;
+
+    public string $defaultSortColumn = 'created_at';
+    public string $defaultSortDirection = 'desc';
+    public array $perPageOptions = [5, 10, 15, 20];
+    public int $perPage = 5;
 
     // Table Start
     public function query(): Builder
@@ -64,27 +68,19 @@ class DocumentsTable extends LivewireTables
                 ->sortable()
                 ->searchable(),
             Column::make('Preview')
-                ->render(fn(Documents $documents) => view('livewire.preview.image-preview',
+                ->render(fn(Documents $documents) => view('livewire.components.preview.image-preview',
                     ['preview' => $this->imagePreview, 'id' => $documents->id])),
-//            Column::make('Updated', 'updated_at')
             Column::make('Created', 'created_at')
                 ->sortable()
                 ->format(fn(Carbon $v) => $v->diffForHumans()),
             Column::make('', 'selected')
-                ->render(fn(Documents $documents) => view('livewire.preview.true-preview',
+                ->render(fn(Documents $documents) => view('livewire.components.preview.true-preview',
                     ['selected' => $documents->selected])),
 
             Action::make()->hideEditButton(),
-
         ];
     }
 
-//    public string $defaultSortColumn = 'updated_at';
-    public string $defaultSortColumn = 'created_at';
-    public string $defaultSortDirection = 'desc';
-    public array $perPageOptions = [5, 10, 15, 20];
-    public int $perPage = 5;
-//
     public function submitDelete($rowId) // удаление из таблицы
     {
         $this->rowId = $rowId;
@@ -149,7 +145,6 @@ class DocumentsTable extends LivewireTables
         $this->countMax = $this->imagesChild->count();
     }
 //
-//    //    public bool $debugEnabled = true;
 //    //Table End
 //
 //    //Modal Start
@@ -336,9 +331,9 @@ class DocumentsTable extends LivewireTables
             Image::updateOrCreate(['id' => $image->id], $image->toArray());
         }
         $images = Image::where('documents_id', $this->document_id)->get()->toArray();
-        count($images) === 0 ? Documents::find($this->document_id)->delete() : '';
-//        if(count($images) === 0)
-//            Documents::find($this->document_id)->delete();
+//        count($images) === 0 ? Documents::find($this->document_id)->delete() : '';
+        if(count($images) === 0)
+            Documents::find($this->document_id)->delete();
     }
 
     private function createDocument()

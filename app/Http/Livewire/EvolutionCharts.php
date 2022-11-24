@@ -1,33 +1,23 @@
 <?php
 namespace App\Http\Livewire;
 use App\Http\Controllers\ChildController;
-use App\Models\Expense;
 use App\Models\Evolution;
-use Asantibanez\LivewireCharts\Models\AreaChartModel;
-use Asantibanez\LivewireCharts\Models\ColumnChartModel;
 use Asantibanez\LivewireCharts\Models\LineChartModel;
-use Asantibanez\LivewireCharts\Models\PieChartModel;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 class EvolutionCharts extends Component
 {
     use LivewireAlert;
-//    public $types = ['8', 'food', 'shopping', 'entertainment', 'travel', 'other'];
-//    public $colors = [
-//        'food' => '#f6ad55',
-//        'shopping' => '#fc8181',
-//        'entertainment' => '#90cdf4',
-//        'travel' => '#66DA26',
-//        'other' => '#cbd5e0',
-//    ];
+
     public $firstRun = true;
     public $showAdd = false;
     public $afterYear = true;
+    public $showingEvolData = false;
 
-    public $child, $child_id, $user_id, $team_id;
+    public $child, $child_id, $child_name, $user_id, $team_id;
     public $month = [1,2,3,4,5,6,7,8,9,10,12];
     public $selectAge, $inputAge, $age;
-    public $growth, $weight;
+    public $growth, $weight, $evolutionGrowth, $evolutionWeight, $evolutionDateCreate;
 
     public function changeAge()
     {
@@ -74,7 +64,6 @@ class EvolutionCharts extends Component
             }
 
             Evolution::updateOrCreate(
-//                ['id' => $this->health_id],
                 [
                 'age_month' => $this->age,
                 'growth' => $this->growth,
@@ -98,18 +87,15 @@ class EvolutionCharts extends Component
         $this->showAdd = false;
     }
 
-
-
     public function render()
     {
         $data = ChildController::data();
         $this->child = $data['child'];
+        $this->child_name = $data['child_name'];
         if($this->child) {
             $this->child_id = $this->child->id;
             $this->team_id = $data['team_id'];
             $this->user_id = $data['user']->id;
-
-//            $this->showAdd = false;
 
             $evolution = Evolution::where('children_id', $this->child_id)
                 ->orderBy('age_month', 'asc')
@@ -120,13 +106,11 @@ class EvolutionCharts extends Component
                     ->reduce(function (LineChartModel $lineChartModel, $data) use ($evolution) {
 
                         $lineChartModel->addSeriesPoint('Growth',
-//                    $data->age_month,
                             $data->age_month > 12 ? round($data->age_month / 12, 1) . ' year' : $data->age_month . ' month',
-                            $data->growth, ['id' => $data]);
+                            $data->growth, $data);
                         $lineChartModel->addSeriesPoint('Weight',
-//                    $data->age_month,
                             $data->age_month > 12 ? round($data->age_month / 12, 1) . ' year' : $data->age_month . ' month',
-                            $data->weight, ['id' => $data]);
+                            $data->weight, $data);
 
                         return $lineChartModel;
                     }, (new LineChartModel())
@@ -147,24 +131,23 @@ class EvolutionCharts extends Component
         }
 
         $this->showAdd = true;
-        return view('livewire.no-chart-evolution');
+        return view('livewire.components.no-chart-evolution');
     }
 
     protected $listeners = [
         'onPointClick' => 'handleOnPointClick',
-        'onSliceClick' => 'handleOnSliceClick',
-        'onColumnClick' => 'handleOnColumnClick',
     ];
+
     public function handleOnPointClick($point)
-    {
-        dd($point);
+    {;
+        $this->evolutionGrowth = $point['extras']['growth'];
+        $this->evolutionWeight = $point['extras']['weight'];
+        $this->evolutionDateCreate = stristr($point['extras']['created_at'], 'T', true);
+        $this->showingEvolData = true;
     }
-    public function handleOnSliceClick($slice)
+
+    public function cancelShowingEvolData()
     {
-        dd($slice);
-    }
-    public function handleOnColumnClick($column)
-    {
-        dd($column);
+        $this->showingEvolData = false;
     }
 }

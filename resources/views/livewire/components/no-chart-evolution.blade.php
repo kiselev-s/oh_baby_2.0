@@ -1,5 +1,5 @@
 <div class="w-full">
-    @include('livewire.add-evolution')
+    @include('livewire.modals.add-evolution')
 
     <div class="flex justify-around w-full mt-4">
         <div class="flex justify-center items-center w-full space-x-2 rounded-lg dark:bg-gray-800">

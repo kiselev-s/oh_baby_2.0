@@ -15,7 +15,7 @@
             </a>
         </div>
     @else
-        @include('livewire.add-evolution')
+        @include('livewire.modals.add-evolution')
     @endif
 
     <div class="shadow rounded p-4 border dark:border-blue-300 bg-white dark:bg-gray-800" style="height: 32rem;">
@@ -24,4 +24,6 @@
             :line-chart-model="$ChartModel"
         />
     </div>
+
+    @include('.livewire.modals.view-evolution-data')
 </div>

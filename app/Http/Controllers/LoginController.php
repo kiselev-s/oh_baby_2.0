@@ -20,10 +20,6 @@ class LoginController extends Controller
         return Socialite::driver('google')->redirect();
     }
 
-    public function print(){
-        dd('skjjbvkejbvkjevb');
-    }
-
     /**
      * Obtain the user information from GitHub.
      *
@@ -44,7 +40,6 @@ class LoginController extends Controller
                 //user is not yet created, so create first
                 $newUser = User::create([
                     'name' => $user->name,
-                    'last_name' => 'dkjcbdkb', //TODO
                     'email' => $user->email,
                     'google_id'=> $user->id,
                     'password' => encrypt('')
@@ -53,7 +48,7 @@ class LoginController extends Controller
                 //create a personal team for the user
                 $newTeam = Team::forceCreate([
                     'user_id' => $newUser->id,
-                    'name' => explode(' ', $user->name, 2)[0]."'s Team",
+                    'name' => explode(' ', $user->name, 2)[0]."'s Family",
                     'personal_team' => true,
                 ]);
                 // save the team and add the team to the user.

@@ -50,7 +50,7 @@ class CreateNewUser implements CreatesNewUsers
     {
         $user->ownedTeams()->save(Team::forceCreate([
             'user_id' => $user->id,
-            'name' => explode(' ', $user->name, 2)[0]."'s Family", //TODO
+            'name' => explode(' ', $user->name, 2)[0]."'s Family", //TODO Localization
             'personal_team' => true,
         ]));
     }

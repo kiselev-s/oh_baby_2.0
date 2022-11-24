@@ -52,6 +52,7 @@ class ChildController extends Controller
 
     public static function data()
     {
+        $child_id = 0;
         $user = Auth::user();
         $team_id = $user->currentTeam->id;
         $children = Child::where('team_id', $team_id)->orderBy('selected', 'desc')->get();

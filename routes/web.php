@@ -1,9 +1,7 @@
 <?php
 
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\SliderControllerDELETE;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\MainControllerDELETE;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,16 +16,6 @@ use App\Http\Controllers\MainControllerDELETE;
 
 Route::get('/', function () {
     return view('welcome');
-});
-
-Route::get('sliders', [SliderControllerDELETE::class,'index'])->name('sliders');
-
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified'
-])->group(function () {
-    Route::get('/test', [MainControllerDELETE::class, 'index']);
 });
 
 Route::get('auth/google', [LoginController::class, 'redirectToGoogle']);

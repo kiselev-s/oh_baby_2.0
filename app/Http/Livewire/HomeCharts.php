@@ -74,7 +74,6 @@ class HomeCharts extends Component
                     ->reduce(function (ColumnChartModel $columnChartModel, $data) {
                         $type = $data->value('first_name');
                         $value = $data->value('max_weight');
-//                        return $columnChartModel->addColumn($type, $value, $this->colors[$type]);
                         return $columnChartModel->addColumn($type, $value, $this->colors, $data[0]);
 
                     }, (new ColumnChartModel())
@@ -103,19 +102,14 @@ class HomeCharts extends Component
             }
         }
         $this->firstRun = false;
-        return view('livewire.no-chart-home');
+        return view('livewire.components.no-chart-home');
     }
 
     protected $listeners = [
-        'onPointClick' => 'handleOnPointClick',
         'onSliceClick' => 'handleOnSliceClick',
         'onColumnClick' => 'handleOnColumnClick',
     ];
 
-    public function handleOnPointClick($point)
-    {
-        dd($point);
-    }
     public function handleOnSliceClick($slice)
     {
         $children_id = $slice['extras']['id'];
@@ -124,17 +118,14 @@ class HomeCharts extends Component
                 ->where('children_id', $children_id)
                 ->orderByDesc('meeting')
                 ->get();
-//        dd($this->healths);
         $this->child_name =
             DB::table('children')
                 ->where('id', $children_id)
                 ->value('first_name');
-//        dd($this->healths);
         $this->showingVisitDocs = true;
     }
     public function handleOnColumnClick($column)
     {
-//        dd($column['extras']);
         $this->alert('info',
             $column['extras']['first_name'] . ':',
             [

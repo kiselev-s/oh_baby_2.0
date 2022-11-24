@@ -15,13 +15,17 @@ class HealthTable extends LivewireTables
 {
     use LivewireAlert;
 
-    public $rowId;
-
     public $showingModal = false;
+    public $showImage = false;
+
+    public $rowId;
 
     public $health_id, $first_name, $last_name, $specialization, $meeting, $child_id, $user_id, $team_id;
 
-    public $showImage = false;
+    public string $defaultSortColumn = 'meeting';
+    public string $defaultSortDirection = 'desc';
+    public array $perPageOptions = [5, 10, 15, 25, 50];
+    public int $perPage = 5;
 
     // Table Start
     public function query(): Builder
@@ -37,7 +41,6 @@ class HealthTable extends LivewireTables
 
             return Health::query()
                 ->where('children_id', $id);
-//                ->orderBy('meeting', 'desc')->getQuery();
         }
         else{
             return Health::query()->where('children_id', 0);
@@ -47,26 +50,15 @@ class HealthTable extends LivewireTables
     public function columns(): array
     {
         return [
-//            Column::make('#', 'id')->sortable(),
             Column::make('First name','first_name')->sortable()->searchable(),
             Column::make('Last name','last_name')->sortable()->searchable(),
             Column::make('specialization')->sortable()->searchable(),
             Column::make('meeting')->sortable(),
-//        ->format(fn(Carbon $v) => $v->diffForHumans()),
-//            Column::make('children_id')->sortable()->searchable(),
             Column::make('Created','created_at')->format(fn(Carbon $v) => $v->diffForHumans()),
 
-            Action::make(),
+            Action::make()->hideShowButton(),
         ];
     }
-
-    public string $defaultSortColumn = 'meeting';
-
-    public string $defaultSortDirection = 'desc';
-
-    public array $perPageOptions = [5, 10, 15, 25, 50];
-
-    public int $perPage = 5;
 
     public function submitDelete($rowId)
     {
@@ -92,11 +84,11 @@ class HealthTable extends LivewireTables
     ];
 
     public function newResource(){}
-
-    //    public bool $debugEnabled = true;
+    //
     //Table End
 
     //Modal Start
+    //
     public function showModal(){
         $this->showingModal = true;
     }
@@ -134,7 +126,6 @@ class HealthTable extends LivewireTables
         }
 
         $this->resetModal();
-
         $this->showingModal = false;
     }
 
@@ -154,7 +145,6 @@ class HealthTable extends LivewireTables
     public function cancel()
     {
         $this->showingModal = false;
-
         $this->resetModal();
     }
 

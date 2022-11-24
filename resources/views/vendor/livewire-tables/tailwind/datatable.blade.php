@@ -1,17 +1,17 @@
 @if($showImage)
     <div class="flex flex-wrap">
         <div class="w-full sm:w-1/2 p-4">
-@endif
+            @endif
             <div>
                 <div
-                    class="relative"
-                    @if ($refresh)
-                        @if ($refreshInSeconds)
-                            wire:poll.{{ $refreshInSeconds * 1000 }}ms
-                    @else
-                        wire:poll
-                    @endif
-                    @endif
+                        class="relative"
+                        @if ($refresh)
+                            @if ($refreshInSeconds)
+                                wire:poll.{{ $refreshInSeconds * 1000 }}ms
+                        @else
+                            wire:poll
+                        @endif
+                        @endif
                 >
                     <div class="flex-col">
                         @include('livewire-tables::tailwind.includes.sorting-pills')
@@ -26,11 +26,8 @@
                                 </div>
 
                                 <div class="md:flex md:items-center space-y-4 md:space-y-0">
-                                    {{--                        <div>@include('livewire-tables::tailwind.includes.bulk-actions')</div>--}}
-                                    {{--                        <div>@include('livewire-tables::tailwind.includes.column-select')</div>--}}
                                     <div>@includeWhen($paginationEnabled && $showPerPage,'livewire-tables::tailwind.includes.per-page')</div>
                                     <div class="flex justify-end">
-                                        {{--                            @includeWhen($this->hasNewResource(),'livewire-tables::tailwind.includes.new-resource')--}}
                                         @if($this->hasNewResource() && !$showImage)
                                             @include('livewire.modals.add-health')
                                         @elseif($this->hasNewResource() && $showImage)
@@ -38,7 +35,6 @@
                                             @include('livewire.modals.edit-docs')
                                             @include('livewire.modals.edit-image')
                                         @endif
-                                        {{--                            @includeWhen($this->hasNewResource(),'livewire.add-health')--}}
                                     </div>
                                 </div>
                             </div>
@@ -48,12 +44,9 @@
                         </div>
                     </div>
                 </div>
-
-                {{--    <x-livewire-tables::modals.delete-button-modal wire:model.defer="confirmDelete" :itemKey="$itemKey"/>--}}
-
             </div>
-@if($showImage)
+            @if($showImage)
         </div>
-        @include('sliders.image-view')
+        @include('livewire.components.sliders.image-view')
     </div>
 @endif

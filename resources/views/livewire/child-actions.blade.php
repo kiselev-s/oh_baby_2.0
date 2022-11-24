@@ -1,7 +1,7 @@
 @if (Laravel\Jetstream\Jetstream::hasTeamFeatures())
     <div class="flex">
 
-        @include('livewire.theme-button')
+        @include('livewire.components.theme-button')
 
         @include('livewire.modals.add-child')
         <div>
