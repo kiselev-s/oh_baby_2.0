@@ -5,6 +5,10 @@
     align-items: center;
 }
 
+.dark .dark\:text-color {
+    color: #45e59a;
+}
+
 /*Фон автозаполнения*/
 input:-webkit-autofill,
 input:-webkit-autofill:hover,

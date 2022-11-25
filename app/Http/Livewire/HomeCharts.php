@@ -13,7 +13,7 @@ use Livewire\Component;
 class HomeCharts extends Component
 {
     use LivewireAlert;
-//    public $types = ['food', 'shopping', 'entertainment', 'travel', 'other'];
+
     public $colors = [
         '0' => '#f6ad55',
         '1' => '#fc8181',
@@ -30,9 +30,28 @@ class HomeCharts extends Component
         '12' => '#78dcca',
     ];
 
+    public $nameCheck = [];
+    public $name = [];
+
     public $child, $child_id, $child_name, $user_id, $team_id, $healths;
     public $showingVisitDocs = false;
     public $firstRun = true;
+//    public $evol;
+    public $run = true;
+
+    public function setTypes()
+    {
+        $types =
+            DB::table('children')
+                ->where('team_id', $this->team_id)
+                ->get();
+
+        foreach ($types as $type)
+        {
+            array_push($this->nameCheck, $type->first_name);
+        }
+        $this->name = $this->nameCheck;
+    }
 
     public function render()
     {
@@ -43,11 +62,16 @@ class HomeCharts extends Component
             $this->team_id = $data['team_id'];
             $this->user_id = $data['user']->id;
 
+            if($this->run) {
+                $this->setTypes();
+                $this->run = false;
+            }
+
             $maxWeight = DB::table('evolutions')
                 ->select('children_id', DB::raw('MAX(weight) as max_weight'))
                 ->groupBy('children_id');
 
-            $evolution
+            $evolutionTemp
                 = DB::table('children')
                 ->where('team_id', $this->team_id)
                 ->joinSub($maxWeight, 'max_weight', function ($join) {
@@ -55,12 +79,14 @@ class HomeCharts extends Component
                 })
                 ->select('id', 'first_name', 'max_weight')
                 ->get();
+            $evolution = $evolutionTemp->whereIn('first_name', $this->name);
+//            $this->evol = $evolutionTemp->whereIn('first_name', $this->nameCheck);
 
             $count = DB::table('healths')
                 ->select('children_id', DB::raw('COUNT(children_id) as count_health'))
                 ->groupBy('children_id');
 
-            $health
+            $healthTemp
                 = DB::table('children')
                 ->where('team_id', $this->team_id)
                 ->joinSub($count, 'count_health', function ($join) {
@@ -68,9 +94,10 @@ class HomeCharts extends Component
                 })
                 ->select('id', 'first_name', 'count_health')
                 ->get();
+            $health = $healthTemp->whereIn('first_name', $this->name);
 
             if ($evolution->count() > 0) {
-                $columnChartModel = $evolution->groupBy('id')
+                $columnChartModel = $evolution->groupBy('first_name')
                     ->reduce(function (ColumnChartModel $columnChartModel, $data) {
                         $type = $data->value('first_name');
                         $value = $data->value('max_weight');
@@ -83,7 +110,7 @@ class HomeCharts extends Component
                         ->setColors($this->colors)
                         ->withOnColumnClickEventName('onColumnClick')
                     );
-                $pieChartModel = $health->groupBy('id')
+                $pieChartModel = $health->groupBy('first_name')
                     ->reduce(function (PieChartModel $pieChartModel, $data) {
                         $type = $data->value('first_name');
                         $value = $data->value('count_health');

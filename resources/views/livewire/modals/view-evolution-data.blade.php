@@ -14,7 +14,7 @@
                 </div>
             </div>
             <div class="col-span-6 sm:col-span-4 mt-4 dark:text-gray-400">
-                <div class="w-full flex justify-center">
+                <div class="w-full flex justify-center dark:text-blue-400">
                     <h2>Date of measurement: {{$evolutionDateCreate}}</h2>
                 </div>
                 <div class="w-full flex justify-center mt-2">

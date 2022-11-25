@@ -16,7 +16,7 @@
             <div class="col-span-6 sm:col-span-4 mt-4">
                 @if($healths != null && $showingVisitDocs)
                     @foreach($healths as $health)
-                        <div class="w-full flex justify-center">
+                        <div class="w-full flex justify-center dark:text-blue-400">
                             <li >
                                 {{$health->meeting}} - {{$health->specialization}}
                             </li>
