@@ -10,9 +10,9 @@
 
                     <!-- Icon Child gender -->
                     @if($gender)
-                        <img src="{{URL::asset('/boy.png')}}" alt="boy" width="30">
+                        <img src="{{URL::asset('/icons/boy.png')}}" alt="boy" width="30">
                     @else
-                        <img src="{{URL::asset('/girl.png')}}" alt="girl" width="30">
+                        <img src="{{URL::asset('/icons/girl.png')}}" alt="girl" width="30">
                     @endif
 
                     <div class="ml-1 relative dark:text-gray-400">

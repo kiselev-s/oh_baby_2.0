@@ -165,6 +165,8 @@ class DocumentsTable extends LivewireTables
     public function showModal(){ // добавить документ
         if($this->child_id) {
             $this->showingModal = true;
+            $this->title = '';
+            $this->category = '';
         }
         else {
             $this->alert('warning', 'Child not selected', [

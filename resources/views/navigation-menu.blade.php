@@ -15,25 +15,25 @@
 
                     <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         <div class="flex mr-1 mb-1">
-                            <img src="{{URL::asset('/home.png')}}" alt="boy" width="30">
+                            <img src="{{URL::asset('/icons/home.png')}}" alt="home" width="30">
                         </div>
                         {{ __('Home') }}
                     </x-jet-nav-link>
                     <x-jet-nav-link href="{{ route('documents') }}" :active="request()->routeIs('documents')">
                         <div class="flex mr-1 mb-0.5">
-                            <img src="{{URL::asset('/doc.png')}}" alt="boy" width="30">
+                            <img src="{{URL::asset('/icons/doc.png')}}" alt="doc" width="30">
                         </div>
                         {{ __('Documents') }}
                     </x-jet-nav-link>
                     <x-jet-nav-link href="{{ route('health') }}" :active="request()->routeIs('health')">
                         <div class="flex mr-1">
-                            <img src="{{URL::asset('/health.png')}}" alt="boy" width="30">
+                            <img src="{{URL::asset('/icons/health.png')}}" alt="health" width="30">
                         </div>
                         {{ __('Health') }}
                     </x-jet-nav-link>
                     <x-jet-nav-link href="{{ route('evolution') }}" :active="request()->routeIs('evolution')">
                         <div class="flex mr-1">
-                            <img src="{{URL::asset('/evol.png')}}" alt="boy" width="30">
+                            <img src="{{URL::asset('/icons/evol.png')}}" alt="evol" width="30">
                         </div>
                         {{ __('Evolution') }}
                     </x-jet-nav-link>
@@ -166,25 +166,25 @@
         <div class="pt-2 pb-3 space-y-1">
             <x-jet-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                 <div class="flex mr-1 mb-1">
-                    <img src="{{URL::asset('/home.png')}}" alt="boy" width="30">
+                    <img src="{{URL::asset('/icons/home.png')}}" alt="home" width="30">
                 </div>
                 {{ __('Home') }}
             </x-jet-responsive-nav-link>
             <x-jet-responsive-nav-link href="{{ route('documents') }}" :active="request()->routeIs('documents')">
                 <div class="flex mr-1 mb-0.5">
-                    <img src="{{URL::asset('/doc.png')}}" alt="boy" width="30">
+                    <img src="{{URL::asset('/icons/doc.png')}}" alt="doc" width="30">
                 </div>
                 {{ __('Documents') }}
             </x-jet-responsive-nav-link>
             <x-jet-responsive-nav-link href="{{ route('health') }}" :active="request()->routeIs('health')">
                 <div class="flex mr-1">
-                    <img src="{{URL::asset('/health.png')}}" alt="boy" width="30">
+                    <img src="{{URL::asset('/icons/health.png')}}" alt="health" width="30">
                 </div>
                 {{ __('Health') }}
             </x-jet-responsive-nav-link>
             <x-jet-responsive-nav-link href="{{ route('evolution') }}" :active="request()->routeIs('evolution')">
                 <div class="flex mr-1">
-                    <img src="{{URL::asset('/evol.png')}}" alt="boy" width="30">
+                    <img src="{{URL::asset('/icons/evol.png')}}" alt="evol" width="30">
                 </div>
                 {{ __('Evolution') }}
             </x-jet-responsive-nav-link>
