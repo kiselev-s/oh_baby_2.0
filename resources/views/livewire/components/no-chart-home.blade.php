@@ -1,6 +1,3 @@
-<div>
-@include('livewire.components.checker')
-</div>
 <div class="w-full">
     <div class="flex justify-around w-full mt-4">
         <div class="flex justify-center items-center w-full space-x-2 rounded-lg dark:bg-gray-800">

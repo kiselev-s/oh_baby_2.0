@@ -23,15 +23,15 @@
 
         <x-slot name="content">
             <div class="col-span-6 sm:col-span-4">
-                <x-jet-label for="first_name_add" value="{{ __('First Name') }}" />
-                <x-jet-input id="first_name_add" type="text" class="mt-1 block w-full" wire:model.defer="first_name" autocomplete="first_name_add" />
-                <x-jet-input-error for="first_name_add" class="mt-2" />
+                <x-jet-label for="first_name" value="{{ __('First Name') }}" />
+                <x-jet-input id="first_name" type="text" class="mt-1 block w-full" wire:model.defer="first_name" autocomplete="first_name" />
+                <x-jet-input-error for="first_name" class="mt-2" />
             </div>
 
             <div class="col-span-6 sm:col-span-4 mt-3">
-                <x-jet-label for="last_name_add" value="{{ __('Last Name') }}" />
-                <x-jet-input id="last_name_add" type="text" class="mt-1 block w-full" wire:model.defer="last_name" autocomplete="last_name_add" />
-                <x-jet-input-error for="last_name_add" class="mt-2" />
+                <x-jet-label for="last_name" value="{{ __('Last Name') }}" />
+                <x-jet-input id="last_name" type="text" class="mt-1 block w-full" wire:model.defer="last_name" autocomplete="last_name" />
+                <x-jet-input-error for="last_name" class="mt-2" />
             </div>
 
             <div class="mb-4 flex flex-wrap flex-row justify-between mt-3">
@@ -45,12 +45,9 @@
                         <option value="1">Man</option>
                         <option value="0">Women</option>
                     </select>
-                    @error('gender') <span class="text-red-500">{{ $message }}</span>@enderror
+                    <x-jet-input-error for="selectGender" class="mt-2" />
                 </div>
                 <div class="">
-{{--                    <x-jet-label for="gender" value="{{ __('Birthday') }}" />--}}
-{{--                    <input wire:model="birthday" type="datetime-local" class="mt-1 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm">--}}
-
                     <x-jet-label for="meeting" value="{{ __('Birthday') }}" />
                     <input id="meeting" wire:model.defer="birthday"
                            type="datetime-local"

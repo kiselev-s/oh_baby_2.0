@@ -7,14 +7,8 @@
 
         <x-slot name="content">
 
-{{--            <div class="col-span-6 sm:col-span-4 mt-3">--}}
-{{--                <x-jet-label for="category" value="{{ __('Category') }}" />--}}
-{{--                <x-jet-input id="category" type="text" class="mt-1 block w-full" wire:model.defer="category" autocomplete="category" />--}}
-{{--                <x-jet-input-error for="category" class="mt-2" />--}}
-{{--            </div>--}}
             {{--Select Category--}}
             <div class="col-span-6 sm:col-span-4 mt-3">
-{{--                <x-jet-label for="category" value="{{ __('Category') }} : {{$category}}" wire:model="category" />--}}
                 <x-jet-label for="category" value="{{ __('Category') }}"/>
                 <x-jet-input type="text" class="mt-1 block w-full" list="category-list" wire:model="category" autocomplete="category"/>
                 <datalist id="category-list">

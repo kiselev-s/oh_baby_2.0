@@ -24,6 +24,7 @@ class DocumentsTable extends LivewireTables
     public $showingEditModal = false;
     public $showingEditImageModal = false;
     public $showImage = true;
+    public $deleteDocs = false;
 
     public $child, $child_id, $user_id, $team_id, $path, $title, $category;
 
@@ -98,6 +99,11 @@ class DocumentsTable extends LivewireTables
     public function confirmed()
     {
         $this->delete($this->rowId);
+        $document_id = Documents::where('children_id', $this->child_id)
+            ->value('id');
+        $this->documents =
+            Documents::where('children_id', $this->child_id)->get();
+        $this->show($document_id);
     }
 
     protected $listeners = [
@@ -121,8 +127,16 @@ class DocumentsTable extends LivewireTables
 
     public function confirmedDeleteImage()
     {
-        $title_image = Image::where('id', $this->imageId)->value('title');
+        $image = Image::where('id', $this->imageId)->get();
+        $title_image = $image->value('title');
+        $document_id = $image->value('documents_id');
         Image::find($this->imageId)->delete();
+
+        $hasImages = Image::where('documents_id', $document_id)->get();
+        if(!$hasImages->first()) {
+            Documents::find($document_id)->delete();
+            $this->deleteDocs = true;
+        }
 
         $this->alert('success', 'Image ' . $title_image . ' deleted', [
             'position' => 'center',
@@ -230,8 +244,13 @@ class DocumentsTable extends LivewireTables
         $this->showingEditModal = false;
         $this->showingEditImageModal = false;
         $this->image_id = -1;
-
+        $this->clearValidation();
         $this->resetModal();
+
+        if($this->deleteDocs) {
+            $this->deleteDocs=false;
+            $this->show(Documents::where('children_id', $this->child_id)->value('id'));
+        }
     }
 
     public function cancelEditImage()
@@ -268,24 +287,32 @@ class DocumentsTable extends LivewireTables
 
     public function saveEditedDocuments()
     {
-        if($this->category === "") { //если пустая категория
-            $this->alert('warning', 'Select or enter a category', [
-                'position' => 'center',
-            ]);
+        if($this->deleteDocs) {
+            $this->cancel();
+            $this->deleteDocs=false;
+            $this->show(Documents::where('children_id', $this->child_id)->value('id'));
         }
-        else if(Documents::where('category', $this->category)->get()->count() === 0){ //если новая категория
-            $this->createDocument();
-            $new_document_id = $this->getDocsIdByCategory();
+        else {
+            if ($this->category === "") { //если пустая категория
+                $this->alert('warning', 'Select or enter a category', [
+                    'position' => 'center',
+                ]);
+            } else if (Documents::where('category', $this->category)->get()->count() === 0) { //если новая категория
+                $this->createDocument();
+                $new_document_id = $this->getDocsIdByCategory();
 
-            $this->storeImage($new_document_id);
-            $this->query();
+                $this->storeImage($new_document_id);
+                $this->query();
 
-            $this->showingEditModal = false;
-        }
-        else { //если смена категории на существующую
-            $new_document_id = $this->getDocsIdByCategory();
-            $this->storeImage($new_document_id);
-            $this->showingEditModal = false;
+                $this->showingEditModal = false;
+            } else { //если смена категории на существующую
+                $this->showingEditModal = false;
+                $new_document_id = $this->getDocsIdByCategory();
+                $this->storeImage($new_document_id);
+                $this->documents =
+                    Documents::where('children_id', $this->child_id)->get();
+                $this->show($new_document_id);
+            }
         }
     }
 
@@ -331,9 +358,9 @@ class DocumentsTable extends LivewireTables
             Image::updateOrCreate(['id' => $image->id], $image->toArray());
         }
         $images = Image::where('documents_id', $this->document_id)->get()->toArray();
-//        count($images) === 0 ? Documents::find($this->document_id)->delete() : '';
-        if(count($images) === 0)
+        if(count($images) === 0) {
             Documents::find($this->document_id)->delete();
+        }
     }
 
     private function createDocument()

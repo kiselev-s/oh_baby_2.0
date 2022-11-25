@@ -139,7 +139,7 @@ class EvolutionCharts extends Component
     ];
 
     public function handleOnPointClick($point)
-    {;
+    {
         $this->evolutionGrowth = $point['extras']['growth'];
         $this->evolutionWeight = $point['extras']['weight'];
         $this->evolutionDateCreate = stristr($point['extras']['created_at'], 'T', true);

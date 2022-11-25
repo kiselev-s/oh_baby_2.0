@@ -54,11 +54,11 @@
                     </a>
                 </div>
 
-                <x-jet-input id="inputAge_add" type="text" class="mt-1 w-7/12 block" autocomplete="inputAge_add"
+                <x-jet-input id="inputAge" type="text" class="mt-1 w-7/12 block" autocomplete="inputAge"
                      disabled="{{$afterYear ? true : false}}"
                      wire:model.defer="inputAge"
                 />
-                <x-jet-input-error for="inputAge_add" class="mt-2" />
+                <x-jet-input-error for="inputAge" class="mt-2" />
             </div>
         </div>
     </div>
@@ -72,16 +72,16 @@
                     <x-jet-label for="growth" value="{{ __('Growth') }}" />
                 </div>
 
-                <x-jet-input id="growth_add" type="text" class="mt-1 w-10/12 block" wire:model.defer="growth" autocomplete="growth_add" />
-                <x-jet-input-error for="growth_add" class="mt-2" />
+                <x-jet-input id="growth" type="text" class="mt-1 w-10/12 block" wire:model.defer="growth" autocomplete="growth" />
+                <x-jet-input-error for="growth" class="mt-2" />
             </div>
             <div class="flex items-center">
                 <div class="flex items-center mr-4">
                     <x-jet-label for="weight_add" value="{{ __('Weight') }}" />
                 </div>
 
-                <x-jet-input id="weight_add" type="text" class="mt-1 w-10/12 block" wire:model.defer="weight" autocomplete="weight_add" />
-                <x-jet-input-error for="weight_add" class="mt-2" />
+                <x-jet-input id="weight" type="text" class="mt-1 w-10/12 block" wire:model.defer="weight" autocomplete="weight" />
+                <x-jet-input-error for="weight" class="mt-2" />
             </div>
         </div>
     </div>

@@ -145,6 +145,7 @@ class HealthTable extends LivewireTables
     public function cancel()
     {
         $this->showingModal = false;
+        $this->clearValidation();
         $this->resetModal();
     }
 
