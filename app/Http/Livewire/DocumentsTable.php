@@ -36,8 +36,8 @@ class DocumentsTable extends LivewireTables
 
     public string $defaultSortColumn = 'created_at';
     public string $defaultSortDirection = 'desc';
-    public array $perPageOptions = [5, 10, 15, 20];
-    public int $perPage = 5;
+    public $perPageOptions = [5, 10, 15, 20];
+    public $perPage = 5;
 
     // Table Start
     public function query(): Builder

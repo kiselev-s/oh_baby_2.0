@@ -12,18 +12,13 @@
         <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap">
 
         <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/css/styles.css', 'resources/js/app.js'])
+{{--        @vite(['resources/css/app.css', 'resources/css/styles.css', 'resources/js/app.js'])--}}
 
         <!-- Styles -->
         @livewireStyles
 
-{{--        <!-- TailwindCSS styles -->--}}
-{{--        <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">--}}
-
-        <!-- AlpineJS javascript -->
-{{--        <script src="//cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>--}}
-
-{{--        @stack('styles')--}}
+        {{--        FOR HOST      --}}
+        @vite('resources/js/app.js')
 
     </head>
     <body class="font-sans antialiased">
@@ -62,7 +57,6 @@
         <!-- For Charts -->
 {{--        @livewireCharts--}}
         @livewireChartsScripts
-{{--        <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"></script>--}}
         <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
     </body>

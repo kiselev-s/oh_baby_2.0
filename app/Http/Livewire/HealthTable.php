@@ -24,8 +24,8 @@ class HealthTable extends LivewireTables
 
     public string $defaultSortColumn = 'meeting';
     public string $defaultSortDirection = 'desc';
-    public array $perPageOptions = [5, 10, 15, 25, 50];
-    public int $perPage = 5;
+    public $perPageOptions = [5, 10, 15, 25, 50];
+    public $perPage = 5;
 
     // Table Start
     public function query(): Builder
