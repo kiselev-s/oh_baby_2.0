@@ -36,6 +36,5 @@ class HomeInfo extends Component
         $this->weight = $data['weight'];
         $this->holiday = $data['holiday'];
         $this->meeting = $data['meeting'];
-
     }
 }

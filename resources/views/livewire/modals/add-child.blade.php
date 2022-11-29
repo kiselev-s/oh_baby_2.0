@@ -50,7 +50,7 @@
                 <div class="">
                     <x-jet-label for="meeting" value="{{ __('Birthday') }}" />
                     <input id="meeting" wire:model.defer="birthday"
-                           type="datetime-local"
+                           type="date"
                            class="mt-1 dark:text-gray-400 dark:bg-gray-700 border-gray-300 dark:border-cyan-700 dark:focus:border-cyan-800 focus:border-indigo-300 focus:ring focus:ring-indigo-200 dark:focus:ring-cyan-800 focus:ring-opacity-50 rounded-md shadow-sm">
                     <x-jet-input-error for="birthday" class="mt-2" />
                 </div>

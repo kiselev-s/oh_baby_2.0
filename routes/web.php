@@ -21,6 +21,11 @@ Route::get('/', function () {
 Route::get('auth/google', [LoginController::class, 'redirectToGoogle']);
 Route::get('auth/google/callback', [LoginController::class, 'handleGoogleCallback']);
 
+Route::controller(LoginController::class)->group(function(){
+    Route::get('auth/facebook', 'redirectToFacebook')->name('auth.facebook');
+    Route::get('auth/facebook/callback', 'handleFacebookCallback');
+});
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),

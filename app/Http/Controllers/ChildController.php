@@ -67,7 +67,7 @@ class ChildController extends Controller
             $gender = $child->gender;
             $fio = $child_name . ' ' . $child_last_name;
             $birthday = $child->birthday;
-            $holiday = self::diff(stristr($birthday, ' ', true));
+            $holiday = self::diff($birthday);
             $weight = self::getWeight($child_id);
             $growth = self::getGrowth($child_id);
             $meeting = self::getMeeting($child_id);
@@ -93,7 +93,7 @@ class ChildController extends Controller
             'gender' => $gender,
             'child_last_name' => $child_last_name,
             'fio' => $fio,
-            'birthday' => stristr($birthday, ' ', true),
+            'birthday' => $birthday,
             'holiday' => $holiday,
             'weight' => $weight,
             'growth' => $growth,

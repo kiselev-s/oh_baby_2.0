@@ -19,6 +19,15 @@ class LoginController extends Controller
     {
         return Socialite::driver('google')->redirect();
     }
+    /**
+     * Redirect the user to the GitHub authentication page.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function redirectToFacebook()
+    {
+        return Socialite::driver('facebook')->redirect();
+    }
 
     /**
      * Obtain the user information from GitHub.
@@ -61,6 +70,51 @@ class LoginController extends Controller
                 return redirect('/dashboard');
             }
             //catch exceptions
+        } catch (Exception $e) {
+            dd($e->getMessage());
+        }
+    }
+    /**
+     * Obtain the user information from GitHub.
+     *
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Routing\Redirector
+     */
+    public function handleFacebookCallback()
+    {
+        try {
+
+            $user = Socialite::driver('facebook')->user();
+
+            $finduser = User::where('facebook_id', $user->id)->first();
+
+            if($finduser){
+
+                Auth::login($finduser);
+
+                return redirect()->intended('/dashboard');
+
+            }else{
+                $newUser = User::updateOrCreate(['email' => $user->email],[
+                    'name' => $user->name,
+                    'facebook_id'=> $user->id,
+                    'password' => encrypt('')
+                ]);
+
+                $newTeam = Team::forceCreate([
+                    'user_id' => $newUser->id,
+                    'name' => explode(' ', $user->name, 2)[0]."'s Family",
+                    'personal_team' => true,
+                ]);
+
+                $newTeam->save();
+                $newUser->current_team_id = $newTeam->id;
+                $newUser->save();
+
+                Auth::login($newUser);
+
+                return redirect()->intended('/dashboard');
+            }
+
         } catch (Exception $e) {
             dd($e->getMessage());
         }

@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('evolutions', function (Blueprint $table) {
             $table->id();
-            $table->smallInteger('age_month');
-            $table->tinyInteger('growth');
+            $table->integer('age_month');
+            $table->integer('growth');
             $table->float('weight');
             $table->timestamps();
 

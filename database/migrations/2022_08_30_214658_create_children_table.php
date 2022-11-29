@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('first_name');
             $table->string('last_name');
-            $table->dateTime('birthday');
+            $table->date('birthday');
             $table->tinyInteger('gender');
             $table->boolean('selected');
             $table->unsignedBigInteger('user_id');

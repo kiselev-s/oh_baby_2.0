@@ -7,6 +7,7 @@ use App\Models\Documents;
 use App\Models\Image;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\WithFileUploads;
 use Luckykenlin\LivewireTables\Views\Action;
@@ -274,6 +275,7 @@ class DocumentsTable extends LivewireTables
 
     public function saveEditedImage($id)
     {
+        $document_id = $this->documents_id;
         $image = $this->validate([
             'title' => 'required',
             'category' => 'required',
@@ -282,9 +284,22 @@ class DocumentsTable extends LivewireTables
         $image['path'] = Image::where('id', $id)->value('path');
         Image::updateOrCreate(['id' => $id], $image);
 
+        $hasImages = Image::where('documents_id', $document_id)->get();
+        if(!$hasImages->first()) {
+            DB::table('documents')
+                ->where('id', $document_id)
+                ->lazyById()
+                ->each(function ($document) {
+                    DB::table('documents')
+                        ->where('id', $document->id)
+                        ->delete();
+                });
+        }
+
         $this->showingEditImageModal = false;
         $this->setImages();
         $this->query();
+        $this->show($image['documents_id']);
     }
 
     public function saveEditedDocuments()

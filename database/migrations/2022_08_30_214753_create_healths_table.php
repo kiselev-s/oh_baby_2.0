@@ -18,10 +18,7 @@ return new class extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->string('specialization');
-//            $table->dateTime('meeting');
             $table->date('meeting');
-        //    $table->dateTime('next_meeting');
-//            $table->binary('medical_opinion');
             $table->string('medical_opinion_path')->nullable();
             $table->unsignedBigInteger('children_id');
             $table->timestamps();
