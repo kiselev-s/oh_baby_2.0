@@ -26,6 +26,7 @@ class LoginController extends Controller
      */
     public function redirectToFacebook()
     {
+//        dd('face');
         return Socialite::driver('facebook')->redirect();
     }
 
@@ -81,6 +82,7 @@ class LoginController extends Controller
      */
     public function handleFacebookCallback()
     {
+//        dd('face');
         try {
 
             $user = Socialite::driver('facebook')->user();
